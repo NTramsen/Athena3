@@ -1,0 +1,30 @@
+.dashboard-list-items{
+	list-style: none;
+	padding-right: 0;
+	padding-left:0;
+}
+
+.itemlist-element{
+	height: 8vh;
+	width: 100%;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.itemlist-element a{
+	color: #293241;
+	height: 95%;
+	width: 100%;
+	display: flex;
+	border-radius: 5px;
+}
+
+.itemlist-element a:hover{
+	background-color: #EE6C4D;
+	color: #E0FBFC;
+}
+
+.itemlist-element a:active{
+	background-color: #EE6C4D;
+	color: #E0FBFC;
+}
