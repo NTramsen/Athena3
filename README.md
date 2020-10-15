@@ -7,7 +7,7 @@
 4. cd back into the main Athena3 folder and use the command, npm run dev
 5. the app should automatically start up on your localhost:3000
 
-* remember to create your own branch before starting any development * 
+*** remember to create your own branch before starting any development ***
 
 ## Tutorials
 
