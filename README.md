@@ -1,5 +1,12 @@
 # Athena
 
+##How to start me
+1. Clone me into your local machine
+2. cd into Athena3/Client
+3. install dependencies by running npm i axios classnames jwt-decode react-redux react-router-dom redux redux-thunk
+4. cd back into the main Athena3 folder and use the command, npm run dev
+5. the app should automatically start up on your localhost:3000
+
 ## Tutorials
 
 ### Redux and backend and front end setup
