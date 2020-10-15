@@ -1,6 +1,6 @@
 # Athena
 
-##How to start me
+## How to start me
 1. Clone me into your local machine
 2. cd into Athena3/Client
 3. install dependencies by running npm i axios classnames jwt-decode react-redux react-router-dom redux redux-thunk
