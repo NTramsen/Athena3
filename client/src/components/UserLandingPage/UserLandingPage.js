@@ -31,20 +31,9 @@ class UserLandingPage extends Component {
         <div className = 'navbar'>
           <NavBar/>
         </div>
-        <Router>
-          <div className = 'content'>
-            <Switch>
-              <Route exact path='/dashboard' component={Dashboard} />
-              <Route exact path='/dashboard/dashboard' component={Dashboard} />
-              <Route exact path='/dashboard/checkout' component={Checkout} />
-              <Route exact path='/dashboard/search' component={Search} />
-              <Route exact path='/dashboard/myitems' component={Items} />
-              <Route exact path='/dashboard/myaccount' component={Account} />
-              <Route exact path='/dashboard/logout' component={Logout} />
-              <Route exact path='/dashboard/item' component={ItemInterface} />
-            </Switch>
-          </div>
-        </Router>
+        <div className = 'content'>
+          <Dashboard />
+        </div>
         <button
         onClick={this.onLogoutClick}
         className="btn btn-large waves-effect waves-light hoverable blue accent-3">Logout</button>

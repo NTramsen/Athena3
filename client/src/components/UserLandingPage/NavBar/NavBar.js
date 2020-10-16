@@ -12,7 +12,7 @@ function NavBar(){
 					{SideBarData.map((item, index)=>{
 						return(
 							<li key={index} className={item.cName}>
-								<Link to = {`/dashboard${item.path}`}>
+								<Link to = {item.path}>
 									{item.icon}
 									<span className='nav-text'>{item.title}</span>
 								</Link>

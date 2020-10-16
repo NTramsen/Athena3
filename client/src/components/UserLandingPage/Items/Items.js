@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {Component, useState} from 'react';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../../actions/authActions";
+import '../UserLandingPage.css';
+import NavBar from '../NavBar/NavBar';
 
-const Items = ()=>{
-	const getCurrentItems = ()=>{
+class Items extends Component {
+
+	constructor(props) {
+	    super(props);
+	    this.state = {
+	    };
+	};
+
+	getCurrentItems(){
 		return [
 			{
 				name: "Stethoscope",
@@ -21,7 +33,7 @@ const Items = ()=>{
 		];
 	}
 
-	const getPastItems = ()=>{
+	getPastItems() {
 		return [
 			{
 				name: "Glass beaker",
@@ -46,15 +58,31 @@ const Items = ()=>{
 		];
 	}
 
-	return(
-		<div className='items-container'>
+	onLogoutClick = e => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
+
+  render() {
+    const { user } = this.props.auth;
+
+    return (
+      <div className = 'main-container'>
+        <div className = 'top-banner'>
+          <h1>Welcome Neil Tramsen</h1>
+        </div>
+        <div className = 'navbar'>
+          <NavBar/>
+        </div>
+        <div className = 'content'>
+	      <div className='items-container'>
 			<div className='items-header'>
 				<p>Your item history</p>
 			</div>
 			<div className='current-list'>
 				<p>Current items:</p>
 				<ul>
-					{getCurrentItems().map((item, index)=>{
+					{this.getCurrentItems().map((item, index)=>{
 						return(
 							<li key={index}>
 								<span>{item.name}</span>
@@ -68,7 +96,7 @@ const Items = ()=>{
 			<div className='returned-list'>
 				<p>Past items:</p>
 				<ul>
-					{getPastItems().map((item, index)=>{
+					{this.getPastItems().map((item, index)=>{
 						return(
 							<li key={index}>
 								<span>{item.name}</span>
@@ -80,7 +108,25 @@ const Items = ()=>{
 				</ul>
 			</div>
 		</div>
-	);
+        </div>
+        <button
+        onClick={this.onLogoutClick}
+        className="btn btn-large waves-effect waves-light hoverable blue accent-3">Logout</button>
+      </div>
+    );
+  }
 }
 
-export default Items;
+Items.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Items);
