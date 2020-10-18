@@ -56,12 +56,12 @@ class Checkout extends Component {
 					placeholder = 'Enter item name'
 					type = 'text'
 					value = {this.state.newItemName}
-					onChange={(e)=>this.state.newItemName(e.target.value)}></input>
+					onChange={(e)=>this.setState({newItemName: e.target.value})}></input>
 				<input className = 'checkout-form'
 					placeholder = 'Enter item number'
 					type = 'number'
 					value = {this.state.newItemNum}
-					onChange={(e)=>this.state.newItemNum = (e.target.value)}></input>
+					onChange={(e)=>this.setState({newItemNum: e.target.value})}></input>
 				<button className = 'checkout-button btn'
 					onClick={()=>{
 						if(this.itemObjectValid()){
