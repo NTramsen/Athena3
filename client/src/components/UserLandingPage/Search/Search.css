@@ -1,0 +1,69 @@
+@import <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+
+.search_title{
+	margin:0; padding:0;
+	margin-top: 10px;
+}
+
+.search-form{
+	margin-left: 200px;
+	border-width: 4px;
+	border-radius: 8px;
+	width:300px;
+	margin-bottom:80px;
+	font-size:35px;
+
+}
+
+.search-header{
+	width:100%;
+	font-size: 38px;
+	font-family: 'Lato', sans-serif;
+	color:#b58500;
+	font-weight: bold;
+
+}
+
+.popular-list{
+	margin-left: 180px;
+}
+
+.popular-search{
+	font-size:15px;
+	text-decoration:underline;
+	margin-bottom:40px;
+	color:#b58500;
+	font-family: 'Lato', sans-serif;
+}
+
+.item_na{
+	margin: 5px;
+	float:left;
+	background-color: #012169;
+	color:#f2f7f4;
+	border-width: 4px;
+	border-radius: 100px;
+	text-align:center;
+	font-size:10px;
+	width:30%;
+	padding-top: 5px;
+	padding-bottom: 3px;
+	height:15px;
+}
+
+.btn{
+
+	color:#012169;
+	border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+
