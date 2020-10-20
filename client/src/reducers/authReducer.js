@@ -1,26 +1,32 @@
-import { SET_CURRENT_USER, USER_LOADING } from "../actions/types";
+import { SET_CURRENT_USER, USER_LOADING, GET_USER_INFO } from "../actions/types";
 
 const isEmpty = require("is-empty");
 
 const initialState = {
-  isAuthenticated: false,
+  token: localStorage.getItem('jwtToken'),
+  isAuthenticated: null,
   user: {},
-  loading: false
+  isLoading: false
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case USER_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      };
     case SET_CURRENT_USER:
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        user: action.payload,
+        isLoading: false
       };
-    case USER_LOADING:
+    case GET_USER_INFO:
       return {
-        ...state,
-        loading: true
-      };
+        ...state
+      }
     default:
       return state;
   }

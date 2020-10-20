@@ -26,7 +26,7 @@ import "./App.css";
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
-  const token = localStorage.jwtToken;
+  const token = localStorage.getItem('jwtToken');
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
@@ -42,6 +42,7 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
+
 class App extends Component {
   render() {
     return (

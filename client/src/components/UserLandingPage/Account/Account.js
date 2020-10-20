@@ -1,17 +1,18 @@
 import React, {Component, useState} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+import { logoutUser, getUserInfo } from "../../../actions/authActions";
 import '../UserLandingPage.css';
 import NavBar from '../NavBar/NavBar';
 
 class Account extends Component {
 
 	constructor(props) {
-	    super(props);
-	    this.state = {
-	    };
+		super(props);
+		this.state = {
+		};
 	};
+
 
 	getAccountInfo(){
 		return [
@@ -29,13 +30,18 @@ class Account extends Component {
 		this.props.logoutUser();
 	};
 
+
+
+
+
   render() {
-    const { user } = this.props.auth;
+		const user = this.props.usr.user;
+		const info = Object.values(user);
 
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          <h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <NavBar/>
@@ -47,16 +53,10 @@ class Account extends Component {
 			</div>
 			<div className = 'account-content'>
 				<ul className='account-info-list'>
-					{this.getAccountInfo().map((info, index)=>{
-						return(
-							<li key={info} className="account-info-list-element">
-								<span>{info.username}</span>
-								<span>{info.email_address}</span>
-							</li>
-						)
-					})}
+					<li><span>{info[1]}</span></li>
+					<li><span>{info[2]}</span></li>
 				</ul>
-			</div>                
+			</div>
 			<div className = 'edit-account'>
 				<button type='button'>Edit details</button>
 				<button type='button'>Change password</button>
@@ -73,11 +73,11 @@ class Account extends Component {
 
 Account.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+	usr: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+	usr: state.auth
 });
 
 export default connect(

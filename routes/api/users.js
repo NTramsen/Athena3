@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const auth = require("../../middleware/auth.js")
+
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -80,7 +82,6 @@ router.post("/login", (req, res) => {
         // Create JWT Payload
         const payload = {
           id: user.id,
-          name: user.name
         };
 
         // Sign token
@@ -88,12 +89,16 @@ router.post("/login", (req, res) => {
           payload,
           keys.secretOrKey,
           {
-            expiresIn: 31556926 // 1 year in seconds
+            expiresIn: 3600 // 1 year in seconds
           },
           (err, token) => {
             res.json({
-              success: true,
-              token: "Bearer " + token
+              token: "Bearer " + token,
+              user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+              }
             });
           }
         );
@@ -104,6 +109,16 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+// @route GET api/users/info
+// @desc Get user data
+// @access PRIVATE TODO make private
+
+router.get('/info', auth, (req,res) => {
+  User.findById(req.user.id)
+    .select('-password')
+    .then(user=>res.json(user));
 });
 
 module.exports = router;
