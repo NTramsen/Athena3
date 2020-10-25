@@ -1,6 +1,6 @@
 
 
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
@@ -21,7 +21,7 @@ class Search extends Component {
 	};
 
   render() {
-    const { user } = this.props.auth;
+    //const { user } = this.props.auth;
 
     return (
       <div className = 'main-container'>

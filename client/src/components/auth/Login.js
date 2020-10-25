@@ -11,20 +11,21 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      isAdmin: false
     };
   }
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/adminLanding");
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/adminLanding");
     }
 
     if (nextProps.errors) {
@@ -46,6 +47,16 @@ class Login extends Component {
       password: this.state.password
     };
 
+    this.props.loginUser(userData);
+  };
+
+  loginAdmin = () => {
+
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.setState({isAdmin: true});
     this.props.loginUser(userData);
   };
 
@@ -127,6 +138,7 @@ class Login extends Component {
                     marginTop: "1rem"
                   }}
                   type="submit"
+                  onclick="loginAdmin()"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                 >
                   Admin

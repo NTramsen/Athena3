@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import './style.css';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -27,8 +27,8 @@ class Checkout extends Component {
 	};
 
 	clearForm() {
-		this.state.newItemName = '';
-		this.state.newItemNum = '';
+		this.setState({newItemName: ''});
+		this.setState({newItemNum: ''});
 	};
 
 	onLogoutClick = e => {
@@ -37,7 +37,7 @@ class Checkout extends Component {
 	};
 
   render() {
-    const { user } = this.props.auth;
+    //const { user } = this.props.auth;
 
     return (
       <div className = 'main-container'>

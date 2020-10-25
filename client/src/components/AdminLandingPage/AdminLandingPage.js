@@ -1,13 +1,12 @@
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import './UserLandingPage.css';
-import NavBar from './NavBar/NavBar';
-import Dashboard from './Dashboard/Dashboard';
+import AdminBar from './AdminBar/AdminBar';
+import AdminDashboard from './AdminDashboard/AdminDashboard';
 
-class UserLandingPage extends Component {
+class AdminLandingPage extends Component {
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -19,13 +18,13 @@ class UserLandingPage extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          <h1>Welcome admin user</h1>
         </div>
         <div className = 'navbar'>
-          <NavBar/>
+          <AdminBar/>
         </div>
         <div className = 'content'>
-          <Dashboard />
+          <AdminDashboard />
         </div>
         <button
         onClick={this.onLogoutClick}
@@ -35,7 +34,7 @@ class UserLandingPage extends Component {
   }
 }
 
-UserLandingPage.propTypes = {
+AdminLandingPage.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -47,4 +46,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(UserLandingPage);
+)(AdminLandingPage);

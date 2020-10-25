@@ -1,17 +1,19 @@
-
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
-import './UserLandingPage.css';
-import NavBar from './NavBar/NavBar';
-import Dashboard from './Dashboard/Dashboard';
+import { logoutUser } from "../../../actions/authActions";
+import AdminBar from '../AdminBar/AdminBar';
 
-class UserLandingPage extends Component {
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
+class ManageItems extends Component {
+
+	constructor(props) {
+	    super(props);
+	};
+
+	onLogoutClick = e => {
+		e.preventDefault();
+		this.props.logoutUser();
+	};
 
   render() {
     //const { user } = this.props.auth;
@@ -22,10 +24,15 @@ class UserLandingPage extends Component {
           <h1>Welcome Neil Tramsen</h1>
         </div>
         <div className = 'navbar'>
-          <NavBar/>
+          <AdminBar/>
         </div>
         <div className = 'content'>
-          <Dashboard />
+	          <div className='checkout-container'>
+				<div className='checkout-header'>
+					<p>Manage Items</p>
+				</div>
+				Content.
+			</div>
         </div>
         <button
         onClick={this.onLogoutClick}
@@ -35,7 +42,7 @@ class UserLandingPage extends Component {
   }
 }
 
-UserLandingPage.propTypes = {
+ManageItems.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -47,4 +54,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(UserLandingPage);
+)(ManageItems);

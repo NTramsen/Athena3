@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {SideBarData} from './SideBarData';
 import './NavBar.css';
+import * as FaIcons from 'react-icons/fa';
 
 function NavBar(){
 
@@ -13,7 +14,7 @@ function NavBar(){
 						return(
 							<li key={index} className={item.cName}>
 								<Link to = {item.path}>
-									{item.icon}
+									<FaIcons.FaHome size={30}/>
 									<span className='nav-text'>{item.title}</span>
 								</Link>
 							</li>
