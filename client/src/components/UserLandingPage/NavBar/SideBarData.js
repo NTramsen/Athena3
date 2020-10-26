@@ -31,11 +31,11 @@ export const SideBarData = [
 		path: '/myaccount',
 		icon: <FaIcons.FaUserCircle size={30}/>,
 		cName: 'nav-text'
-	},
+	} /*,
 	{
 		title: 'Logout',
 		path: '/logout',
 		icon: <FaIcons.FaDoorOpen size={30}/>,
 		cName: 'nav-text'
-	}
+	}*/
 ];
