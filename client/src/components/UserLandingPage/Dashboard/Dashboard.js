@@ -14,12 +14,12 @@ const Dashboard = ()=>{
 			},
 			{
 				name: "Behavioural biology textbook",
-				return_date: "2 days",
+				return_date: "2 days ",
 				item_id: 48920
 			},
 			{
 				name: "Design kit",
-				return_date: "6 days",
+				return_date: "6 days ",
 				item_id: 98384
 			}
 		];
@@ -28,18 +28,20 @@ const Dashboard = ()=>{
 	return(
 		<div className='dashboard-container'>
 			<div className='dashboard-header'>
-				<p>Your items</p>
+				<p className="item_title">Your items</p>
 			</div>
 			<div className='dashboard-list'>
 				<ul className='dashboard-list-items'>
 					{getItems().map((item, index)=>{
 						return(
 							<li key={index} className="itemlist-element">
-								<Link to = "./item">
-									<span>{item.name}</span>
-									<span>{item.return_date}</span>
-									<FaIcons.FaArrowAltCircleRight size={20}/>
+								<Link to = "./item" className="item_a">
+									<p className="item_name">{item.name}</p>
+                                    <div className="item_date">return date: {item.return_date}</div>
+                                    <div className="item_id">item id: {item.item_id}</div>
+									<FaIcons.FaArrowAltCircleRight size={60}/>
 								</Link>
+
 							</li>
 						)
 					})}

@@ -1,3 +1,4 @@
+
 .dashboard-list-items{
 	list-style: none;
 	padding-right: 0;
@@ -5,10 +6,54 @@
 }
 
 .itemlist-element{
+	 height: 15vh;
+	 width: 100%;
+ }
+.item_a{
+	text-decoration:none;
+}
+.item_name{
+	text-decoration:underline;
+	font-weight: bold;
 	height: 8vh;
+	width: 50%;
+	font-size: 24px;
+	position: relative;
+	top: -20px;
+}
+.dashboard-header {
 	width: 100%;
-	border-radius: 4px;
-	text-align: center;
+	font-size: 38px;
+	font-weight: bold;
+	/*text-align:center;*/
+}
+.item_title{
+	width: 280px;
+	margin:2px; padding:0;
+	/*margin-left: 260px;*/
+	/*border-style: solid;
+	border-width: 4px;
+	border-radius: 10px;*/
+	color:#b58500;
+	font-family: 'Lato', sans-serif;
+
+}
+.item_date{
+	height: 8vh;
+	font-size: 18px;
+	padding-top: 30px;
+	position: relative;
+	top: 5px;
+	left: -360px;
+
+
+}
+.item_id{
+	height: 8vh;
+	font-size: 18px;
+	padding-top: 60px;
+	position: relative;
+	left: -514px;
 }
 
 .itemlist-element a{
@@ -20,11 +65,11 @@
 }
 
 .itemlist-element a:hover{
-	background-color: #EE6C4D;
-	color: #E0FBFC;
+	background-color: #012169;
+	color: #f2f7f4;
 }
 
 .itemlist-element a:active{
-	background-color: #EE6C4D;
-	color: #E0FBFC;
+	background-color: #f2a900;
+	color: #012169;
 }
