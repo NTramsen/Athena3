@@ -66,6 +66,7 @@
 
 .itemlist-element a:hover{
 	background-color: #012169;
+	opacity: 0.66;
 	color: #f2f7f4;
 }
 
