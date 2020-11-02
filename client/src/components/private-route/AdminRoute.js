@@ -7,7 +7,7 @@ const AdminRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      auth.isAdmin === true ? (
+      auth.isAdmin && auth.isAuthenticated === true ? (
         <Component {...props} />
       ) : auth.isAuthenticated === true ? (
         <Redirect to="/dashboard" />
