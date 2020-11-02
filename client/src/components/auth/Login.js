@@ -17,13 +17,19 @@ class Login extends Component {
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.isAuthenticated && this.props.auth.isAdmin) {
+      this.props.history.push("/adminLanding");
+    }
+    if (this.props.auth.isAuthenticated && this.auth.isAdmin==false) {
       this.props.history.push("/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+    if (nextProps.auth.isAuthenticated && nextProps.auth.isAdmin) {
+      this.props.history.push("/adminLanding");
+    }
+    if (nextProps.auth.isAuthenticated && nextProps.auth.isAdmin==false) {
       this.props.history.push("/dashboard");
     }
 

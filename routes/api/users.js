@@ -93,11 +93,12 @@ router.post("/login", (req, res) => {
           },
           (err, token) => {
             res.json({
-              token: "Bearer " + token,
+              token: token,
               user: {
                 id: user.id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                admin: user.admin
               }
             });
           }

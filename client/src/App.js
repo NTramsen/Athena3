@@ -20,6 +20,9 @@ import Items from './components/UserLandingPage/Items/Items';
 import Account from './components/UserLandingPage/Account/Account';
 import Logout from './components/UserLandingPage/Logout/Logout';
 import ItemInterface from './components/UserLandingPage/ItemInterface/ItemInterface';
+import AdminLandingPage from './components/AdminLandingPage/AdminLandingPage';
+import ManageItems from './components/AdminLandingPage/ManageItems/ManageItems';
+import ManageUsers from './components/AdminLandingPage/ManageUsers/ManageUsers';
 
 import "./App.css";
 
@@ -61,6 +64,9 @@ class App extends Component {
               <PrivateRoute exact path='/myaccount' component={Account} />
               <PrivateRoute exact path='/logout' component={Logout} />
               <PrivateRoute exact path='/item' component={ItemInterface} />
+              <PrivateRoute exact path='/adminLanding' component={AdminLandingPage} />
+              <PrivateRoute exact path='/manageItems' component={ManageItems} />
+              <PrivateRoute exact path='/manageUsers' component={ManageUsers} />
             </Switch>
           </div>
         </Router>

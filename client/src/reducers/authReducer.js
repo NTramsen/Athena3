@@ -6,7 +6,8 @@ const initialState = {
   token: localStorage.getItem('jwtToken'),
   isAuthenticated: null,
   user: {},
-  isLoading: false
+  isLoading: false,
+  isAdmin: false
 };
 
 export default function(state = initialState, action) {
@@ -21,7 +22,8 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
-        isLoading: false
+        isLoading: false,
+        isAdmin: action.payload.admin
       };
     case GET_USER_INFO:
       return {
