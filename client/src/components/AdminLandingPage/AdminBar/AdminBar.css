@@ -1,17 +1,17 @@
-.nav-menu-items{
+.ad-nav-menu-items{
 	list-style: none;
 	padding-right: 0;
 	padding-left:0;
 }
 
-.navbar-text{
+.ad-navbar-text{
 	height: 8vh;
 	width: 100%;
 	border-radius: 4px;
     text-align: center;
 }
 
-.navbar-text a{
+.ad-navbar-text a{
 	color:  #012169;
 	height: 95%;
 	width: 100%;
@@ -19,12 +19,17 @@
 	border-radius: 5px;
 }
 
-.navbar-text a:hover{
+.ad-navbar-text a:hover{
 	background-color:  #012169;
 	color: #f2f7f4;
 }
 
-.navbar-text a:active{
+.ad-navbar-text a:active{
 	background-color:  #f2a900;
 	color:  #012169;
+}
+
+.center {
+    display:inline-block;
+    vertical-align: middle;
 }

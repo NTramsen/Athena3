@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-import '../UserLandingPage.css';
+import './Search.css';
 import NavBar from '../NavBar/NavBar';
 
 class Search extends Component {
@@ -32,15 +32,15 @@ class Search extends Component {
           <NavBar/>
         </div>
         <div className = 'content'>
-	      <div className='search-container'>
-			<div className='search-header'>
-				<p>Search for an item:</p>
-			</div>
-			<input className = 'search-form'
-				placeholder = 'Enter item name'
-				type = 'text'></input>
-			<button className = 'search-button btn'>Search</button>
-		</div>
+          <div className='search-container'>
+            <div className='search_header'>
+              <p>Search for an item</p>
+            </div>
+            <input className = 'search-form'
+              placeholder = 'Enter item name'
+              type = 'text'></input>
+            <button className = 'search-button_btn'>Search</button>
+          </div>
         </div>
         <button
         onClick={this.onLogoutClick}

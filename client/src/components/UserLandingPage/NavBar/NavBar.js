@@ -14,7 +14,7 @@ function NavBar(){
 						return(
 							<li key={index} className={item.cName}>
 								<Link to = {item.path}>
-									<FaIcons.FaHome size={30}/>
+									<span className='nav-icon'>{item.icon}</span>
 									<span className='nav-text'>{item.title}</span>
 								</Link>
 							</li>

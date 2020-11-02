@@ -24,14 +24,15 @@ body{
     "navbar content";
   grid-gap: 0.2rem;
   box-shadow: 2px 5px 20px gray;
-  background-color: #d9d9d6;
+  background-color: #ebebeb;
 }
 
 .top-banner{
   background-image: url("Emory.png");
   background-repeat: no-repeat;
-  background-size: 125px;
-	background-color:  #012169;
+  background-size: 12rem;
+  background-position-y: center;
+  background-color:  #012169;
   grid-area: top-banner;
   padding: 5%;
   text-align: center;
@@ -45,7 +46,7 @@ body{
 }
 
 .navbar{
-  background: #d9d9d6;
+  background: #ebebeb;
   grid-area: navbar;
   border-radius: 5px;
   margin-left: 0.2rem;

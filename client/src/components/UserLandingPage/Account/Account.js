@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-import '../UserLandingPage.css';
+import './Account.css';
 import NavBar from '../NavBar/NavBar';
 
 class Account extends Component {
@@ -43,24 +43,25 @@ class Account extends Component {
 	    <div className = 'content'>
 		    <div className='account-container'>
 				<div className = 'account-header'>
-					<h2>Your account details</h2>
+					<h2 className = 'account-header'>Your account details</h2>
 				</div>
 				<div className = 'account-content'>
 					<ul className='account-info-list'>
 						{this.getAccountInfo().map((info, index)=>{
 							return(
 								<li key={index} className="account-info-list-element">
-									<span>{info.username}</span>
+									<span>{ info.username}</span>
 									<span>{info.email_address}</span>
 								</li>
 							)
 						})}
 					</ul>
 				</div>                
-				<div className = 'edit-account'>
-					<button type='button'>Edit details</button>
-					<button type='button'>Change password</button>
+				<div className = 'edit_detail'>
+					<button className='button'>Edit details</button>
+					<button className='button'>Change password</button>
 				</div>
+				
 			</div>
 	    </div>
 	    <button
