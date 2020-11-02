@@ -11,6 +11,7 @@ const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
+const e = require("express");
 
 // @route POST api/users/register
 // @desc Register user
@@ -113,23 +114,36 @@ router.put("/additem", (req, res) => {
   const email = req.body.email;
   const item = req.body.item;
 
-  // Find user by email
-  User.findOne({ email }).then(user => {
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ emailnotfound: "Email not found" });
-    }
+  // // Find user by email
+  // User.findOne({ email }).then(user => {
+  //   // Check if user exists
+  //   if (!user) {
+  //     return res.status(404).json({ emailnotfound: "Email not found" });
+  //   }
 
-    // user.update(
-    //   { $push: {items: item}},
-    //   done
-    // );
+  //   user.update(
+  //     { $push: {items: item}},
+  //     res.json({ message: 'Added' })
+  //   );
     
-  });
+  // });
 
-  var idk = User.findOne({email: email});
-  idk.items.push(item);
-  idk.save();
+  User.findOneAndUpdate(
+    { email: email }, 
+    { $push: { items: item  } },
+    function (error, success) {
+         if (error) {
+             console.log(error);
+             res.json({ message: 'Not Added' })
+         } else {
+             console.log(success);
+             res.json({ message: 'Added' })
+         }
+     });
+
+  // var idk = User.findOne({email: email});
+  // idk.items.push(item);
+  // res.json({ message: 'Added' });
 
 });
 
