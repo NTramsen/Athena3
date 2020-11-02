@@ -3,17 +3,45 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/items'
+})
 
 class ManageItems extends Component {
 
-	constructor(props) {
-	    super(props);
-	};
+  state = {
+    items: []
+  };
+
+  constructor(props){
+    super(props);
+  };
 
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
+
+  findAllItems = async() => {
+    let data = await api.get('/').then( ({data}) => data);
+    this.setState({items : data});
+  }
+
+  createItem = async () => {
+    let res = await api.post('/',{
+      type: 'testcase',
+      description: 'this is a testcase',
+      borrowed: false
+    });
+    console.log(res);
+  }
+
+  deleteItem = async(id) =>{
+    let data = await api.delete(`/${id}`);
+    this.findAllItems();
+  }  
 
   render() {
     //const { user } = this.props.auth;
@@ -29,7 +57,10 @@ class ManageItems extends Component {
         <div className = 'content'>
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
-					<p>Manage Items</p>
+          <button onClick = {this.createItem}>createItem</button>
+          {this.state.items.map(item => <h2 key={item.type}>{item.description})
+          <button onClick={() => this.deleteItem(item.type)}>delete</button></h2>)}
+          <button onClick = {this.findAllItems}>findAllItems</button>
 				</div>
 				Content.
 			</div>
