@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-import '../UserLandingPage.css';
 import NavBar from '../NavBar/NavBar';
+import './Items.css';
 
 class Items extends Component {
 
@@ -77,31 +77,41 @@ class Items extends Component {
         <div className = 'content'>
 	      <div className='items-container'>
 			<div className='items-header'>
-				<p>Your item history</p>
+				<p className='tems-heade'>Your item history</p>
 			</div>
 			<div className='current-list'>
-				<p>Current items:</p>
+				<p className='list-title'>Current items</p>
 				<ul>
 					{this.getCurrentItems().map((item, index)=>{
 						return(
-							<li key={index}>
-								<span>{item.name}</span>
-								<span>{item.return_date}</span>
-								<button type="button">More</button>
+							<li key={index} className="itemlist-element">
+								<p className='element-lists'>
+									<span className="items_name">{item.name}</span>
+									<span className="items_date">{item.return_date}</span>
+									<span className="More_button">
+										<button type="button">More</button>
+									</span>
+								</p>
+								
 							</li>
 						)
 					})}
 				</ul>
 			</div>
 			<div className='returned-list'>
-				<p>Past items:</p>
+				<p className='list-title'>Past items</p>
 				<ul>
 					{this.getPastItems().map((item, index)=>{
 						return(
-							<li key={index}>
-								<span>{item.name}</span>
-								<span>{item.return_date}</span>
-								<button type="button">More</button>
+							<li key={index} className="itemlist-element">
+								<p className='element-lists'>
+									<span className="items_name">{item.name}</span>
+									<span className="items_date">{item.return_date}</span>
+									<span className="More_button">
+										<button type="button">More</button>
+									</span>
+								</p>
+								
 							</li>
 						)
 					})}

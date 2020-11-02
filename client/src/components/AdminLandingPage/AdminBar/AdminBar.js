@@ -8,13 +8,13 @@ function AdminBar(){
 
 	return(
 		<>
-			<nav className = 'nav-menu'>
-			<ul className = 'nav-menu-items'>
+			<nav className = 'ad-nav-menu'>
+			<ul className = 'ad-nav-menu-items'>
 					{AdminBarData.map((item, index)=>{
 						return(
 							<li key={index} className={item.cName}>
 								<Link to = {item.path}>
-									{item.icon}
+									<span className='nav-icon'>{item.icon}</span>
 									<span className='nav-text'>{item.title}</span>
 								</Link>
 							</li>

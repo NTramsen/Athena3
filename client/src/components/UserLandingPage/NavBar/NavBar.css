@@ -13,10 +13,15 @@
 }
 
 .nav-text{
-	height: 8vh;
+	height: 10vh;
 	width: 100%;
 	border-radius: 4px;
 	text-align: center;
+	font-size: 2vw;
+	white-space: nowrap;
+}
+.nav-icon{
+	font-size: 5vh;
 }
 
 .nav-text a{

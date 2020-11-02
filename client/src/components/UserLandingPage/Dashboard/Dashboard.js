@@ -28,18 +28,29 @@ const Dashboard = ()=>{
 	return(
 		<div className='dashboard-container'>
 			<div className='dashboard-header'>
-				<p className="item_title">Your items</p>
+				<div className='dashboard-title'>
+					Your items
+				</div>
 			</div>
+			<div className='list_header'>
+				<div className='item_header'>
+					<span className="header_style1">Item Name</span>
+					<span className="header_style2">Return Date</span>
+					<span className="header_style3">Item ID</span>
+				</div>
+			</div>
+			
 			<div className='dashboard-list'>
 				<ul className='dashboard-list-items'>
+					
 					{getItems().map((item, index)=>{
 						return(
 							<li key={index} className="itemlist-element">
 								<Link to = "./item" className="item_a">
-									<p className="item_name">{item.name}</p>
-                                    <div className="item_date">return date: {item.return_date}</div>
-                                    <div className="item_id">item id: {item.item_id}</div>
-									<FaIcons.FaArrowAltCircleRight size={60}/>
+										<span className="item_name">{item.name}</span>
+										<span className="item_date">{item.return_date}</span>
+										<span className="item_id">{item.item_id}</span>
+										
 								</Link>
 
 							</li>

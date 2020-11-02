@@ -4,8 +4,17 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
 import './ManageUsers.css';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/users'
+})
 
 class ManageUsers extends Component {
+
+  state = {
+    users: []
+  };
 
 	constructor(props) {
 	    super(props);
@@ -16,27 +25,17 @@ class ManageUsers extends Component {
 		this.props.logoutUser();
 	};
 
+  findAllUsers = async() => {
+    let data = await api.get('/').then( ({data}) => data);
+    this.setState({users : data});
+  }
+
+  deleteUser = ()=>{
+    return null;
+  }
+
   render() {
-    //const { user } = this.props.auth;
-    const getCurrentUsers = ()=>{
-      return [
-         {
-          Name: "Student A",
-          Email_address: "studenta@emory.edu",
-          Student_ID: 123456
-        },
-        {
-          Name: "Student B",
-          Email_address: "studentb@emory.edu",
-          Student_ID: 223456
-        },
-        {
-          Name: "Student C",
-          Email_address: "studentc@emory.edu",
-          Student_ID: 323456
-        }
-      ];
-    }
+    
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
@@ -51,20 +50,9 @@ class ManageUsers extends Component {
 					<p>Manage Users</p>
 				</div>
           <div className = 'User-List'>
-          <ul>
-            {getCurrentUsers().map((user, index)=>{
-              return(
-                <li key={index}>
-                  <div className = "userlist-element">
-                    <span>{user.Name}</span>
-                    <span>{user.Email_address}</span>
-                    <span>{user.Student_ID}</span>
-                    <button className = 'remove_btn'>Remove</button>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+          {this.state.users.map(user => <h2 key={user.name}>{user.email})
+          <button onClick={() => this.deleteUser(user.type)}>delete</button></h2>)}
+          <button onClick = {this.findAllUsers}>findAllUsers</button>
         </div>
 
 			</div>

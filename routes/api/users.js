@@ -13,6 +13,9 @@ const validateLoginInput = require("../../validation/login");
 const User = require("../../models/User");
 const e = require("express");
 
+// load user controllers
+const users = require("../../controller/user.controller");
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -146,5 +149,20 @@ router.put("/additem", (req, res) => {
   // res.json({ message: 'Added' });
 
 });
+
+router.get("/", users.findAll);
+
+
+router.get("/:id", users.findOne);
+
+
+router.put("/:id", users.update);
+
+
+router.delete("/:id", users.delete);
+
+
+router.delete("/", users.deleteAll);
+
 
 module.exports = router;

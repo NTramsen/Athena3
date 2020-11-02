@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import './style.css';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-import '../UserLandingPage.css';
 import NavBar from '../NavBar/NavBar';
+import './Checkout.css';
 
 class Checkout extends Component {
 
@@ -49,8 +48,8 @@ class Checkout extends Component {
         </div>
         <div className = 'content'>
 	          <div className='checkout-container'>
-				<div className='checkout-header'>
-					<p>Checkout a new item:</p>
+				<div className='checkout_header'>
+					<p className='checkout-title'>Checkout a new item</p>
 				</div>
 				<input className = 'checkout-form'
 					placeholder = 'Enter item name'
@@ -62,7 +61,7 @@ class Checkout extends Component {
 					type = 'number'
 					value = {this.state.newItemNum}
 					onChange={(e)=>this.setState({newItemNum: e.target.value})}></input>
-				<button className = 'checkout-button btn'
+				<button className = 'checkout-button'
 					onClick={()=>{
 						if(this.itemObjectValid()){
 							// updateBills

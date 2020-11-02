@@ -1,0 +1,21 @@
+.checkout-button{
+    background-color:#012169; 
+    color: azure;
+    border-color: azure;
+    font-size: 3vh;
+    border-radius: 10%;
+}
+
+
+.checkout_header{
+    font-weight: bold;
+    margin: 0;
+     padding: 0;
+    border-color: #3D5A80;
+    color: #b58500;
+    font-family: 'Lato', sans-serif;
+}
+.checkout-title{
+    font-size: 5vh ;
+    width:100%;
+}
