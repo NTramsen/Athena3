@@ -12,6 +12,9 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
+// load user controllers
+const users = require("../../controller/user.controller");
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -105,5 +108,20 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+
+router.get("/", users.findAll);
+
+
+router.get("/:id", users.findOne);
+
+
+router.put("/:id", users.update);
+
+
+router.delete("/:id", users.delete);
+
+
+router.delete("/", users.deleteAll);
 
 module.exports = router;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
-import axios from 'axios'
+import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/items'
