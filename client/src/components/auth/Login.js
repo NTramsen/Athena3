@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+import { loginUser, loginAdmin } from "../../actions/authActions";
 import classnames from "classnames";
 
 class Login extends Component {
@@ -11,8 +11,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {},
-      isAdmin: false
+      errors: {}
     };
   }
 
@@ -51,14 +50,14 @@ class Login extends Component {
   };
 
   loginAdmin = () => {
-
-    const userData = {
+    const adminData = {
       email: this.state.email,
       password: this.state.password
     };
-    this.setState({isAdmin: true});
-    this.props.loginUser(userData);
+    this.props.loginAdmin(adminData);
   };
+
+
 
   render() {
     const { errors } = this.state;
@@ -138,7 +137,7 @@ class Login extends Component {
                     marginTop: "1rem"
                   }}
                   type="submit"
-                  onclick="loginAdmin()"
+                  onClick="loginAdmin()"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                 >
                   Admin
@@ -154,6 +153,7 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  loginAdmin: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -165,5 +165,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, loginAdmin }
 )(Login);
