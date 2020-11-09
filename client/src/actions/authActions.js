@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, SET_CURRENT_ADMIN, USER_LOADING} from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -42,6 +42,30 @@ export const loginUser = userData => dispatch => {
 };
 
 
+// Admin login
+export const loginAdmin = adminData => dispatch => {
+  axios
+    .post("/api/admins/login", adminData)
+    .then(res => {
+      // Save to localStorage
+
+      // Set token to localStorage
+      const { token, admin } = res.data;
+      localStorage.setItem("jwtToken", token);
+      localStorage.setItem("id", admin.id);
+      localStorage.setItem("name", admin.name);
+      localStorage.setItem("email", admin.email);
+      // const decoded = jwt_decode(token);
+      dispatch(setCurrentAdmin(admin));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 
 
 
@@ -50,6 +74,14 @@ export const setCurrentUser = user => {
   return {
     type: SET_CURRENT_USER,
     payload: user
+  };
+};
+
+// Set logged in admin
+export const setCurrentAdmin = admin => {
+  return {
+    type: SET_CURRENT_ADMIN,
+    payload: admin
   };
 };
 

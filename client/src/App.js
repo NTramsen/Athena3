@@ -12,6 +12,8 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
+import AdminRoute from "./components/private-route/AdminRoute";
+
 import UserLandingPage from "./components/UserLandingPage/UserLandingPage";
 import Checkout from './components/UserLandingPage/Checkout/Checkout';
 // import Dashboard from './components/UserLandingPage/Dashboard/Dashboard';
@@ -22,7 +24,6 @@ import Logout from './components/UserLandingPage/Logout/Logout';
 import AdminLandingPage from './components/AdminLandingPage/AdminLandingPage';
 import ManageItems from './components/AdminLandingPage/ManageItems/ManageItems';
 import ManageUsers from './components/AdminLandingPage/ManageUsers/ManageUsers';
-import axios from 'axios';
 
 import "./App.css";
 
@@ -78,9 +79,9 @@ class App extends Component {
               <PrivateRoute exact path='/myitems' component={Items} />
               <PrivateRoute exact path='/myaccount' component={Account} />
               <PrivateRoute exact path='/logout' component={Logout} />
-              <PrivateRoute exact path='/adminLanding' component={AdminLandingPage} />
-              <PrivateRoute exact path='/manageItems' component={ManageItems} />
-              <PrivateRoute exact path='/manageUsers' component={ManageUsers} />
+              <AdminRoute exact path='/adminLanding' component={AdminLandingPage} />
+              <AdminRoute exact path='/manageItems' component={ManageItems} />
+              <AdminRoute exact path='/manageUsers' component={ManageUsers} />
             </Switch>
           </div>
         </Router>
