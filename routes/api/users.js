@@ -113,6 +113,19 @@ router.post("/login", (req, res) => {
   });
 });
 
+
+// @route GET api/users/info
+// @desc Get user data
+// @access PRIVATE TODO make private
+
+router.get('/info', auth, (req,res) => {
+  User.findById(req.user.id)
+    .select('-password')
+    .then(user=>res.json(user));
+});
+
+
+
 router.put("/additem", (req, res) => {
 
   // TODO: Add validation
