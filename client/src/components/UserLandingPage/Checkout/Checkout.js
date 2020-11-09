@@ -10,23 +10,20 @@ class Checkout extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	      newItemName: '',
 	      newItemNum: ''
 	    };
 	};
 	
 	updateItems() {
-		console.log(this.state.newItemName, this.state.newItemNum);
+		console.log(this.state.newItemNum);
 	};
 
 	itemObjectValid() {
 		const numValid = this.state.newItemNum && Number.parseFloat(this.state.newItemNum);
-		const nameValid = this.state.newItemName && this.state.newItemName.split('').find(char=>char !== ' ');
-		return numValid && nameValid;
+		return numValid;
 	};
 
 	clearForm() {
-		this.setState({newItemName: ''});
 		this.setState({newItemNum: ''});
 	};
 
@@ -52,11 +49,6 @@ class Checkout extends Component {
 					<p className='checkout-title'>Checkout a new item</p>
 				</div>
 				<input className = 'checkout-form'
-					placeholder = 'Enter item name'
-					type = 'text'
-					value = {this.state.newItemName}
-					onChange={(e)=>this.setState({newItemName: e.target.value})}></input>
-				<input className = 'checkout-form'
 					placeholder = 'Enter item number'
 					type = 'number'
 					value = {this.state.newItemNum}
@@ -64,10 +56,13 @@ class Checkout extends Component {
 				<button className = 'checkout-button'
 					onClick={()=>{
 						if(this.itemObjectValid()){
-							// updateBills
 							this.updateItems();
+
+							
+
 							this.clearForm();
 						}
+						// TODO: INPUT REJECTION ALERT FOR USER
 					}}>Add item</button>
 			</div>
         </div>
