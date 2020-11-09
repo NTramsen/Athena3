@@ -1,65 +1,85 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import './Dashboard.css';
+import React, {Component} from 'react';
+//import './Dashboard.css';
+import ItemInterface from '../ItemInterface/ItemInterface';
 
-const Dashboard = ()=>{
+class Dashboard extends Component{
 
-	const getItems = ()=>{
+	constructor(props){
+	    super(props);
+	};
+
+	state = {
+		seen: -1
+	}
+
+	togglePop = (item_id) => {
+	    this.setState({
+	    	seen: item_id
+	    });
+	};
+
+	getItems = ()=>{
 		return [
 			{
 				name: "Stethoscope",
 				return_date: "8 hours",
-				item_id: 23801
+				item_id: 23801,
+				description: "This is a stethoscope w vwrbv rj er ver  "
 			},
 			{
 				name: "Behavioural biology textbook",
 				return_date: "2 days ",
-				item_id: 48920
+				item_id: 48920,
+				description: "This is a textbook w vwrbv rj er ver  "
 			},
 			{
 				name: "Design kit",
 				return_date: "6 days ",
-				item_id: 98384
+				item_id: 98384,
+				description: "This is a design kit w vwrbv rj er ver  "
 			}
 		];
+	};
+
+	render(){
+		return (
+			<div className='dashboard-dashboard-container'>
+				<div className='dashboard-dashboard-header'>
+					<div className='dashboard-dashboard-title'>
+						Your items
+					</div>
+				</div>
+				<div className='dashboard-list_header'>
+					<div className='dashboard-item_header'>
+						<span className="dashboard-header_style1">Item Name</span>
+						<span className="dashboard-header_style2">Return Date</span>
+						<span className="dashboard-header_style3">Item ID</span>
+					</div>
+				</div>
+				
+				<div className='dashboard-dashboard-list'>
+					<ul className='dashboard-dashboard-list-items'>
+						
+						{this.getItems().map((item, index)=>{
+							return(
+								<li key={index} className="dashboard-itemlist-element">
+									<div className="dashboard-item_a">
+										<span className="dashboard-item_name">{item.name}</span>
+										<span className="dashboard-item_date">{item.return_date}</span>
+										<span className="dashboard-item_id">{item.item_id}</span>
+										<button onClick={()=>this.togglePop(item.item_id)}>
+						                  More
+						                </button>
+										{this.state.seen==item.item_id ? <span className="dashboard-item_description">{item.description}</span> : null}
+									</div>
+								</li>
+							)
+						})}
+					</ul>
+				</div>
+			</div>
+		);
 	}
-
-	return(
-		<div className='dashboard-container'>
-			<div className='dashboard-header'>
-				<div className='dashboard-title'>
-					Your items
-				</div>
-			</div>
-			<div className='list_header'>
-				<div className='item_header'>
-					<span className="header_style1">Item Name</span>
-					<span className="header_style2">Return Date</span>
-					<span className="header_style3">Item ID</span>
-				</div>
-			</div>
-			
-			<div className='dashboard-list'>
-				<ul className='dashboard-list-items'>
-					
-					{getItems().map((item, index)=>{
-						return(
-							<li key={index} className="itemlist-element">
-								<Link to = "./item" className="item_a">
-										<span className="item_name">{item.name}</span>
-										<span className="item_date">{item.return_date}</span>
-										<span className="item_id">{item.item_id}</span>
-										
-								</Link>
-
-							</li>
-						)
-					})}
-				</ul>
-			</div>
-		</div>
-	);
 }
 
 export default Dashboard;
