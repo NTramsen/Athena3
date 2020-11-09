@@ -7,7 +7,6 @@ const initialState = {
   isAuthenticated: null,
   user: {},
   isLoading: false,
-  isAdmin: false
 };
 
 export default function(state = initialState, action) {
@@ -23,7 +22,6 @@ export default function(state = initialState, action) {
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
         isLoading: false,
-        isAdmin: action.payload.admin
       };
     default:
       return state;

@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
-const auth = require("../../middleware/auth.js")
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -114,16 +113,6 @@ router.post("/login", (req, res) => {
   });
 });
 
-
-// @route GET api/users/info
-// @desc Get user data
-// @access PRIVATE TODO make private
-
-router.get('/info', auth, (req,res) => {
-  User.findById(req.user.id)
-    .select('-password')
-    .then(user=>res.json(user));
-});
 
 
 
