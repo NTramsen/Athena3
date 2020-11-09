@@ -111,25 +111,11 @@ router.post("/login", (req, res) => {
 });
 
 router.put("/additem", (req, res) => {
+  
   // TODO: Add validation
-
 
   const email = req.body.email;
   const item = req.body.item;
-
-  // // Find user by email
-  // User.findOne({ email }).then(user => {
-  //   // Check if user exists
-  //   if (!user) {
-  //     return res.status(404).json({ emailnotfound: "Email not found" });
-  //   }
-
-  //   user.update(
-  //     { $push: {items: item}},
-  //     res.json({ message: 'Added' })
-  //   );
-    
-  // });
 
   User.findOneAndUpdate(
     { email: email }, 
@@ -143,11 +129,6 @@ router.put("/additem", (req, res) => {
              res.json({ message: 'Added' })
          }
      });
-
-  // var idk = User.findOne({email: email});
-  // idk.items.push(item);
-  // res.json({ message: 'Added' });
-
 });
 
 router.get("/", users.findAll);
