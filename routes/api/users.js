@@ -84,7 +84,6 @@ router.post("/login", (req, res) => {
         // Create JWT Payload
         const payload = {
           id: user.id,
-          name: user.name
         };
 
         // Sign token
@@ -92,12 +91,16 @@ router.post("/login", (req, res) => {
           payload,
           keys.secretOrKey,
           {
-            expiresIn: 31556926 // 1 year in seconds
+            expiresIn: 3600 // 1 hour in seconds
           },
           (err, token) => {
             res.json({
-              success: true,
-              token: "Bearer " + token
+              token: token,
+              user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+              }
             });
           }
         );
@@ -110,15 +113,18 @@ router.post("/login", (req, res) => {
   });
 });
 
+
+
+
 router.put("/additem", (req, res) => {
-  
+
   // TODO: Add validation
 
   const email = req.body.email;
   const item = req.body.item;
 
   User.findOneAndUpdate(
-    { email: email }, 
+    { email: email },
     { $push: { items: item  } },
     function (error, success) {
          if (error) {

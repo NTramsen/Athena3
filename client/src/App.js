@@ -23,28 +23,45 @@ import ItemInterface from './components/UserLandingPage/ItemInterface/ItemInterf
 import AdminLandingPage from './components/AdminLandingPage/AdminLandingPage';
 import ManageItems from './components/AdminLandingPage/ManageItems/ManageItems';
 import ManageUsers from './components/AdminLandingPage/ManageUsers/ManageUsers';
+import axios from 'axios';
 
 import "./App.css";
 
-// Check for token to keep user logged in
-if (localStorage.jwtToken) {
-  // Set auth token header auth
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-  // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
 
-    // Redirect to login
-    window.location.href = "./login";
+
+
+  if (localStorage.jwtToken) {
+    const token = localStorage.jwtToken;
+
+    // Set auth token header auth
+    setAuthToken(token);
+
+    const user = {
+      id: localStorage.id,
+      name: localStorage.name,
+      email: localStorage.email
+    };
+
+    store.dispatch(setCurrentUser(user));
+
+
+    //validate auth token time
+    const decoded = jwt_decode(token);
+    const currentTime = Date.now() / 1000; // to get in milliseconds
+    if (decoded.exp < currentTime) {
+      store.dispatch(logoutUser());
+      window.location.href = "./login";
+    }
+
   }
-}
+
+
+
+
+
+
+
+
 class App extends Component {
   render() {
     return (
