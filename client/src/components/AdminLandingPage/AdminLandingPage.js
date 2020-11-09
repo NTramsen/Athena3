@@ -19,7 +19,7 @@ class AdminLandingPage extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome admin user</h1>
+          Welcome admin user
         </div>
         <div className = 'navbar'>
           <AdminBar/>

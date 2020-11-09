@@ -69,7 +69,7 @@ class Items extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          Welcome Neil Tramsen
         </div>
         <div className = 'navbar'>
           <NavBar/>
