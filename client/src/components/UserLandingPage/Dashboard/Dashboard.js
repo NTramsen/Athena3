@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-//import './Dashboard.css';
+import './Dashboard.css';
 import ItemInterface from '../ItemInterface/ItemInterface';
 
 class Dashboard extends Component{
@@ -63,14 +63,19 @@ class Dashboard extends Component{
 						{this.getItems().map((item, index)=>{
 							return(
 								<li key={index} className="dashboard-itemlist-element">
-									<div className="dashboard-item_a">
+									<div className="dashboard-item">
 										<span className="dashboard-item_name">{item.name}</span>
 										<span className="dashboard-item_date">{item.return_date}</span>
 										<span className="dashboard-item_id">{item.item_id}</span>
 										<button onClick={()=>this.togglePop(item.item_id)}>
 						                  More
 						                </button>
-										{this.state.seen==item.item_id ? <span className="dashboard-item_description">{item.description}</span> : null}
+										{this.state.seen==item.item_id ? 
+											<div className="dropdown">
+												<span className="dashboard-item_description">{item.description}</span> 
+												<button className="return-but">Return</button>
+											</div>
+											: null}
 									</div>
 								</li>
 							)
