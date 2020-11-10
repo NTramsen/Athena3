@@ -12,7 +12,8 @@ const api = axios.create({
 class ManageItems extends Component {
 
   state = {
-    items: []
+    items: [],
+    seen:-1
   };
 
   constructor(props){
@@ -31,17 +32,23 @@ class ManageItems extends Component {
 
   createItem = async () => {
     let res = await api.post('/',{
-      type: 'testcase',
-      description: 'this is a testcase',
+      type: 'newItem',
+      description: 'this is a new item',
       borrowed: false
     });
-    console.log(res);
+    this.findAllItems();
   }
 
   deleteItem = async(id) =>{
     let data = await api.delete(`/${id}`);
     this.findAllItems();
   }  
+
+  togglePop = (item_id) => {
+      this.setState({
+        seen: item_id
+      });
+  };
 
   render() {
     //const { user } = this.props.auth;
@@ -58,8 +65,18 @@ class ManageItems extends Component {
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
           <button onClick = {this.createItem}>createItem</button>
-          {this.state.items.map(item => <h2 key={item.type}>{item.description})
-          <button onClick={() => this.deleteItem(item.type)}>delete</button></h2>)}
+          {this.state.items.map(item => 
+            <div key={item._id}>
+              {item.description})
+              <button onClick={() => this.deleteItem(item._id)}>delete</button>
+              <button onClick={()=>this.togglePop(item._id)}>More</button>
+              {this.state.seen==item._id ? 
+                <div className="dropdown">
+                  <span className="dashboard-item_description">{item.description}</span> 
+                </div>
+                : null}
+            </div>
+          )}
           <button onClick = {this.findAllItems}>findAllItems</button>
 				</div>
 				Content.
