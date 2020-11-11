@@ -120,11 +120,11 @@ router.put("/additem", (req, res) => {
 
   // TODO: Add validation
 
-  const email = req.body.email;
+  const id = req.body.id;
   const item = req.body.item;
 
   User.findOneAndUpdate(
-    { email: email },
+    { _id: id },
     { $push: { items: item  } },
     function (error, success) {
          if (error) {
@@ -133,6 +133,27 @@ router.put("/additem", (req, res) => {
          } else {
              console.log(success);
              res.json({ message: 'Added' })
+         }
+     });
+});
+
+router.put("/removeitem", (req, res) => {
+
+  // TODO: Add validation
+
+  const id = req.body.id;
+  const item = req.body.item;
+
+  User.findOneAndUpdate(
+    { _id: id },
+    { $pull: { items: item  } },
+    function (error, success) {
+         if (error) {
+             console.log(error);
+             res.json({ message: 'Not Removed' })
+         } else {
+             console.log(success);
+             res.json({ message: 'Removed' })
          }
      });
 });
