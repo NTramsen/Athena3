@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from '../NavBar/NavBar';
 import './Checkout.css';
+import axios from 'axios';
+
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/users'
+})
 
 class Checkout extends Component {
 
@@ -15,6 +21,15 @@ class Checkout extends Component {
 	    };
 	};
 	
+	checkoutItems = async() => {
+		const item = this.state.newItemNum;
+		//const userId = todo get userId from state?;
+		const email = "anthonytest@test.com"
+		console.log("item in Checkout.js " + item);
+		let data = await api.post('/checkoutItem', {email: email, items: item});
+		console.log("data: " + data);
+	}
+
 	updateItems() {
 		console.log(this.state.newItemName, this.state.newItemNum);
 	};
@@ -64,11 +79,11 @@ class Checkout extends Component {
 				<button className = 'checkout-button'
 					onClick={()=>{
 						if(this.itemObjectValid()){
-							// updateBills
-							this.updateItems();
+							this.checkoutItems();
+							//this.updateItems();
 							this.clearForm();
 						}
-					}}>Add item</button>
+					}}>Checkout Item</button>
 			</div>
         </div>
         <button
