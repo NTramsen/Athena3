@@ -11,6 +11,10 @@ const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
+const e = require("express");
+
+// load user controllers
+const users = require("../../controller/user.controller");
 
 // @route POST api/users/register
 // @desc Register user
@@ -80,7 +84,6 @@ router.post("/login", (req, res) => {
         // Create JWT Payload
         const payload = {
           id: user.id,
-          name: user.name
         };
 
         // Sign token
@@ -88,12 +91,16 @@ router.post("/login", (req, res) => {
           payload,
           keys.secretOrKey,
           {
-            expiresIn: 31556926 // 1 year in seconds
+            expiresIn: 3600 // 1 hour in seconds
           },
           (err, token) => {
             res.json({
-              success: true,
-              token: "Bearer " + token
+              token: token,
+              user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+              }
             });
           }
         );
@@ -105,5 +112,43 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+
+
+
+router.post("/checkoutItem", (req, res) => {
+
+  // TODO: Add validation
+
+  const email = req.body.email;
+  const items = req.body.items;
+
+  User.findOneAndUpdate(
+    { email: email },
+    { $push: { items: items  } },
+    function (error, success) {
+         if (error) {
+             console.log(error);
+             res.json({ message: 'Not Added' })
+         } else {
+             console.log(success);
+             res.json({ message: 'Added' })
+         }
+     });
+});
+
+router.get("/", users.findAll);
+
+
+router.get("/:id", users.findOne);
+
+
+router.put("/:id", users.update);
+
+
+router.delete("/:id", users.delete);
+
+
+router.delete("/", users.deleteAll);
 
 module.exports = router;

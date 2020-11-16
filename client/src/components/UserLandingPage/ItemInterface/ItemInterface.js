@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { Component } from "react";
+import './ItemInterface.css';
 
-const ItemInterface = ()=>{
+export default class ItemInterface extends Component {
 
-	return(
-		<div className='iteminterface-container'>
-			<p>Item Interface</p>
-		</div>
-	);
+	constructor(props){
+	    super(props);
+	    this.handleClick = this.handleClick.bind(this);
+	};
+
+	handleClick = () => {
+    	this.props.toggle();
+  	};
+
+  render() {
+    return (
+    	<>
+      	{console.log("popping up")}
+        <h1>Popup</h1>
+        <button onClick={this.handleClick()}>Close</button>
+        </>
+    );
+  }
 }
-
-export default ItemInterface;

@@ -1,67 +1,52 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import './AdminDashboard.css';
+import axios from 'axios';
 
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api'
+});
 
-const AdminDashboard = ()=>{
+class AdminDashboard extends Component{
 
-	
-	const getItems = ()=>{
-		return [
-			{
-				name: "Stethoscope",
-				return_date: "8 hours",
-				item_id: 23801
-			},
-			{
-				name: "Behavioural biology textbook",
-				return_date: "2 days ",
-				item_id: 48920
-			},
-			{
-				name: "Design kit",
-				return_date: "6 days ",
-				item_id: 98384
-			}
-		];
+	state={
+		users: 0,
+		items: 0,
+		checks:0
+	};
+
+	componentDidMount(){
+		this.getCounts();
+    };
+
+    getCounts=async()=>{
+
+    	let data = await api.get('/users/').then( ({data}) => data);
+    	this.setState({users : data.length});
+
+    	data = await api.get('/items/').then( ({data}) => data);
+    	this.setState({items : data.length});
+
+    }
+
+	render(){
+		return(
+			<div className='dashboard-container'>
+				<div className='dashboard-header'>
+					<div className='dashboard-title'>
+						Database Overview
+					</div>
+				</div>
+				
+				<div className='dashboard-list'>
+					<span>Total users:</span> {this.state.users}
+					<span>Total items:</span> {this.state.items}
+					<span>Number of current checkouts: (To be implemented)</span> {this.state.checks}
+				</div>
+			</div>
+		);
 	}
-
-	return(
-		<div className='dashboard-container'>
-			<div className='dashboard-header'>
-				<div className='dashboard-title'>
-					Your items
-				</div>
-			</div>
-			<div className='list_header'>
-				<div className='item_header'>
-					<span className="header_style1">Item Name</span>
-					<span className="header_style2">Return Date</span>
-					<span className="header_style3">Item ID</span>
-				</div>
-			</div>
-			
-			<div className='dashboard-list'>
-				<ul className='dashboard-list-items'>
-					
-					{getItems().map((item, index)=>{
-						return(
-							<li key={index} className="itemlist-element">
-								<Link to = "./item" className="item_a">
-										<span className="item_name">{item.name}</span>
-										<span className="item_date">{item.return_date}</span>
-										<span className="item_id">{item.item_id}</span>
-										
-								</Link>
-
-							</li>
-						)
-					})}
-				</ul>
-			</div>
-		</div>
-	);
-}
+};
 
 export default AdminDashboard;
