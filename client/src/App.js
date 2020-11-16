@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { setCurrentUser, setCurrentAdmin, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -43,7 +43,11 @@ import "./App.css";
       email: localStorage.email
     };
 
-    store.dispatch(setCurrentUser(user));
+    if (localStorage.admin==true){
+      store.dispatch(setCurrentAdmin(user));
+    } else {
+      store.dispatch(setCurrentUser(user));
+    }
 
 
     //validate auth token time
