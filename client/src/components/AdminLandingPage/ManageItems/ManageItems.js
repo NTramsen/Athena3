@@ -12,16 +12,12 @@ const api = axios.create({
 class ManageItems extends Component {
 
   state = {
-<<<<<<< HEAD
-    items: [], 
-    inputValue: ''
-=======
+
     items: [],
     seen:-1,
     new_type: "",
     new_desc: "",
     errors: ""
->>>>>>> dcd6b1da18ebd06ac20ad5c2e73b085f8620191c
   };
 
   constructor(props){
@@ -48,21 +44,8 @@ class ManageItems extends Component {
     this.setState({items : data});
   };
 
-<<<<<<< HEAD
-  searchItems = async(regex) =>{
-    const params = {
-      type: String(regex)
-    };
-    console.log(params);
-    let data = await api.get('/', {params}).then( ({data}) => data);
-    console.log(data);
-    this.setState({items : data});
-  }
 
-  createItem = async () => {
-=======
   createItem = async(type, description) => {
->>>>>>> dcd6b1da18ebd06ac20ad5c2e73b085f8620191c
     let res = await api.post('/',{
       type: type,
       description: description,
@@ -116,7 +99,8 @@ class ManageItems extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          Welcome {info[1]}
+          //<h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -124,21 +108,6 @@ class ManageItems extends Component {
         <div className = 'content'>
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
-<<<<<<< HEAD
-          <button onClick = {this.createItem}>createItem</button>
-          {this.state.items.map(item => <p key={item.type}>{item.description})
-          <button onClick={() => this.deleteItem(item._id)}>delete</button></p>)}
-          <button onClick = {this.findAllItems}>findAllItems</button>
-          <input className = 'adduser-form'
-            placeholder = 'Enter Item type:'
-            value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}
-            type = 'text'></input>
-          <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
-          {this.state.items.map(item => <p key={item.type}>{item.description})
-          <button onClick={() => this.deleteItem(item._id)}>delete</button></p>)}
-				</div>
-
-=======
           <div>
             <span>Create a new item:</span>
             <form noValidate onSubmit={this.onSubmit}>
@@ -183,7 +152,6 @@ class ManageItems extends Component {
             )}
           </div>
 				</div>
->>>>>>> dcd6b1da18ebd06ac20ad5c2e73b085f8620191c
 			</div>
         </div>
         <button
