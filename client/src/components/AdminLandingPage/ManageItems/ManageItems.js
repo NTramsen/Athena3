@@ -12,6 +12,7 @@ const api = axios.create({
 class ManageItems extends Component {
 
   state = {
+
     items: [],
     seen:-1,
     new_type: "",
@@ -22,6 +23,12 @@ class ManageItems extends Component {
   constructor(props){
     super(props);
   };
+
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    });
+  }
 
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -36,6 +43,7 @@ class ManageItems extends Component {
     let data = await api.get('/').then( ({data}) => data);
     this.setState({items : data});
   };
+
 
   createItem = async(type, description) => {
     let res = await api.post('/',{
@@ -88,9 +96,6 @@ class ManageItems extends Component {
   };
 
   render() {
-    const user = this.props.usr.user;
-    const info = Object.values(user);
-
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
@@ -133,14 +138,14 @@ class ManageItems extends Component {
 
           <div>
             <span>All current items:</span>
-            {this.state.items.map(item =>
+            {this.state.items.map(item => 
               <div key={item._id}>
                 {item.type}
                 <button onClick={() => this.deleteItem(item._id)}>delete</button>
                 <button onClick={()=>this.togglePop(item._id)}>More</button>
-                {this.state.seen==item._id ?
+                {this.state.seen==item._id ? 
                   <div className="dropdown">
-                    <span className="dashboard-item_description">{item.description}</span>
+                    <span className="dashboard-item_description">{item.description}</span> 
                   </div>
                   : null}
               </div>
@@ -159,11 +164,11 @@ class ManageItems extends Component {
 
 ManageItems.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  usr: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  usr: state.auth
+  auth: state.auth
 });
 
 export default connect(
