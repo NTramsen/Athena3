@@ -58,11 +58,13 @@ class ManageUsers extends Component {
   };
 
   render() {
+    const user = this.props.usr.user;
+    const info = Object.values(user);
     
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          <h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -73,15 +75,15 @@ class ManageUsers extends Component {
 					<p>Manage Users:</p>
 				</div>
         <div className = 'User-List'>
-          {this.state.users.map(user => 
+          {this.state.users.map(user =>
             <div key={user._id}>
               {user.name}
               {user.email})
               <button onClick={() => this.deleteUser(user._id)}>delete</button>
               <button onClick={()=>this.togglePop(user._id)}>More</button>
-              {this.state.seen==user._id ? 
+              {this.state.seen==user._id ?
                 <div className="dropdown">
-                  <span className="dashboard-item_description">{user._id}</span> 
+                  <span className="dashboard-item_description">{user._id}</span>
                   <span>Map over user's items.</span>
                 </div>
                 : null}
@@ -89,7 +91,7 @@ class ManageUsers extends Component {
           )}
         </div>
 
-			</div> 
+			</div>
         </div>
         <button
         onClick={this.onLogoutClick}
@@ -101,11 +103,11 @@ class ManageUsers extends Component {
 
 ManageUsers.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  usr: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  usr: state.auth
 });
 
 export default connect(

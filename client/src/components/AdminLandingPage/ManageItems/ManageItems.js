@@ -88,10 +88,13 @@ class ManageItems extends Component {
   };
 
   render() {
+    const user = this.props.usr.user;
+    const info = Object.values(user);
+
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          <h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -129,14 +132,14 @@ class ManageItems extends Component {
 
           <div>
             <span>All current items:</span>
-            {this.state.items.map(item => 
+            {this.state.items.map(item =>
               <div key={item._id}>
                 {item.type}
                 <button onClick={() => this.deleteItem(item._id)}>delete</button>
                 <button onClick={()=>this.togglePop(item._id)}>More</button>
-                {this.state.seen==item._id ? 
+                {this.state.seen==item._id ?
                   <div className="dropdown">
-                    <span className="dashboard-item_description">{item.description}</span> 
+                    <span className="dashboard-item_description">{item.description}</span>
                   </div>
                   : null}
               </div>
@@ -155,11 +158,11 @@ class ManageItems extends Component {
 
 ManageItems.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  usr: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  usr: state.auth
 });
 
 export default connect(
