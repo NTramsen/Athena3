@@ -30,7 +30,8 @@ export const loginUser = userData => dispatch => {
       localStorage.setItem("id", user.id);
       localStorage.setItem("name", user.name);
       localStorage.setItem("email", user.email);
-      localStorage.setItem("admin", false);
+      localStorage.setItem("admin", "false");
+
       // const decoded = jwt_decode(token);
       dispatch(setCurrentUser(user));
     })
@@ -56,7 +57,7 @@ export const loginAdmin = adminData => dispatch => {
       localStorage.setItem("id", admin.id);
       localStorage.setItem("name", admin.name);
       localStorage.setItem("email", admin.email);
-      localStorage.setItem("admin", true);
+      localStorage.setItem("admin", "true");
       // const decoded = jwt_decode(token);
       dispatch(setCurrentAdmin(admin));
     })
@@ -101,5 +102,6 @@ export const logoutUser = () => dispatch => {
   // Remove auth header for future requests
   // setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
+  localStorage.clear();
   dispatch(setCurrentUser({}));
 };
