@@ -14,16 +14,6 @@ class Account extends Component {
 	};
 
 
-	getAccountInfo(){
-		return [
-			{
-				username: "Neil Tramsen",
-			},
-			{
-				email_address: "ntramsen112@gmail.com",
-			}
-		];
-	}
 
 	onLogoutClick = e => {
 		e.preventDefault();
