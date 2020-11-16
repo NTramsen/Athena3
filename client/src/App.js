@@ -24,6 +24,7 @@ import Logout from './components/UserLandingPage/Logout/Logout';
 import AdminLandingPage from './components/AdminLandingPage/AdminLandingPage';
 import ManageItems from './components/AdminLandingPage/ManageItems/ManageItems';
 import ManageUsers from './components/AdminLandingPage/ManageUsers/ManageUsers';
+import ManageCheckouts from './components/AdminLandingPage/ManageCheckouts/ManageCheckouts';
 
 import "./App.css";
 
@@ -82,6 +83,7 @@ class App extends Component {
               <AdminRoute exact path='/adminLanding' component={AdminLandingPage} />
               <AdminRoute exact path='/manageItems' component={ManageItems} />
               <AdminRoute exact path='/manageUsers' component={ManageUsers} />
+              <AdminRoute exact path='/manageCheckouts' component={ManageCheckouts} />
             </Switch>
           </div>
         </Router>

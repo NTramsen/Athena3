@@ -3,46 +3,37 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
-import './ManageUsers.css';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/users'
+  baseURL: 'http://localhost:5000/api/items'
 })
 
-class ManageUsers extends Component {
+class ManageCheckouts extends Component {
 
   state = {
-    users: [],
-    seen:-1
+    items: [],
+    seen:-1,
+    errors: ""
   };
 
-	constructor(props) {
-	    super(props);
-	};
-
-  componentDidMount(){
-    this.findAllUsers();
-  }
+  constructor(props){
+    super(props);
+  };
 
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
 
-  findAllUsers = async() => {
-    let data = await api.get('/').then( ({data}) => data);
-    this.setState({users : data});
-  }
+  componentDidMount(){
+    this.findAllCheckouts();
+  };
 
-  createUser = async () => {
+  findAllCheckouts = async() => {
+    // to be implemented
     return null;
-  }
-
-  deleteUser = async(id)=>{
-    let data = await api.delete(`/${id}`);
-    this.findAllUsers();
-  }
+  };
 
   togglePop = (item_id) => {
     if(this.state.seen==item_id){
@@ -58,7 +49,6 @@ class ManageUsers extends Component {
   };
 
   render() {
-    
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
@@ -70,26 +60,17 @@ class ManageUsers extends Component {
         <div className = 'content'>
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
-					<p>Manage Users:</p>
-				</div>
-        <div className = 'User-List'>
-          {this.state.users.map(user => 
-            <div key={user._id}>
-              {user.name}
-              {user.email})
-              <button onClick={() => this.deleteUser(user._id)}>delete</button>
-              <button onClick={()=>this.togglePop(user._id)}>More</button>
-              {this.state.seen==user._id ? 
-                <div className="dropdown">
-                  <span className="dashboard-item_description">{user._id}</span> 
-                  <span>Map over user's items.</span>
-                </div>
-                : null}
-            </div>
-          )}
-        </div>
 
-			</div> 
+          <div>
+            <span>View currently checked-out items:</span>
+            <p>To be implemented.</p>
+          </div>
+          <div>
+            <span>View over-due items:</span>
+            <p>To be implemented.</p>
+          </div>
+				</div>
+			</div>
         </div>
         <button
         onClick={this.onLogoutClick}
@@ -99,7 +80,7 @@ class ManageUsers extends Component {
   }
 }
 
-ManageUsers.propTypes = {
+ManageCheckouts.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -111,4 +92,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(ManageUsers);
+)(ManageCheckouts);

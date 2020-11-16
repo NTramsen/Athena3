@@ -61,7 +61,7 @@ exports.update = (req, res) => {
 
 // Delete a user with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.body.id;
+  const id = req.params.id;
 
   User.findByIdAndRemove(id)
     .then(data => {
