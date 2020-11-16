@@ -116,16 +116,16 @@ router.post("/login", (req, res) => {
 
 
 
-router.put("/additem", (req, res) => {
+router.post("/checkoutItem", (req, res) => {
 
   // TODO: Add validation
 
   const email = req.body.email;
-  const item = req.body.item;
+  const items = req.body.items;
 
   User.findOneAndUpdate(
     { email: email },
-    { $push: { items: item  } },
+    { $push: { items: items  } },
     function (error, success) {
          if (error) {
              console.log(error);
