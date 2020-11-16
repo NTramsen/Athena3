@@ -57,7 +57,6 @@ class Checkout extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          //<h1>Welcome {info[1]}</h1>
           Welcome {info[1]}
         </div>
         <div className = 'navbar'>

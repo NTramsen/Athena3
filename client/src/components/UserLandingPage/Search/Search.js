@@ -28,7 +28,6 @@ class Search extends Component {
       <div className = 'main-container'>
         <div className = 'top-banner'>
           Welcome {info[1]}
-          //<h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <NavBar/>

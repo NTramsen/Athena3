@@ -96,11 +96,12 @@ class ManageItems extends Component {
   };
 
   render() {
+    const user = this.props.usr.user;
+    const info = Object.values(user);
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
           Welcome {info[1]}
-          //<h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -164,11 +165,11 @@ class ManageItems extends Component {
 
 ManageItems.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  usr: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  usr: state.auth
 });
 
 export default connect(

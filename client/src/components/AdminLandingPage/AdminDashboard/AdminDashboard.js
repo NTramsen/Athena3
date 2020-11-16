@@ -40,9 +40,11 @@ class AdminDashboard extends Component{
 				</div>
 				
 				<div className='dashboard-list'>
-					<span>Total users:</span> {this.state.users}
-					<span>Total items:</span> {this.state.items}
-					<span>Number of current checkouts: (To be implemented)</span> {this.state.checks}
+					<ul>
+						<li><span>Total users:</span> {this.state.users}</li>
+						<li><span>Total items:</span> {this.state.items}</li>
+						<li><span>Number of current checkouts: (To be implemented)</span> {this.state.checks}</li>
+					</ul>
 				</div>
 			</div>
 		);
