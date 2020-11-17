@@ -122,7 +122,7 @@ router.post("/login", (req, res) => {
 
 
 
-router.put("/additem", (req, res) => {
+router.post("/checkoutItem", (req, res) => {
 
   // TODO: Add validation
 
@@ -193,6 +193,23 @@ router.put("/removeitem", (req, res) => {
   })
   .catch(err => console.error('Item not found'))
 });
+  
+  const email = req.body.email;
+  const items = req.body.items;
+
+  User.findOneAndUpdate(
+    { email: email },
+    { $push: { items: items  } },
+    function (error, success) {
+         if (error) {
+             console.log(error);
+             res.json({ message: 'Not Added' })
+         } else {
+             console.log(success);
+             res.json({ message: 'Added' })
+         }
+     });
+});
 
 router.get("/", users.findAll);
 
@@ -207,6 +224,5 @@ router.delete("/:id", users.delete);
 
 
 router.delete("/", users.deleteAll);
-
 
 module.exports = router;

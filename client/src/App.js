@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { setCurrentUser, setCurrentAdmin, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -24,6 +24,8 @@ import Logout from './components/UserLandingPage/Logout/Logout';
 import AdminLandingPage from './components/AdminLandingPage/AdminLandingPage';
 import ManageItems from './components/AdminLandingPage/ManageItems/ManageItems';
 import ManageUsers from './components/AdminLandingPage/ManageUsers/ManageUsers';
+import ManageCheckouts from './components/AdminLandingPage/ManageCheckouts/ManageCheckouts';
+import AdminAccount from './components/AdminLandingPage/AdminAccount/AdminAccount';
 
 import "./App.css";
 
@@ -42,7 +44,11 @@ import "./App.css";
       email: localStorage.email
     };
 
-    store.dispatch(setCurrentUser(user));
+    if (localStorage.admin=="true"){
+      store.dispatch(setCurrentAdmin(user));
+    } else if (localStorage.admin=="false"){
+      store.dispatch(setCurrentUser(user));
+    }
 
 
     //validate auth token time
@@ -82,6 +88,9 @@ class App extends Component {
               <AdminRoute exact path='/adminLanding' component={AdminLandingPage} />
               <AdminRoute exact path='/manageItems' component={ManageItems} />
               <AdminRoute exact path='/manageUsers' component={ManageUsers} />
+              <AdminRoute exact path='/manageCheckouts' component={ManageCheckouts} />
+              <AdminRoute exact path='/AdminAccount' component={AdminAccount} />
+
             </Switch>
           </div>
         </Router>
