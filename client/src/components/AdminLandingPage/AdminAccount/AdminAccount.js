@@ -2,17 +2,16 @@ import React, {Component, useState} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, getUserInfo } from "../../../actions/authActions";
-import '../UserLandingPage.css';
-import NavBar from '../NavBar/NavBar';
+import '../AdminLandingPage.css';
+import AdminBar from '../AdminBar/AdminBar';
 
-class Account extends Component {
+class AdminAccount extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
 		};
 	};
-
 
 
 	onLogoutClick = e => {
@@ -29,13 +28,12 @@ class Account extends Component {
 		const info = Object.values(user);
 
     return (
-
       <div className = 'main-container'>
         <div className = 'top-banner'>
-            Welcome {info[1]}
+          <h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
-          <NavBar/>
+          <AdminBar/>
         </div>
         <div className = 'content'>
 	      <div className='account-container'>
@@ -62,7 +60,7 @@ class Account extends Component {
   }
 }
 
-Account.propTypes = {
+AdminAccount.propTypes = {
   logoutUser: PropTypes.func.isRequired,
 	usr: PropTypes.object.isRequired
 };
@@ -74,4 +72,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(Account);
+)(AdminAccount);
