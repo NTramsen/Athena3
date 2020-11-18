@@ -19,17 +19,25 @@
 	border-radius: 5px;
 }
 
-.ad-navbar-text a:hover{
-	background-color:  #012169;
-	color: #f2f7f4;
+.center {
+    display:inline-block;
+    vertical-align: middle;
 }
 
-.ad-navbar-text a:active{
+.nav-text a:hover{
 	background-color:  #f2a900;
 	color:  #012169;
 }
 
-.center {
-    display:inline-block;
-    vertical-align: middle;
+.active {
+	background-color:#012169;
+	border-radius: 4px;	
+}
+
+.active .nav-text {
+	color: #f2f7f4;
+}
+
+.active .nav-icon{
+	color: #f2f7f4;
 }
