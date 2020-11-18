@@ -122,7 +122,7 @@ router.post("/login", (req, res) => {
 
 
 
-router.put("/additem", (req, res) => {
+router.post("/checkoutItem", (req, res) => {
 
   // TODO: Add validation
 
@@ -207,6 +207,5 @@ router.delete("/:id", users.delete);
 
 
 router.delete("/", users.deleteAll);
-
 
 module.exports = router;
