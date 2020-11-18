@@ -19,18 +19,6 @@ export const AdminBarData = [
 		path: '/ManageItems',
 		icon: <FaIcons.FaBoxes size={30}/>,
 		cName: 'nav-text'
-	},
-	{
-		title: 'Manage checkouts',
-		path: '/ManageCheckouts',
-		icon: <FaIcons.FaShoppingCart size={30}/>,
-		cName: 'nav-text'
-	},
-	{
-		title: 'My Account',
-		path: '/adminAccount',
-		icon: <FaIcons.FaUserCircle size={30}/>,
-		cName: 'nav-text'
 	}
 
 ];

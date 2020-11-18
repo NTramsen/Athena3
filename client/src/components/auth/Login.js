@@ -40,13 +40,12 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-  };
 
-  loginUser = () => {
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
+
     this.props.loginUser(userData);
   };
 
@@ -122,7 +121,7 @@ class Login extends Component {
                     letterSpacing: "1.5px",
                     marginTop: "1rem"
                   }}
-                  onClick={this.loginUser}
+                  type="submit"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                 >
                   Login
