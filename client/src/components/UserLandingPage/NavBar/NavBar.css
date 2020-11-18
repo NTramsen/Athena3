@@ -33,19 +33,11 @@
 }
 
 .nav-text a:hover{
+	background-color:  #012169;
+	color: #f2f7f4;
+}
+
+.nav-text a:active{
 	background-color:  #f2a900;
 	color:  #012169;
-}
-
-.active {
-	background-color:#012169;
-	border-radius: 4px;	
-}
-
-.active .nav-text {
-	color: #f2f7f4;
-}
-
-.active .nav-icon{
-	color: #f2f7f4;
 }

@@ -122,10 +122,10 @@ router.post("/login", (req, res) => {
 
 
 
-router.post("/checkoutItem", (req, res) => {
+router.put("/additem", (req, res) => {
 
   // TODO: Add validation
-
+  
   const id = req.body.id;
   const itemid = req.body.item;
 
@@ -157,6 +157,7 @@ router.post("/checkoutItem", (req, res) => {
     })
     .catch(err => console.error('Did not find item with id'));
 });
+
 
 router.put("/removeitem", (req, res) => {
 
@@ -207,5 +208,6 @@ router.delete("/:id", users.delete);
 
 
 router.delete("/", users.deleteAll);
+
 
 module.exports = router;

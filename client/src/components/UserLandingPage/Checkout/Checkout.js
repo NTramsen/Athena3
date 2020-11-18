@@ -4,12 +4,6 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from '../NavBar/NavBar';
 import './Checkout.css';
-import axios from 'axios';
-
-
-const api = axios.create({
-  baseURL: 'http://localhost:5000/api/users'
-})
 
 class Checkout extends Component {
 
@@ -19,16 +13,7 @@ class Checkout extends Component {
 	      newItemNum: ''
 	    };
 	};
-
-	checkoutItems = async() => {
-		const item = this.state.newItemNum;
-		//const userId = todo get userId from state?;
-		const email = "anthonytest@test.com"
-		console.log("item in Checkout.js " + item);
-		let data = await api.post('/checkoutItem', {email: email, items: item});
-		console.log("data: " + data);
-	}
-
+	
 	updateItems() {
 		console.log(this.state.newItemNum);
 	};
@@ -48,13 +33,12 @@ class Checkout extends Component {
 	};
 
   render() {
-    const user = this.props.usr.user;
-		const info = Object.values(user);
+    //const { user } = this.props.auth;
 
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          Welcome {info[1]}
+          <h1>Welcome Neil Tramsen</h1>
         </div>
         <div className = 'navbar'>
           <NavBar/>
@@ -72,11 +56,14 @@ class Checkout extends Component {
 				<button className = 'checkout-button'
 					onClick={()=>{
 						if(this.itemObjectValid()){
-							this.checkoutItems();
-							//this.updateItems();
+							this.updateItems();
+
+							
+
 							this.clearForm();
 						}
-					}}>Checkout Item</button>
+						// TODO: INPUT REJECTION ALERT FOR USER
+					}}>Add item</button>
 			</div>
         </div>
         <button
@@ -89,11 +76,11 @@ class Checkout extends Component {
 
 Checkout.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  usr: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  usr: state.auth
+  auth: state.auth
 });
 
 export default connect(
