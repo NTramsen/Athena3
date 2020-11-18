@@ -13,17 +13,12 @@ const api = axios.create({
 class ManageUsers extends Component {
 
   state = {
-    users: [],
-    seen:-1
+    users: []
   };
 
 	constructor(props) {
 	    super(props);
 	};
-
-  componentDidMount(){
-    this.findAllUsers();
-  }
 
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -35,36 +30,16 @@ class ManageUsers extends Component {
     this.setState({users : data});
   }
 
-  createUser = async () => {
+  deleteUser = ()=>{
     return null;
   }
 
-  deleteUser = async(id)=>{
-    let data = await api.delete(`/${id}`);
-    this.findAllUsers();
-  }
-
-  togglePop = (item_id) => {
-    if(this.state.seen==item_id){
-      this.setState({
-        seen: -1
-      });
-    }
-    else{
-      this.setState({
-        seen: item_id
-      });
-    }
-  };
-
   render() {
-    const user = this.props.usr.user;
-    const info = Object.values(user);
     
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          Welcome {info[1]}
+          <h1>Welcome Neil Tramsen</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -72,26 +47,30 @@ class ManageUsers extends Component {
         <div className = 'content'>
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
-					<p>Manage Users:</p>
+					<p>Manage Users</p>
 				</div>
-        <div className = 'User-List'>
-          {this.state.users.map(user =>
-            <div key={user._id}>
-              {user.name}
-              {user.email})
-              <button onClick={() => this.deleteUser(user._id)}>delete</button>
-              <button onClick={()=>this.togglePop(user._id)}>More</button>
-              {this.state.seen==user._id ?
-                <div className="dropdown">
-                  <span className="dashboard-item_description">{user._id}</span>
-                  <span>Map over user's items.</span>
-                </div>
-                : null}
-            </div>
-          )}
+          <div className = 'User-List'>
+          {this.state.users.map(user => <h2 key={user.name}>{user.email})
+          <button onClick={() => this.deleteUser(user.type)}>delete</button></h2>)}
+          <button onClick = {this.findAllUsers}>findAllUsers</button>
         </div>
 
 			</div>
+      
+        <input className = 'adduser-form'
+            placeholder = 'Enter User name'
+            type = 'text'></input>
+        <input className = 'adduser-form'
+            placeholder = 'Enter User email'
+            type = 'text'></input>
+        <input className = 'adduser-form'
+            placeholder = 'Enter User ID'
+            type = 'text'></input>
+
+          <button className = 'checkout-button-btn'>Add User</button>
+
+        
+        
         </div>
         <button
         onClick={this.onLogoutClick}
@@ -103,11 +82,11 @@ class ManageUsers extends Component {
 
 ManageUsers.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  usr: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  usr: state.auth
+  auth: state.auth
 });
 
 export default connect(

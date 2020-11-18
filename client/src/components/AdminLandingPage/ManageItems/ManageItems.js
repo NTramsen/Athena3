@@ -12,43 +12,28 @@ const api = axios.create({
 class ManageItems extends Component {
 
   state = {
-
     items: [],
-    seen:-1,
-    new_type: "",
-    new_desc: "",
-    errors: ""
+    seen:-1
   };
 
   constructor(props){
     super(props);
   };
 
-  updateInputValue(evt) {
-    this.setState({
-      inputValue: evt.target.value
-    });
-  }
-
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
 
-  componentDidMount(){
-    this.findAllItems();
-  };
-
   findAllItems = async() => {
     let data = await api.get('/').then( ({data}) => data);
     this.setState({items : data});
-  };
+  }
 
-
-  createItem = async(type, description) => {
+  createItem = async () => {
     let res = await api.post('/',{
-      type: type,
-      description: description,
+      type: 'newItem',
+      description: 'this is a new item',
       borrowed: false
     });
     this.findAllItems();
@@ -57,51 +42,21 @@ class ManageItems extends Component {
   deleteItem = async(id) =>{
     let data = await api.delete(`/${id}`);
     this.findAllItems();
-  };
+  }  
 
   togglePop = (item_id) => {
-    if(this.state.seen==item_id){
-      this.setState({
-        seen: -1
-      });
-    }
-    else{
       this.setState({
         seen: item_id
       });
-    }
-  };
-
-  onChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
-  onSubmit = e => {
-    e.preventDefault();
-
-    if(this.state.new_type=="" || this.state.new_desc==""){
-      this.setState({
-        errors: "Invalid input: enter an item type and description.",
-        new_type: "",
-        new_desc: ""
-      });
-      return null;
-    }
-
-    this.createItem(this.state.new_type, this.state.new_desc);
-    this.setState({
-      new_type: "",
-      new_desc: ""
-    })
   };
 
   render() {
-    const user = this.props.usr.user;
-    const info = Object.values(user);
+    //const { user } = this.props.auth;
+
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          Welcome {info[1]}
+          <h1>Welcome Neil Tramsen</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -109,50 +64,22 @@ class ManageItems extends Component {
         <div className = 'content'>
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
-          <div>
-            <span>Create a new item:</span>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div>
-                <label>Item type</label>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.new_type}
-                  id="new_type"
-                  type="text"
-                />
-                <label>Item description</label>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.new_desc}
-                  id="new_desc"
-                  type="text"
-                />
-                <button
-                    type="submit"
-                  >
-                  Create
-                </button>
-              </div>
-            </form>
-            {this.state.errors}
-          </div>
-
-          <div>
-            <span>All current items:</span>
-            {this.state.items.map(item => 
-              <div key={item._id}>
-                {item.type}
-                <button onClick={() => this.deleteItem(item._id)}>delete</button>
-                <button onClick={()=>this.togglePop(item._id)}>More</button>
-                {this.state.seen==item._id ? 
-                  <div className="dropdown">
-                    <span className="dashboard-item_description">{item.description}</span> 
-                  </div>
-                  : null}
-              </div>
-            )}
-          </div>
+          <button onClick = {this.createItem}>createItem</button>
+          {this.state.items.map(item => 
+            <div key={item._id}>
+              {item.description})
+              <button onClick={() => this.deleteItem(item._id)}>delete</button>
+              <button onClick={()=>this.togglePop(item._id)}>More</button>
+              {this.state.seen==item._id ? 
+                <div className="dropdown">
+                  <span className="dashboard-item_description">{item.description}</span> 
+                </div>
+                : null}
+            </div>
+          )}
+          <button onClick = {this.findAllItems}>findAllItems</button>
 				</div>
+				Content.
 			</div>
         </div>
         <button
@@ -165,11 +92,11 @@ class ManageItems extends Component {
 
 ManageItems.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  usr: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  usr: state.auth
+  auth: state.auth
 });
 
 export default connect(
