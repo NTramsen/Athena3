@@ -16,12 +16,6 @@ const e = require("express");
 // load user controllers
 const users = require("../../controller/user.controller");
 
-// Load item model
-const Item = require("../../models/Item");
-
-// load item controllers
-const items = require("../../controller/item.controller");
-
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -126,74 +120,6 @@ router.post("/checkoutItem", (req, res) => {
 
   // TODO: Add validation
 
-  const id = req.body.id;
-  const itemid = req.body.item;
-
-  Item.findOne({_id: itemid, borrowed:{$eq:false}})
-    .then(item => {
-      if (item){
-        Item.findOneAndUpdate({_id: itemid},{borrowed: true})
-        .then(item2 => {
-
-          User.findOneAndUpdate(
-            { _id: id },
-            { $push: { items: itemid } },
-            function (error, success) {
-                 if (error) {
-                     res.status(404).json({ message: 'Not Added' })
-                     return
-                 } else {
-                     res.status(200).json({ message: 'Added item '+itemid +' to '+id})
-                     return
-                 }
-             });
-        })
-        .catch(err => console.error('not updated'));
-      }
-      else{
-        res.status(404).json({message: 'Item already borrowed'})
-        return 
-      }
-    })
-    .catch(err => console.error('Did not find item with id'));
-});
-
-router.put("/removeitem", (req, res) => {
-
-  // TODO: Add validation
-
-  const id = req.body.id;
-  const itemid = req.body.item;
-
-  User.findOne({ _id: id, items: { $in: [itemid]}})
-    .then(user => {
-      if (user){
-        User.findOneAndUpdate({_id: id},{$pull: {items: { $in: [itemid]}}})
-        .then(item2 => {
-
-          Item.findOneAndUpdate(
-            { _id: itemid },
-            { borrowed: false },
-            function (error, success) {
-                 if (error) {
-                     res.status(404).json({ message: 'Not removed from account' })
-                     return
-                 } else {
-                     res.status(200).json({ message: 'Checked out'+itemid +'from'+id})
-                     return
-                 }
-             });
-        })
-        .catch(err => console.error('not updated'));
-      }
-      else{
-        res.status(404).json({message: 'Item already borrowed'})
-        return 
-      }
-  })
-  .catch(err => console.error('Item not found'))
-});
-  
   const email = req.body.email;
   const items = req.body.items;
 

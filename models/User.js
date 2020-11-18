@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 // Create Schema
 const UserSchema = new Schema({
   
+  // TODO: NEED A USERID
+
   name: {
     type: String,
     required: true
@@ -21,7 +23,7 @@ const UserSchema = new Schema({
     default: Date.now
   },
   items: {
-    type: [String]
+    type: [Number]
   }
 });
 
