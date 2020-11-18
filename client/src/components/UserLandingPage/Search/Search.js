@@ -9,11 +9,26 @@ import NavBar from '../NavBar/NavBar';
 
 class Search extends Component {
 
+  state = {
+    items: [], 
+    inputValue: ''
+  };
+
 	constructor(props) {
 	    super(props);
 	    this.state = {
 	    };
 	};
+
+  searchItems = async(regex) =>{
+    const params = {
+      type: String(regex)
+    };
+    console.log(params);
+    let data = await api.get('/', {params}).then( ({data}) => data);
+    console.log(data);
+    this.setState({items : data});
+  }
 
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -39,8 +54,11 @@ class Search extends Component {
             </div>
             <input className = 'search-form'
               placeholder = 'Enter item name'
+              value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}
               type = 'text'></input>
-            <button className = 'search-button_btn'>Search</button>
+            <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
+              {this.state.items.map(item => <p key={item.type}>{item.description})
+            <button onClick={() => this.deleteItem(item._id)}>delete</button></p>)}
           </div>
         </div>
         <button
