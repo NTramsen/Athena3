@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Dashboard.css';
+import '../../../App.css';
 import ItemInterface from '../ItemInterface/ItemInterface';
 
 class Dashboard extends Component{
@@ -43,10 +43,10 @@ class Dashboard extends Component{
 
 	render(){
 		return (
-			<div className='dashboard-dashboard-container'>
-				<div className='dashboard-dashboard-header'>
-					<div className='dashboard-dashboard-title'>
-						Your items
+			<div className='content'>
+				<div className='component-container'>
+					<div className='component-header'>
+						<p className='component-title'>Your Items</p>
 					</div>
 				</div>
 				<div className='dashboard-list_header'>
@@ -67,13 +67,14 @@ class Dashboard extends Component{
 										<span className="dashboard-item_name">{item.name}</span>
 										<span className="dashboard-item_date">{item.return_date}</span>
 										<span className="dashboard-item_id">{item.item_id}</span>
-										<button onClick={()=>this.togglePop(item.item_id)}>
+										<span><button className = "item-button_btn" onClick={()=>this.togglePop(item.item_id)}>
 						                  More
-						                </button>
+						                </button></span>
+										
 										{this.state.seen==item.item_id ? 
 											<div className="dropdown">
 												<span className="dashboard-item_description">{item.description}</span> 
-												<button className="return-but">Return</button>
+												<button className="item-button_btn">Return</button>
 											</div>
 											: null}
 									</div>

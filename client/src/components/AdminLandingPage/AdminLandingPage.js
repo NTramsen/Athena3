@@ -6,7 +6,7 @@ import AdminBar from './AdminBar/AdminBar';
 import AdminDashboard from './AdminDashboard/AdminDashboard';
 import axios from 'axios'
 
-import './AdminLandingPage.css';
+import '../../App.css';
 
 class AdminLandingPage extends Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {SideBarData} from './SideBarData';
-import './NavBar.css';
+import '../../../App.css';
 import * as FaIcons from 'react-icons/fa';
 
 function NavBar(){

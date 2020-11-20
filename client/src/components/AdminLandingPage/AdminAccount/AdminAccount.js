@@ -2,7 +2,8 @@ import React, {Component, useState} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, getUserInfo } from "../../../actions/authActions";
-import '../AdminLandingPage.css';
+// import '../AdminLandingPage.css';
+import '../../../App.css';
 import AdminBar from '../AdminBar/AdminBar';
 
 class AdminAccount extends Component {
@@ -20,9 +21,6 @@ class AdminAccount extends Component {
 	};
 
 
-
-
-
   render() {
 		const user = this.props.usr.user;
 		const info = Object.values(user);
@@ -30,15 +28,15 @@ class AdminAccount extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome {info[1]}</h1>
+			Welcome {info[1]}
         </div>
         <div className = 'navbar'>
           <AdminBar/>
         </div>
         <div className = 'content'>
-	      <div className='account-container'>
-			<div className = 'account-header'>
-				<h2>Your account details</h2>
+	      <div className='component-container'>
+			<div className = 'component-header'>
+				<p className='component-title'>Your account details</p>
 			</div>
 			<div className = 'account-content'>
 				<ul className='account-info-list'>
@@ -47,8 +45,8 @@ class AdminAccount extends Component {
 				</ul>
 			</div>
 			<div className = 'edit-account'>
-				<button type='button'>Edit details</button>
-				<button type='button'>Change password</button>
+				<button className='account-button'>Edit details</button>
+				<button className='account-button'>Change password</button>
 			</div>
 		</div>
         </div>

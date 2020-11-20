@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from '../NavBar/NavBar';
-import './Checkout.css';
+import '../../../App.css';
 import axios from 'axios';
 
 
@@ -60,11 +60,11 @@ class Checkout extends Component {
           <NavBar/>
         </div>
         <div className = 'content'>
-	          <div className='checkout-container'>
-				<div className='checkout_header'>
-					<p className='checkout-title'>Checkout a new item</p>
+	          <div className='component-container'>
+				<div className='component-header'>
+					<p className='component-title'>Checkout a new item</p>
 				</div>
-				<input className = 'checkout-form'
+				<input
 					placeholder = 'Enter item number'
 					type = 'number'
 					value = {this.state.newItemNum}

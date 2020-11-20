@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import './UserLandingPage.css';
+import '../../App.css';
 import NavBar from './NavBar/NavBar';
 import Dashboard from './Dashboard/Dashboard';
 

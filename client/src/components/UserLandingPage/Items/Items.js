@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from '../NavBar/NavBar';
-import './Items.css';
+import '../../../App.css';
 import axios from 'axios';
 
 const api = axios.create({
@@ -111,17 +111,16 @@ class Items extends Component {
           <NavBar/>
         </div>
         <div className = 'content'>
-	      <div className='items-container'>
-			<div className='items-header'>
-				<p className='tems-heade'>Your item history</p>
+	      <div className='component-container'>
+			<div className='component-header'>
+				<p className='component-title'>Your item history</p>
 			</div>
 			<div className='current-list'>
-				<p className='list-title'>Current items</p>
-				<span>All Current Items</span>
+				<p className='sub-title'>All current items</p>
 				{this.state.items.map(item => 
               <div key={item._id}>
                 {item.type}
-                <button onClick={()=>this.togglePop(item._id)}>More</button>
+                <button className='item-button_btn' onClick={()=>this.togglePop(item._id)}>More</button>
                 {this.state.seen==item._id ? 
                   <div className="dropdown">
                     <span className="dashboard-item_description">{item.description}</span> 
@@ -144,25 +143,7 @@ class Items extends Component {
 						)
 					})} */}
 			</div>
-			<div className='returned-list'>
-				<p className='list-title'>Past items</p>
-				<ul>
-					{this.getPastItems().map((item, index)=>{
-						return(
-							<li key={index} className="itemlist-element">
-								<p className='element-lists'>
-									<span className="items_name">{item.name}</span>
-									<span className="items_date">{item.return_date}</span>
-									<span className="More_button">
-										<button type="button">More</button>
-									</span>
-								</p>
-
-							</li>
-						)
-					})}
-				</ul>
-			</div>
+		
 		</div>
         </div>
         <button

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
-import './ManageUsers.css';
+import '../../../App.css';
 import axios from 'axios';
 
 const api = axios.create({
@@ -70,17 +70,17 @@ class ManageUsers extends Component {
           <AdminBar/>
         </div>
         <div className = 'content'>
-	          <div className='checkout-container'>
-				<div className='checkout-header'>
-					<p>Manage Users:</p>
+	          <div className='component-container'>
+				<div className='component-header'>
+          <p className='component-title'>Manage Users:</p>
 				</div>
         <div className = 'User-List'>
           {this.state.users.map(user =>
             <div key={user._id}>
               {user.name}
               {user.email})
-              <button onClick={() => this.deleteUser(user._id)}>delete</button>
-              <button onClick={()=>this.togglePop(user._id)}>More</button>
+              <button className='item-button_btn' onClick={() => this.deleteUser(user._id)}>delete</button>
+              <button className='item-button_btn' onClick={()=>this.togglePop(user._id)}>More</button>
               {this.state.seen==user._id ?
                 <div className="dropdown">
                   <span className="dashboard-item_description">{user._id}</span>
