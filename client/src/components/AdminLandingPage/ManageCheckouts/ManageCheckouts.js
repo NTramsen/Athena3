@@ -6,15 +6,13 @@ import AdminBar from '../AdminBar/AdminBar';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/items'
+  baseURL: 'http://localhost:5000/api/users'
 })
 
 class ManageCheckouts extends Component {
 
   state = {
-    items: [],
-    seen:-1,
-    errors: ""
+    users: [],
   };
 
   constructor(props){
@@ -31,22 +29,13 @@ class ManageCheckouts extends Component {
   };
 
   findAllCheckouts = async() => {
-    // to be implemented
-    return null;
+    let data = await api.get('/').then( ({data}) => data);
+    this.setState({users : data});
   };
 
-  togglePop = (item_id) => {
-    if(this.state.seen==item_id){
-      this.setState({
-        seen: -1
-      });
-    }
-    else{
-      this.setState({
-        seen: item_id
-      });
-    }
-  };
+  returnItem = async(userid, itemid) =>{
+    return null;
+  }
 
   render() {
     const user = this.props.usr.user;
@@ -70,7 +59,18 @@ class ManageCheckouts extends Component {
           </div>
           <div>
             <span>View over-due items:</span>
-            <p>To be implemented.</p>
+            {this.state.users.map(user =>
+              <div key={user._id}>
+                {user.items.map(item=>
+                  <div key={item}>
+                    {user.name}
+                    {user._id}
+                    {item}
+                    <button onClick={()=>this.returnItem(user._id, item._id)}>Return item</button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 				</div>
 			</div>

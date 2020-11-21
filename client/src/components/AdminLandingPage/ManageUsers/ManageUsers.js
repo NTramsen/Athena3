@@ -35,10 +35,6 @@ class ManageUsers extends Component {
     this.setState({users : data});
   }
 
-  createUser = async () => {
-    return null;
-  }
-
   deleteUser = async(id)=>{
     let data = await api.delete(`/${id}`);
     this.findAllUsers();
