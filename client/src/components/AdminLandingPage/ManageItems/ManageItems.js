@@ -142,8 +142,8 @@ class ManageItems extends Component {
             {this.state.items.map(item => 
               <div key={item._id}>
                 {item.type}
-                <button onClick={() => this.deleteItem(item._id)}>delete</button>
-                <button onClick={()=>this.togglePop(item._id)}>More</button>
+                <button onClick={() => this.deleteItem(item._id.toString())}>delete</button>
+                <button onClick={()=>this.togglePop(item._id.toString())}>More</button>
                 {this.state.seen==item._id ? 
                   <div className="dropdown">
                     <span className="dashboard-item_description">{item.description}</span> 

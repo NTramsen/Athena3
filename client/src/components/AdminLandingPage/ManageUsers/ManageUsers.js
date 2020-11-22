@@ -75,11 +75,11 @@ class ManageUsers extends Component {
             <div key={user._id}>
               {user.name}
               {user.email})
-              <button onClick={() => this.deleteUser(user._id)}>delete</button>
-              <button onClick={()=>this.togglePop(user._id)}>More</button>
+              <button onClick={() => this.deleteUser(user._id.toString())}>delete</button>
+              <button onClick={()=>this.togglePop(user._id.toString())}>More</button>
               {this.state.seen==user._id ?
                 <div className="dropdown">
-                  <span className="dashboard-item_description">{user._id}</span>
+                  <span className="dashboard-item_description">{user._id.toString()}</span>
                   <span>Map over user's items.</span>
                 </div>
                 : null}

@@ -21,14 +21,19 @@ class Search extends Component {
        items: [],
        inputValue: ''
     }
-	};
+  };
+
+  deleteItem = async(id) =>{
+    console.log(id);
+    let data = await api.delete(`/${id}`);
+  };
 
   updateInputValue(evt) {
     this.setState({
       inputValue: evt.target.value
     });
   }
-  
+
   searchItems = async(regex) =>{
     const params = {
       type: String(regex)
@@ -67,7 +72,7 @@ class Search extends Component {
               type = 'text'></input>
             <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
               {this.state.items.map(item => <p key={item.type}>{item.description})
-            <button onClick={() => this.deleteItem(item._id)}>delete</button></p>)}
+            <button onClick={() => this.deleteItem(item._id.toString())}>delete</button></p>)}
           </div>
         </div>
         <button
