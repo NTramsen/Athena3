@@ -16,12 +16,6 @@ const e = require("express");
 // load user controllers
 const users = require("../../controller/user.controller");
 
-// Load item model
-const Item = require("../../models/Item");
-
-// load item controllers
-const items = require("../../controller/item.controller");
-
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -122,10 +116,10 @@ router.post("/login", (req, res) => {
 
 
 
-router.post("/checkoutItem", (req, res) => {
+router.put("/additem", (req, res) => {
 
   // TODO: Add validation
-
+  
   const id = req.body.id;
   const itemid = req.body.item;
 
@@ -193,23 +187,6 @@ router.put("/removeitem", (req, res) => {
   })
   .catch(err => console.error('Item not found'))
 });
-  
-  const email = req.body.email;
-  const items = req.body.items;
-
-  User.findOneAndUpdate(
-    { email: email },
-    { $push: { items: items  } },
-    function (error, success) {
-         if (error) {
-             console.log(error);
-             res.json({ message: 'Not Added' })
-         } else {
-             console.log(success);
-             res.json({ message: 'Added' })
-         }
-     });
-});
 
 router.get("/", users.findAll);
 
@@ -224,5 +201,6 @@ router.delete("/:id", users.delete);
 
 
 router.delete("/", users.deleteAll);
+
 
 module.exports = router;

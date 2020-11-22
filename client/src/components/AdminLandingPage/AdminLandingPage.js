@@ -16,13 +16,12 @@ class AdminLandingPage extends Component {
   };
 
   render() {
-    const user = this.props.usr.user;
-    const info = Object.values(user);
+    //const { user } = this.props.auth;
 
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          Welcome {info[1]}
+          <h1>Welcome admin user</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -40,11 +39,11 @@ class AdminLandingPage extends Component {
 
 AdminLandingPage.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  usr: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  usr: state.auth
+  auth: state.auth
 });
 
 export default connect(

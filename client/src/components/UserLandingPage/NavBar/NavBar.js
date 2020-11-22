@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {SideBarData} from './SideBarData';
 import './NavBar.css';
 import * as FaIcons from 'react-icons/fa';
@@ -13,10 +13,10 @@ function NavBar(){
 					{SideBarData.map((item, index)=>{
 						return(
 							<li key={index} className={item.cName}>
-								<NavLink to = {item.path} activeClassName = 'active'>
+								<Link to = {item.path}>
 									<span className='nav-icon'>{item.icon}</span>
 									<span className='nav-text'>{item.title}</span>
-								</NavLink>
+								</Link>
 							</li>
 						)
 					})} 

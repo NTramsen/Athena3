@@ -15,8 +15,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload,
-        isAdmin:false
+        user: action.payload
       };
     case SET_CURRENT_ADMIN:
       return {
