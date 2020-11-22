@@ -49,23 +49,29 @@ class Items extends Component {
 	};
 	
 	getCurrentItems(){
-		return [
-			{
-				name: "Stethoscope",
-				return_date: "8 hours",
-				item_id: 23801
-			},
-			{
-				name: "Behavioural biology textbook",
-				return_date: "2 days",
-				item_id: 48920
-			},
-			{
-				name: "Design kit",
-				return_date: "6 days",
-				item_id: 98384
-			}
-		];
+		const user = this.props.usr.user;
+		const info = Object.values(user);
+
+		const allItems = this.state.items;
+		const userID = info[0];
+
+		// return [
+		// 	{
+		// 		name: "Stethoscope",
+		// 		return_date: "8 hours",
+		// 		item_id: 23801
+		// 	},
+		// 	{
+		// 		name: "Behavioural biology textbook",
+		// 		return_date: "2 days",
+		// 		item_id: 48920
+		// 	},
+		// 	{
+		// 		name: "Design kit",
+		// 		return_date: "6 days",
+		// 		item_id: 98384
+		// 	}
+		// ];
 	}
 
 	getPastItems() {

@@ -1,4 +1,5 @@
 const express = require("express");
+var bodyParser = require('body-parser')
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -125,10 +126,9 @@ router.post("/login", (req, res) => {
 router.post("/checkoutItem", (req, res) => {
 
   // TODO: Add validation
-
   const id = req.body.id;
   const itemid = req.body.item;
-
+  console.log('id from consolelog ' + id);
   Item.findOne({_id: itemid, borrowed:{$eq:false}})
     .then(item => {
       if (item){
@@ -143,7 +143,7 @@ router.post("/checkoutItem", (req, res) => {
                      res.status(404).json({ message: 'Not Added' })
                      return
                  } else {
-                     res.status(200).json({ message: 'Added item '+itemid +' to '+id})
+                     res.status(200).json({ message: 'In Router added item '+itemid +' to '+id})
                      return
                  }
              });
@@ -151,11 +151,11 @@ router.post("/checkoutItem", (req, res) => {
         .catch(err => console.error('not updated'));
       }
       else{
-        res.status(404).json({message: 'Item already borrowed'})
+        res.status(404).json({message: 'In router Item already borrowed ' +req.body})
         return 
       }
     })
-    .catch(err => console.error('Did not find item with id'));
+    .catch(err => console.error('router Did not find item with id' + JSON.stringify(req.body)));
 });
 
 router.put("/removeitem", (req, res) => {
@@ -195,6 +195,9 @@ router.put("/removeitem", (req, res) => {
 });
 
 router.get("/", users.findAll);
+
+
+router.post("/", users.checkoutItem);
 
 
 router.get("/:id", users.findOne);
