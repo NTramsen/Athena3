@@ -3,64 +3,48 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
-import './ManageUsers.css';
 import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/users'
 })
 
-class ManageUsers extends Component {
+class ManageCheckouts extends Component {
 
   state = {
     users: [],
-    seen:-1
   };
 
-	constructor(props) {
-	    super(props);
-	};
-
-  componentDidMount(){
-    this.findAllUsers();
-  }
+  constructor(props){
+    super(props);
+  };
 
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
 
-  findAllUsers = async() => {
+  componentDidMount(){
+    this.findAllCheckouts();
+  };
+
+  findAllCheckouts = async() => {
     let data = await api.get('/').then( ({data}) => data);
     this.setState({users : data});
-  }
-
-  deleteUser = async(id)=>{
-    let data = await api.delete(`/${id}`);
-    this.findAllUsers();
-  }
-
-  togglePop = (item_id) => {
-    if(this.state.seen==item_id){
-      this.setState({
-        seen: -1
-      });
-    }
-    else{
-      this.setState({
-        seen: item_id
-      });
-    }
   };
+
+  returnItem = async(userid, itemid) =>{
+    return null;
+  }
 
   render() {
     const user = this.props.usr.user;
     const info = Object.values(user);
-    
+
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          Welcome {info[1]}
+          <h1>Welcome {info[1]}</h1>
         </div>
         <div className = 'navbar'>
           <AdminBar/>
@@ -68,25 +52,27 @@ class ManageUsers extends Component {
         <div className = 'content'>
 	          <div className='checkout-container'>
 				<div className='checkout-header'>
-					<p>Manage Users:</p>
-				</div>
-        <div className = 'User-List'>
-          {this.state.users.map(user =>
-            <div key={user._id}>
-              {user.name}
-              {user.email})
-              <button onClick={() => this.deleteUser(user._id)}>delete</button>
-              <button onClick={()=>this.togglePop(user._id)}>More</button>
-              {this.state.seen==user._id ?
-                <div className="dropdown">
-                  <span className="dashboard-item_description">{user._id}</span>
-                  <span>Map over user's items.</span>
-                </div>
-                : null}
-            </div>
-          )}
-        </div>
 
+          <div>
+            <span>View currently checked-out items:</span>
+            <p>To be implemented.</p>
+          </div>
+          <div>
+            <span>View over-due items:</span>
+            {this.state.users.map(user =>
+              <div key={user._id}>
+                {user.items.map(item=>
+                  <div key={item}>
+                    {user.name}
+                    {user._id}
+                    {item}
+                    <button onClick={()=>this.returnItem(user._id, item._id)}>Return item</button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+				</div>
 			</div>
         </div>
         <button
@@ -97,7 +83,7 @@ class ManageUsers extends Component {
   }
 }
 
-ManageUsers.propTypes = {
+ManageCheckouts.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   usr: PropTypes.object.isRequired
 };
@@ -109,4 +95,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(ManageUsers);
+)(ManageCheckouts);

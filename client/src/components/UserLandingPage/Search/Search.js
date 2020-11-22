@@ -45,12 +45,13 @@ class Search extends Component {
 	};
 
   render() {
-    //const { user } = this.props.auth;
+		const user = this.props.usr.user;
+		const info = Object.values(user);
 
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          Welcome {info[1]}
         </div>
         <div className = 'navbar'>
           <NavBar/>
@@ -84,11 +85,11 @@ Search.defaultProps = {
 
 Search.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  usr: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  usr: state.auth
 });
 
 export default connect(

@@ -4,15 +4,50 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import NavBar from '../NavBar/NavBar';
 import './Items.css';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/items'
+})
 
 class Items extends Component {
 
 	constructor(props) {
 	    super(props);
-	    this.state = {
-	    };
+	    // this.state = {
+	    // };
 	};
 
+	state = {
+    items: [],
+    seen:-1,
+    new_type: "",
+    new_desc: "",
+    errors: ""
+  };
+
+	componentDidMount(){
+    this.findAllItems();
+  };
+
+	findAllItems = async() => {
+    let data = await api.get('/').then( ({data}) => data);
+    this.setState({items : data});
+	};
+	
+	togglePop = (item_id) => {
+    if(this.state.seen==item_id){
+      this.setState({
+        seen: -1
+      });
+    }
+    else{
+      this.setState({
+        seen: item_id
+      });
+    }
+	};
+	
 	getCurrentItems(){
 		return [
 			{
@@ -64,12 +99,13 @@ class Items extends Component {
 	};
 
   render() {
-    //const { user } = this.props.auth;
+		const user = this.props.usr.user;
+		const info = Object.values(user);
 
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome Neil Tramsen</h1>
+          Welcome {info[1]}
         </div>
         <div className = 'navbar'>
           <NavBar/>
@@ -81,8 +117,19 @@ class Items extends Component {
 			</div>
 			<div className='current-list'>
 				<p className='list-title'>Current items</p>
-				<ul>
-					{this.getCurrentItems().map((item, index)=>{
+				<span>All Current Items</span>
+				{this.state.items.map(item => 
+              <div key={item._id}>
+                {item.type}
+                <button onClick={()=>this.togglePop(item._id)}>More</button>
+                {this.state.seen==item._id ? 
+                  <div className="dropdown">
+                    <span className="dashboard-item_description">{item.description}</span> 
+                  </div>
+                  : null}
+              </div>
+            )}
+					{/* {this.getCurrentItems().map((item, index)=>{
 						return(
 							<li key={index} className="itemlist-element">
 								<p className='element-lists'>
@@ -92,11 +139,10 @@ class Items extends Component {
 										<button type="button">More</button>
 									</span>
 								</p>
-								
+
 							</li>
 						)
-					})}
-				</ul>
+					})} */}
 			</div>
 			<div className='returned-list'>
 				<p className='list-title'>Past items</p>
@@ -111,7 +157,7 @@ class Items extends Component {
 										<button type="button">More</button>
 									</span>
 								</p>
-								
+
 							</li>
 						)
 					})}
@@ -129,11 +175,11 @@ class Items extends Component {
 
 Items.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  usr: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  usr: state.auth
 });
 
 export default connect(

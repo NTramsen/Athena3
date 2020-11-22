@@ -14,16 +14,6 @@ class Account extends Component {
 	};
 
 
-	getAccountInfo(){
-		return [
-			{
-				username: "Neil Tramsen",
-			},
-			{
-				email_address: "ntramsen112@gmail.com",
-			}
-		];
-	}
 
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -39,9 +29,10 @@ class Account extends Component {
 		const info = Object.values(user);
 
     return (
+
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome {info[1]}</h1>
+            Welcome {info[1]}
         </div>
         <div className = 'navbar'>
           <NavBar/>
