@@ -29,7 +29,11 @@ class Checkout extends Component {
 
 		console.log("userID: " + id);
 		console.log("item in Checkout.js " + itemid);
-		let data = await api.post('/checkoutItem', {id: id, items: itemid});
+		let data = api.put('/checkoutItem', {id: id, item: itemid}).then( response => {
+			console.log(response);
+		}).catch(e => {
+			console.log(e);
+		});
 	}
 
 	updateItems() {

@@ -123,39 +123,39 @@ router.post("/login", (req, res) => {
 
 
 
-router.post("/checkoutItem", (req, res) => {
+router.put("/checkoutItem", (req, res) => {
 
   // TODO: Add validation
   const id = req.body.id;
   const itemid = req.body.item;
-  console.log('id from consolelog ' + id);
-  Item.findOne({_id: itemid, borrowed:{$eq:false}})
+  // console.log('id from consolelog ' + id);
+  Item.findOne({ _id: itemid, borrowed: { $eq: false } })
     .then(item => {
-      if (item){
-        Item.findOneAndUpdate({_id: itemid},{borrowed: true})
-        .then(item2 => {
+      if (item) {
+        Item.findOneAndUpdate({ _id: itemid }, { borrowed: true })
+          .then(item2 => {
 
-          User.findOneAndUpdate(
-            { _id: id },
-            { $push: { items: itemid } },
-            function (error, success) {
-                 if (error) {
-                     res.status(404).json({ message: 'Not Added' })
-                     return
-                 } else {
-                     res.status(200).json({ message: 'In Router added item '+itemid +' to '+id})
-                     return
-                 }
-             });
-        })
-        .catch(err => console.error('not updated'));
+            User.findOneAndUpdate(
+              { _id: id },
+              { $push: { items: itemid } },
+              function (error, success) {
+                if (error) {
+                  res.status(401).json({ message: 'Router- Not Added' })
+                  return
+                } else {
+                  res.status(200).json({ message: 'In Router added item ' + itemid + ' to ' + id })
+                  return
+                }
+              });
+          })
+          .catch(err => console.error('Router-not updated'));
       }
-      else{
-        res.status(404).json({message: 'In router Item already borrowed ' +req.body})
-        return 
+      else {
+        res.status(399).json({ message: 'Router Item already borrowed ' + req.body })
+        return
       }
     })
-    .catch(err => console.error('router Did not find item with id' + JSON.stringify(req.body)));
+    .catch(err => console.error('Router did not find item with id' + JSON.stringify(req.body)));
 });
 
 router.put("/removeitem", (req, res) => {
@@ -165,33 +165,33 @@ router.put("/removeitem", (req, res) => {
   const id = req.body.id;
   const itemid = req.body.item;
 
-  User.findOne({ _id: id, items: { $in: [itemid]}})
+  User.findOne({ _id: id, items: { $in: [itemid] } })
     .then(user => {
-      if (user){
-        User.findOneAndUpdate({_id: id},{$pull: {items: { $in: [itemid]}}})
-        .then(item2 => {
+      if (user) {
+        User.findOneAndUpdate({ _id: id }, { $pull: { items: { $in: [itemid] } } })
+          .then(item2 => {
 
-          Item.findOneAndUpdate(
-            { _id: itemid },
-            { borrowed: false },
-            function (error, success) {
-                 if (error) {
-                     res.status(404).json({ message: 'Not removed from account' })
-                     return
-                 } else {
-                     res.status(200).json({ message: 'Checked out'+itemid +'from'+id})
-                     return
-                 }
-             });
-        })
-        .catch(err => console.error('not updated'));
+            Item.findOneAndUpdate(
+              { _id: itemid },
+              { borrowed: false },
+              function (error, success) {
+                if (error) {
+                  res.status(404).json({ message: 'Not removed from account' })
+                  return
+                } else {
+                  res.status(200).json({ message: 'Checked out' + itemid + 'from' + id })
+                  return
+                }
+              });
+          })
+          .catch(err => console.error('not updated'));
       }
-      else{
-        res.status(404).json({message: 'Item already borrowed'})
-        return 
+      else {
+        res.status(404).json({ message: 'Item already borrowed' })
+        return
       }
-  })
-  .catch(err => console.error('Item not found'))
+    })
+    .catch(err => console.error('Item not found'))
 });
 
 router.get("/", users.findAll);
