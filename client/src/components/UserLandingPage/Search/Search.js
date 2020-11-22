@@ -6,20 +6,29 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import './Search.css';
 import NavBar from '../NavBar/NavBar';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/items'
+})
+
 
 class Search extends Component {
 
-  state = {
-    items: [], 
-    inputValue: ''
-  };
-
 	constructor(props) {
-	    super(props);
-	    this.state = {
-	    };
+    super(props)
+    this.state = {
+       items: [],
+       inputValue: ''
+    }
 	};
 
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    });
+  }
+  
   searchItems = async(regex) =>{
     const params = {
       type: String(regex)
@@ -66,6 +75,11 @@ class Search extends Component {
       </div>
     );
   }
+}
+
+Search.defaultProps = {
+  items: [], 
+  inputValue: ''
 }
 
 Search.propTypes = {
