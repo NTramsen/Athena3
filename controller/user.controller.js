@@ -18,29 +18,24 @@ exports.findAll = (req, res) => {
 };
 
 
-//checkout an item to a user
-exports.checkoutItem = (req, res) => {
+exports.getUsersItems = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
       message: "Data to checkout can not be empty!"
     });
   }
 
-  const email = req.body.email;
-  const items = req.body.items;
-
-  console.log("item" + items);
+  const id = req.body.id;
 
   User.findOneAndUpdate(
-    { email: email },
-    { $push: { items: items } },
+    { id: id },
     function (error, success) {
          if (error) {
              console.log(error);
-             res.json({ message: 'Not Added' })
+             res.json({ message: 'Unsucuessful Retrieval' })
          } else {
            res.status(400).json({
-             message: 'added'
+             message: 'Retrieved'
            });
             //  console.log(success);
             //  console.log("item: " + item);
@@ -61,8 +56,84 @@ exports.checkoutItem = (req, res) => {
         message: "Error updating user with id=" + id
       });
     });
-  
 };
+
+//checkout an item to a user
+exports.checkoutItem = (req, res) => {
+  const id = req.body.id;
+  const itemid = req.body.item;
+
+  Item.findOne({_id: itemid, borrowed:{$eq:false}})
+    .then(item => {
+      if (item){
+        Item.findOneAndUpdate({_id: itemid},{borrowed: true})
+        .then(item2 => {
+
+          User.findOneAndUpdate(
+            { _id: id },
+            { $push: { items: itemid } },
+            function (error, success) {
+                 if (error) {
+                     res.status(404).json({ message: 'controller Not Added' })
+                     return
+                 } else {
+                     res.status(200).json({ message: 'Added item '+itemid +' to '+id})
+                     return
+                 }
+             });
+        })
+        .catch(err => console.error('not updated'));
+      }
+      else{
+        res.status(404).json({message: 'controller Item already borrowed'})
+        return 
+      }
+    })
+    .catch(err => console.error('Did not find item with id'));
+};
+// exports.checkoutItem = (req, res) => {
+//   if (!req.body) {
+//     return res.status(400).send({
+//       message: "Data to checkout can not be empty!"
+//     });
+//   }
+
+//   const email = req.body.email;
+//   const items = req.body.items;
+
+//   console.log("item" + items);
+
+//   User.findOneAndUpdate(
+//     { email: email },
+//     { $push: { items: items } },
+//     function (error, success) {
+//          if (error) {
+//              console.log(error);
+//              res.json({ message: 'Not Added' })
+//          } else {
+//            res.status(400).json({
+//              message: 'added'
+//            });
+//             //  console.log(success);
+//             //  console.log("item: " + item);
+//             //  res.json({ message: 'Added' })
+//          }
+// //      });
+
+//   User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+//     .then(data => {
+//       if (!data) {
+//         res.status(404).send({
+//           message: `Cannot update user with id=${id}.`
+//         });
+//       } else res.send({ message: "Item was updated successfully." });
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message: "Error updating user with id=" + id
+//       });
+//     });
+// };
 
 // Find a single user with an id
 exports.findOne = (req, res) => {

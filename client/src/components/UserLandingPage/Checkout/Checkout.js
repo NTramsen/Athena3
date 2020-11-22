@@ -21,21 +21,29 @@ class Checkout extends Component {
 	};
 
 	checkoutItems = async() => {
-		const item = this.state.newItemNum;
-		//const userId = todo get userId from state?;
-		const email = "anthonytest@test.com"
-		console.log("item in Checkout.js " + item);
-		let data = await api.post('/checkoutItem', {email: email, items: item});
-		console.log("data: " + data);
+		const user = this.props.usr.user;
+		const userInfo = Object.values(user);
+		const id = userInfo[0];
+
+		const itemid = this.state.newItemNum;
+
+		console.log("userID: " + id);
+		console.log("item in Checkout.js " + itemid);
+		let data = api.put('/checkoutItem', {id: id, item: itemid}).then( response => {
+			console.log(response);
+		}).catch(e => {
+			console.log(e);
+		});
 	}
 
 	updateItems() {
 		console.log(this.state.newItemNum);
 	};
 
-	itemObjectValid() {
-		const numValid = this.state.newItemNum && Number.parseFloat(this.state.newItemNum);
-		return numValid;
+	itemObjectValid() { //todo should parse item table to see if id exists && !checkedout
+		// const numValid = this.state.newItemNum && Number.parseFloat(this.state.newItemNum);
+		// return numValid;
+		return true;
 	};
 
 	clearForm() {
@@ -66,7 +74,7 @@ class Checkout extends Component {
 				</div>
 				<input className = 'checkout-form'
 					placeholder = 'Enter item number'
-					type = 'number'
+					type = 'text'
 					value = {this.state.newItemNum}
 					onChange={(e)=>this.setState({newItemNum: e.target.value})}></input>
 				<button className = 'checkout-button'
@@ -74,7 +82,7 @@ class Checkout extends Component {
 						if(this.itemObjectValid()){
 							this.checkoutItems();
 							//this.updateItems();
-							this.clearForm();
+							this.clearForm(); //todo this only works for ints not on mix of strings/ints
 						}
 					}}>Checkout Item</button>
 			</div>
