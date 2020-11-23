@@ -128,11 +128,14 @@ router.put("/checkoutItem", (req, res) => {
   // TODO: Add validation
   const id = req.body.id;
   const itemid = req.body.item;
-  // console.log('id from consolelog ' + id);
+  const duration = req.body.duration;
+  var date = new Date;
+  date.setDate(date.getDate() + duration);
+  
   Item.findOne({ _id: itemid, borrowed: { $eq: false } })
     .then(item => {
       if (item) {
-        Item.findOneAndUpdate({ _id: itemid }, { borrowed: true })
+        Item.findOneAndUpdate({ _id: itemid }, { borrowed: true, dueDate: date})
           .then(item2 => {
 
             User.findOneAndUpdate(
