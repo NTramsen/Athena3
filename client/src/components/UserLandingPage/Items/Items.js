@@ -127,7 +127,8 @@ class Items extends Component {
               <div key={item._id}>
                 {item.type}
                 <button className='item-button_btn' onClick={()=>this.togglePop(item._id)}>More</button>
-                {this.state.seen==item._id ? 
+								<button className = 'item-button_btn' onClik={()=>this.togglePop(item._id)}>Return</button>
+								{this.state.seen==item._id ? 
                   <div className="dropdown">
                     <span className="dashboard-item_description">{item.description}</span> 
                   </div>
