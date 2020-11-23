@@ -35,7 +35,12 @@ class ManageCheckouts extends Component {
   };
 
   returnItem = async(userid, itemid) =>{
-    return null;
+    let data = api.put('/removeitem', {id: userid, items: itemid}).then( response => {
+      console.log(response);
+    }).catch(e => {
+      console.log(e);
+    });
+
   }
 
   render() {
@@ -74,7 +79,6 @@ class ManageCheckouts extends Component {
               </div>
             )}
           </div>
-				
 			</div>
         </div>
         <button

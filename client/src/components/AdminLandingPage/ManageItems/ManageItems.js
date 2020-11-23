@@ -42,6 +42,7 @@ class ManageItems extends Component {
 
   findAllItems = async() => {
     let data = await api.get('/').then( ({data}) => data);
+    data = data.filter(function(e) { return e.borrowed === false })
     this.setState({items : data});
   };
 
@@ -139,7 +140,6 @@ class ManageItems extends Component {
             </form>
             {this.state.errors}
           </div>
-
           <div className='current-list'>
             <span className= 'sub-title' >All current items:</span>
             {this.state.items.map(item => 
@@ -149,7 +149,7 @@ class ManageItems extends Component {
                 <button className='item-button_btn' onClick={()=>this.togglePop(item._id)}>More</button>
                 {this.state.seen==item._id ? 
                   <div className="dropdown">
-                    <span className="dashboard-item_description">{item.description}</span> 
+                    <span className="dashboard-item_description">{item.description}</span>
                   </div>
                   : null}
               </div>
