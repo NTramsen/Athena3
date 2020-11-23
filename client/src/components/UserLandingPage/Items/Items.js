@@ -24,7 +24,22 @@ class Items extends Component {
     new_type: "",
     new_desc: "",
     errors: ""
-  };
+	};
+	
+	returnItems(item_id) {
+		const user = this.props.usr.user;
+		const userInfo = Object.values(user);
+		const id = userInfo[0];
+		console.log("called returnItems in Items.js with " );
+		console.log("id: " + id);
+		console.log("items: " + item_id);
+		//const tempvar = "5fb2debdd8f8a12398330f2d"
+		let data = api.put('/removeitem', {id: id, item: item_id}).then( response => {
+			console.log(response);
+		}).catch(e => {
+			console.log(e);
+		});
+	}
 
 	componentDidMount(){
     this.findAllItems();
@@ -128,7 +143,7 @@ class Items extends Component {
                 {item.type}
                 <button className='item-button_btn' onClick={()=>this.togglePop(item._id)}>More</button>
 								<button className = 'item-button_btn' onClick={()=> {
-									//attach return method here
+									this.returnItems(item._id);
 									}}>Return</button>
 								{this.state.seen==item._id ? 
                   <div className="dropdown">
