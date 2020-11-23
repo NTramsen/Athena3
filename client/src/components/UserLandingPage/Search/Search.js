@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-import './Search.css';
+import '../../../App.css';
 import NavBar from '../NavBar/NavBar';
 import axios from 'axios';
 
@@ -62,11 +62,11 @@ class Search extends Component {
           <NavBar/>
         </div>
         <div className = 'content'>
-          <div className='search-container'>
-            <div className='search_header'>
-              <p>Search for an item</p>
+          <div className='component-container'>
+            <div className='component-header'>
+              <p className='component-title'>Search For An Item</p>
             </div>
-            <input className = 'search-form'
+            <input
               placeholder = 'Enter item name'
               value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}
               type = 'text'></input>

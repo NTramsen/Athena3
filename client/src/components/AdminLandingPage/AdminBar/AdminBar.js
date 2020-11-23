@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
-import './AdminBar.css';
+import '../../../App.css';
 import {AdminBarData} from './AdminBarData';
 
 function AdminBar(){

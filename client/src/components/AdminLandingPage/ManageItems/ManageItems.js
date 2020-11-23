@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
 import axios from 'axios';
+import '../../../App.css';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/items'
@@ -107,27 +108,29 @@ class ManageItems extends Component {
           <AdminBar/>
         </div>
         <div className = 'content'>
-	          <div className='checkout-container'>
-				<div className='checkout-header'>
+	          <div className='component-container'>
+				<div className='component-header'>
           <div>
-            <span>Create a new item:</span>
+          <p className='component-title'>Create a new item:</p>
             <form noValidate onSubmit={this.onSubmit}>
               <div>
-                <label>Item type</label>
-                <input
+                {/* <label>Item type</label> */}
+                <input 
                   onChange={this.onChange}
+                  placeholder = 'Item type'
                   value={this.state.new_type}
                   id="new_type"
                   type="text"
                 />
-                <label>Item description</label>
-                <input
+                {/* <label>Item description</label> */}
+                <input 
                   onChange={this.onChange}
+                  placeholder = 'Item description'
                   value={this.state.new_desc}
                   id="new_desc"
                   type="text"
                 />
-                <button
+                <button className = 'checkout-button'
                     type="submit"
                   >
                   Create
@@ -137,13 +140,13 @@ class ManageItems extends Component {
             {this.state.errors}
           </div>
 
-          <div>
-            <span>All current items:</span>
+          <div className='current-list'>
+            <span className= 'sub-title' >All current items:</span>
             {this.state.items.map(item => 
               <div key={item._id}>
                 {item.type}
-                <button onClick={() => this.deleteItem(item._id.toString())}>delete</button>
-                <button onClick={()=>this.togglePop(item._id.toString())}>More</button>
+                <button className='item-button_btn' onClick={() => this.deleteItem(item._id)}>delete</button>
+                <button className='item-button_btn' onClick={()=>this.togglePop(item._id)}>More</button>
                 {this.state.seen==item._id ? 
                   <div className="dropdown">
                     <span className="dashboard-item_description">{item.description}</span> 

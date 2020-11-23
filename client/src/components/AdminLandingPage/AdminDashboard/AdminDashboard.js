@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
-import './AdminDashboard.css';
+import AdminBar from '../AdminBar/AdminBar';
+import '../../../App.css';
 import axios from 'axios';
 
 const api = axios.create({
@@ -32,21 +33,23 @@ class AdminDashboard extends Component{
 
 	render(){
 		return(
+		
 			<div className='dashboard-container'>
-				<div className='dashboard-header'>
-					<div className='dashboard-title'>
-						Database Overview
+				<div className='component-header'>
+					<div className='component-title'>
+						<p className='component-title'>Database Overview</p>
 					</div>
 				</div>
 				
 				<div className='dashboard-list'>
 					<ul>
-						<li><span>Total users:</span> {this.state.users}</li>
-						<li><span>Total items:</span> {this.state.items}</li>
-						<li><span>Number of current checkouts: (To be implemented)</span> {this.state.checks}</li>
+						<li><span className='sub-title'>Total users:</span> {this.state.users}</li>
+						<li><span className='sub-title'>Total items:</span> {this.state.items}</li>
+						<li><span className='sub-title'>Number of current checkouts: (To be implemented)</span> {this.state.checks}</li>
 					</ul>
 				</div>
 			</div>
+			
 		);
 	}
 };

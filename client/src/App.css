@@ -1,10 +1,4 @@
-/* color scheme
-#3D5A80 - dark blue
-#98C1D9 - light blue
-#E0FBFC - white blue
-#EE6C4D - orange
-#293241 - black blue
-*/
+
 
 body{
 
@@ -13,7 +7,6 @@ body{
   
   .main-container{
     display:grid;
-    /*height:90vh;*/
     width: 90vw;
     margin:auto;
     margin-top:3vh;
@@ -35,8 +28,10 @@ body{
     background-position: 7%,50%;
     background-color:  #012169;
     grid-area: top-banner;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-top:4vw;
+    height:14vw;
+    padding-left:10%;
+    padding-right:10%;
     text-align: center;
     border-radius: 4px;
     margin-left: 0.2rem;
@@ -44,8 +39,9 @@ body{
     margin-top: 0.1rem;
     font-size: 4vw;
     color: #f2f7f4;
-    font-family: Tahoma;
+    font-family: sans-serif;
     white-space: nowrap;
+    
   }
   
   .navbar{
@@ -105,3 +101,299 @@ body{
     }
   }
   
+
+
+
+.nav-menu-items{
+	list-style: none;
+	padding-right: 0;
+	padding-left:0;
+}
+
+.nav-text{
+	height: 10vh;
+	width: 100%;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 2vw;
+	white-space: nowrap;
+}
+.nav-icon{
+	font-size: 5vh;
+}
+
+.nav-text a{
+	color: #293241;
+	height: 95%;
+	width: 100%;
+	display: flex;
+	border-radius: 5px;
+}
+
+.nav-text a:hover{
+	background-color:  #f2a900;
+	color:  #012169;
+}
+
+.active {
+	background-color:#012169;
+	border-radius: 4px;	
+}
+
+.active .nav-text {
+	color: #f2f7f4;
+}
+
+.active .nav-icon{
+	color: #f2f7f4;
+}
+
+/*header and title*/
+.component-header{
+  width:100%;
+  font-weight: bold;
+  font-size: 5vh;
+  color:#b58500;
+  font-family: sans-serif;
+}
+
+::placeholder{
+  color:#012169;
+
+}
+
+/* search component */
+
+
+.search-form{
+	margin-left: 200px;
+	border-width: 4px;
+	border-radius: 8px;
+	width:300px;
+	margin-bottom:80px;
+	font-size:35px;
+
+}
+
+
+ .search-button_btn{
+	background-color: #012169;
+	color:#f2f7f4;
+	font-size: 3vh;
+	border-color: azure;
+	border-radius: 10%;
+ }
+
+
+/* items component */
+
+
+.sub-title{
+  font-weight: bold;
+  font-size: 2vh;
+  color:#b58500;
+  font-family: sans-serif;
+}
+
+.item-button_btn{
+	background-color: #012169;
+	color:#f2f7f4;
+	font-size: 1.4vh;
+	border-color: azure;
+	border-radius: 10%;
+ }
+
+/* user interface */
+.modal {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modal_content {
+  background-color: white;
+  position: relative;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  padding: 20px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.close {
+  color: Black;
+  float: right;
+}
+
+.close:hover {
+  color: cyan;
+  cursor: pointer;
+}
+
+/* dashboard component*/
+
+.dashboard-dashboard-list-items{
+	list-style: none;
+	padding-right: 0;
+	padding-left:0;
+	position: relative;
+}
+
+.dashboard-itemlist-element{
+	 width: 100%;
+	 margin:0.5vh;
+ }
+
+
+.dashboard-dashboard-header {
+	width:100%;
+	font-size: 5vh;
+	font-family: sans-serif;
+	color:#b58500;
+	font-weight: bold;
+}
+
+.dashboard-dashboard-title{
+	font-size: 5vh;
+	margin-bottom: 1rem;
+
+}
+.dashboard-list_header{
+	height:2vh;
+
+}
+
+.dashboard-item_header{
+	position: relative;
+	margin-bottom: 0.5rem;
+	color:#293241;
+	opacity: 0.66;
+	font-weight: bold;
+}
+
+.dashboard-header_style1{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:0;
+}
+
+.dashboard-header_style2{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:48%;
+}
+
+.dashboard-header_style3{
+	font-weight: bold;
+
+	font-size: 1.2rem;
+	position:absolute;
+	right:0;
+	left:74%;
+	
+}
+.dashboard-item{
+	position: relative;
+	background-color: #d9d9d6;
+	opacity: 0.66;
+}
+
+.dashboard-item_name{
+	font-weight: bold;
+	width: 50%;
+  font-size: 1rem;
+  /* position:absolute; */
+}
+
+.dashboard-item_date{
+  position:absolute;
+	font-size: 1rem;
+	left: 50%;
+
+}
+.dashboard-item_id{
+  position:absolute;
+	font-size: 1rem;
+	left: 75%;
+
+}
+
+.dashboard-item_btn{
+  position:absolute;
+	font-size: 1rem;
+  left:80%;
+}
+
+.dashboard-item_description{
+	font-size: 1rem;
+	width: 25%;
+	position: relative;
+
+}
+
+.dashboard-itemlist-element a{
+	color: #293241;
+	height: 95%;
+	width: 100%;
+	display: flex;
+
+}
+
+.dropdown{
+	background-color: #add8e6;
+}
+
+
+/* checkout component*/
+.checkout-button{
+  background-color:#012169; 
+  color: azure;
+  border-color: azure;
+  font-size: 3vh;
+  border-radius: 10%;
+}
+
+
+
+/* account component*/
+
+.account-info-list-element{
+  font-size: 3vh;
+  font-family: sans-serif;
+}
+
+.account-button{
+  background-color:#012169; 
+  color: azure;
+  border-color: azure;
+  font-size: 1.2vh;
+  margin: 0.5vh;
+  padding: 0.5vh;
+  font-family: sans-serif;
+  border-radius: 10%;
+}
+
+
+/*manage items*/
+
+.remove_btn{
+    color:#f2f7f4;
+    background-color: #012169;
+	font-size:1vw;
+}
+
+.checkout-button-btn{
+    color:#f2f7f4;
+    background-color: #012169;
+	font-size:1vw;
+}
+
+.current-list{
+  font-size: 1.4vh;
+  color:black;
+}
