@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import AdminBar from '../AdminBar/AdminBar';
 import axios from 'axios';
+import '../../../App.css';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/users'
@@ -49,17 +50,22 @@ class ManageCheckouts extends Component {
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
-          <h1>Welcome {info[1]}</h1>
+          Welcome {info[1]}
         </div>
         <div className = 'navbar'>
           <AdminBar/>
         </div>
         <div className = 'content'>
-	          <div className='checkout-container'>
-				<div className='checkout-header'>
-
+	          <div className='component-container'>
+				<div className='component-header'>
+        <p className='component-title'>Manage Checkout</p>
+        </div>
+        <div>
+            <span>View currently checked-out items:</span>
+            <p>To be implemented.</p>
+          </div>
           <div>
-            <span>Currently checked-out items:</span>
+            <span>View over-due items:</span>
             {this.state.users.map(user =>
               <div key={user._id}>
                 {user.items.map(item=>
@@ -73,10 +79,6 @@ class ManageCheckouts extends Component {
               </div>
             )}
           </div>
-          <div>
-            <span>View over-due items:</span>
-          </div>
-				</div>
 			</div>
         </div>
         <button

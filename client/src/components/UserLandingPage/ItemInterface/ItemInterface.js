@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './ItemInterface.css';
+import '../../../App.css';
 
 export default class ItemInterface extends Component {
 

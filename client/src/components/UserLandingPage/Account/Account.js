@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, getUserInfo } from "../../../actions/authActions";
-import '../UserLandingPage.css';
+import '../../../App.css';
 import NavBar from '../NavBar/NavBar';
 
 class Account extends Component {
@@ -38,9 +38,9 @@ class Account extends Component {
           <NavBar/>
         </div>
         <div className = 'content'>
-	      <div className='account-container'>
-			<div className = 'account-header'>
-				<h2>Your account details</h2>
+	      <div className='component-container'>
+			<div className = 'component-header'>
+				<p className='component-title'>Your Account Details</p>
 			</div>
 			<div className = 'account-content'>
 				<ul className='account-info-list'>
@@ -49,8 +49,8 @@ class Account extends Component {
 				</ul>
 			</div>
 			<div className = 'edit-account'>
-				<button type='button'>Edit details</button>
-				<button type='button'>Change password</button>
+				<button className='account-button'>Edit details</button>
+				<button className='account-button'>Change password</button>
 			</div>
 		</div>
         </div>
