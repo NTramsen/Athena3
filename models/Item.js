@@ -14,6 +14,10 @@ const ItemSchema = new Schema({
   borrowed: {
     type: Boolean,
     required: true
+  },
+  dueDate:{
+    type: Date,
+    required: false
   }
 });
 

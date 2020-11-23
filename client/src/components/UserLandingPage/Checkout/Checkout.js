@@ -16,7 +16,8 @@ class Checkout extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	      newItemNum: ''
+	      newItemNum: '',
+	      duration:''
 	    };
 	};
 
@@ -47,7 +48,7 @@ class Checkout extends Component {
 	};
 
 	clearForm() {
-		this.setState({newItemNum: ''});
+		this.setState({newItemNum: '', duration:''});
 	};
 
 	onLogoutClick = e => {
@@ -57,7 +58,7 @@ class Checkout extends Component {
 
   render() {
     const user = this.props.usr.user;
-		const info = Object.values(user);
+    const info = Object.values(user);
 
     return (
       <div className = 'main-container'>
@@ -77,6 +78,11 @@ class Checkout extends Component {
 					type = 'text'
 					value = {this.state.newItemNum}
 					onChange={(e)=>this.setState({newItemNum: e.target.value})}></input>
+				<input 
+					placeholder = 'Desired checkout duration'
+					type = 'number'
+					value = {this.state.duration}
+					onChange={(e)=>this.setState({duration: e.target.value})}></input>
 				<button className = 'checkout-button'
 					onClick={()=>{
 						if(this.itemObjectValid()){
