@@ -194,6 +194,25 @@ router.put("/removeitem", (req, res) => {
     .catch(err => console.error('Item not found'))
 });
 
+
+router.get("/getuseritems", (req,res) =>{
+  const id = req.body.id;
+
+  User.findOne({ _id: id }).lean().exec(function (error, success) {
+    if (error) {
+      res.send(err);
+    } else {
+      if (success){
+        res.status(200).json(success);
+      }
+      else{
+        console.log("null");
+      }
+    }
+  });
+});
+
+
 router.get("/", users.findAll);
 
 

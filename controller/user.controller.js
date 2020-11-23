@@ -18,46 +18,6 @@ exports.findAll = (req, res) => {
 };
 
 
-exports.getUsersItems = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to checkout can not be empty!"
-    });
-  }
-
-  const id = req.body.id;
-
-  User.findOneAndUpdate(
-    { id: id },
-    function (error, success) {
-         if (error) {
-             console.log(error);
-             res.json({ message: 'Unsucuessful Retrieval' })
-         } else {
-           res.status(400).json({
-             message: 'Retrieved'
-           });
-            //  console.log(success);
-            //  console.log("item: " + item);
-            //  res.json({ message: 'Added' })
-         }
-     });
-
-  User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update user with id=${id}.`
-        });
-      } else res.send({ message: "Item was updated successfully." });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating user with id=" + id
-      });
-    });
-};
-
 //checkout an item to a user
 exports.checkoutItem = (req, res) => {
   const id = req.body.id;
