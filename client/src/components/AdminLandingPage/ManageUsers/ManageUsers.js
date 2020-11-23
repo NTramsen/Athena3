@@ -35,10 +35,6 @@ class ManageUsers extends Component {
     this.setState({users : data});
   }
 
-  createUser = async () => {
-    return null;
-  }
-
   deleteUser = async(id)=>{
     let data = await api.delete(`/${id}`);
     this.findAllUsers();
@@ -83,7 +79,7 @@ class ManageUsers extends Component {
               <button className='item-button_btn' onClick={()=>this.togglePop(user._id)}>More</button>
               {this.state.seen==user._id ?
                 <div className="dropdown">
-                  <span className="dashboard-item_description">{user._id}</span>
+                  <span className="dashboard-item_description">{user._id.toString()}</span>
                   <span>Map over user's items.</span>
                 </div>
                 : null}

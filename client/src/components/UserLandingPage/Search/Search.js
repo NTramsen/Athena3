@@ -6,14 +6,43 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import '../../../App.css';
 import NavBar from '../NavBar/NavBar';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/items'
+})
+
 
 class Search extends Component {
 
 	constructor(props) {
-	    super(props);
-	    this.state = {
-	    };
-	};
+    super(props)
+    this.state = {
+       items: [],
+       inputValue: ''
+    }
+  };
+
+  deleteItem = async(id) =>{
+    console.log(id);
+    let data = await api.delete(`/${id}`);
+  };
+
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    });
+  }
+
+  searchItems = async(regex) =>{
+    const params = {
+      type: String(regex)
+    };
+    console.log(params);
+    let data = await api.get('/', {params}).then( ({data}) => data);
+    console.log(data);
+    this.setState({items : data});
+  }
 
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -39,8 +68,11 @@ class Search extends Component {
             </div>
             <input
               placeholder = 'Enter item name'
+              value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}
               type = 'text'></input>
-            <button className = 'search-button_btn'>Search</button>
+            <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
+              {this.state.items.map(item => <p key={item.type}>{item.description})
+            <button onClick={() => this.deleteItem(item._id.toString())}>delete</button></p>)}
           </div>
         </div>
         <button
@@ -49,6 +81,11 @@ class Search extends Component {
       </div>
     );
   }
+}
+
+Search.defaultProps = {
+  items: [], 
+  inputValue: ''
 }
 
 Search.propTypes = {
