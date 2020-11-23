@@ -173,7 +173,7 @@ router.put("/removeitem", (req, res) => {
 
             Item.findOneAndUpdate(
               { _id: itemid },
-              { borrowed: false },
+              { borrowed: false, dueDate: null},
               function (error, success) {
                 if (error) {
                   res.status(404).json({ message: 'Not removed from account' })
