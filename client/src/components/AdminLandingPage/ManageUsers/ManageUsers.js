@@ -73,14 +73,24 @@ class ManageUsers extends Component {
         <div className = 'User-List'>
           {this.state.users.map(user =>
             <div key={user._id}>
-              {user.name}
-              {user.email})
+              <span>{user.name}</span>
+              <span>{user.email}</span>
               <button onClick={() => this.deleteUser(user._id.toString())}>delete</button>
               <button onClick={()=>this.togglePop(user._id.toString())}>More</button>
               {this.state.seen==user._id ?
                 <div className="dropdown">
+                  <span>User id:</span>
                   <span className="dashboard-item_description">{user._id.toString()}</span>
-                  <span>Map over user's items.</span>
+                  <span>User items:</span>
+                    {user.items.length ?
+                      <span>N/a</span>
+                      :<ul>
+                        {user.items.map(item=>
+                          <li key={item}>
+                            <span>{item}</span>
+                          </li>
+                        )}
+                      </ul>}
                 </div>
                 : null}
             </div>

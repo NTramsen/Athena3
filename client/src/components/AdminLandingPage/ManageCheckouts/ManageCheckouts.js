@@ -34,7 +34,12 @@ class ManageCheckouts extends Component {
   };
 
   returnItem = async(userid, itemid) =>{
-    return null;
+    let data = api.put('/removeitem', {id: userid, items: itemid}).then( response => {
+      console.log(response);
+    }).catch(e => {
+      console.log(e);
+    });
+
   }
 
   render() {
@@ -54,11 +59,7 @@ class ManageCheckouts extends Component {
 				<div className='checkout-header'>
 
           <div>
-            <span>View currently checked-out items:</span>
-            <p>To be implemented.</p>
-          </div>
-          <div>
-            <span>View over-due items:</span>
+            <span>Currently checked-out items:</span>
             {this.state.users.map(user =>
               <div key={user._id}>
                 {user.items.map(item=>
@@ -71,6 +72,9 @@ class ManageCheckouts extends Component {
                 )}
               </div>
             )}
+          </div>
+          <div>
+            <span>View over-due items:</span>
           </div>
 				</div>
 			</div>
