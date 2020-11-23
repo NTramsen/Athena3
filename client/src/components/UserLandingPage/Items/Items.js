@@ -7,34 +7,41 @@ import '../../../App.css';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/items'
+  baseURL: 'http://localhost:5000/api/'
 })
 
 class Items extends Component {
 
 	constructor(props) {
 	    super(props);
-	    // this.state = {
-	    // };
+	    this.state = {
+				newItemNum: '',
+				items: [],
+				seen:-1,
+				new_type: "",
+				new_desc: "",
+				errors: ""
+	    };
 	};
 
-	state = {
-    items: [],
-    seen:-1,
-    new_type: "",
-    new_desc: "",
-    errors: ""
-	};
+	// state = {
+  //   items: [],
+  //   seen:-1,
+  //   new_type: "",
+  //   new_desc: "",
+  //   errors: ""
+	// };
 	
-	returnItems(item_id) {
+	returnItems = async() => {
 		const user = this.props.usr.user;
 		const userInfo = Object.values(user);
 		const id = userInfo[0];
+		const itemid = this.state.newItemNum;
 		console.log("called returnItems in Items.js with " );
 		console.log("id: " + id);
-		console.log("items: " + item_id);
-		//const tempvar = "5fb2debdd8f8a12398330f2d"
-		let data = api.put('/removeitem', {id: id, item: item_id}).then( response => {
+		console.log("items: " + itemid);
+
+		let data = api.put('users/removeitem', {id: id, item: itemid}).then( response => {
 			console.log(response);
 		}).catch(e => {
 			console.log(e);
@@ -46,7 +53,7 @@ class Items extends Component {
   };
 
 	findAllItems = async() => {
-    let data = await api.get('/').then( ({data}) => data);
+    let data = await api.get('items').then( ({data}) => data);
     this.setState({items : data});
 	};
 	
@@ -66,7 +73,7 @@ class Items extends Component {
 	getCurrentItems(){
 		const user = this.props.usr.user;
 		const info = Object.values(user);
-
+		
 		const allItems = this.state.items;
 		const userID = info[0];
 
@@ -143,6 +150,7 @@ class Items extends Component {
                 {item.type}
                 <button className='item-button_btn' onClick={()=>this.togglePop(item._id)}>More</button>
 								<button className = 'item-button_btn' onClick={()=> {
+									this.setState({newItemNum: item._id})
 									this.returnItems(item._id);
 									}}>Return</button>
 								{this.state.seen==item._id ? 
