@@ -173,7 +173,6 @@ router.put("/removeitem", (req, res) => {
       if (user) {
         User.findOneAndUpdate({ _id: id }, { $pull: { items: { $in: [itemid] } } })
           .then(item2 => {
-
             Item.findOneAndUpdate(
               { _id: itemid },
               { borrowed: false, dueDate: null},
@@ -182,7 +181,7 @@ router.put("/removeitem", (req, res) => {
                   res.status(404).json({ message: 'Not removed from account' })
                   return
                 } else {
-                  res.status(200).json({ message: 'Checked out' + itemid + 'from' + id })
+                  res.status(200).json({ message: 'returned ' + itemid + ' from ' + id })
                   return
                 }
               });
@@ -190,7 +189,7 @@ router.put("/removeitem", (req, res) => {
           .catch(err => console.error('not updated'));
       }
       else {
-        res.status(404).json({ message: 'Item already borrowed' })
+        res.status(403).json({ message: 'failed removal 403' })
         return
       }
     })
@@ -217,6 +216,9 @@ router.get("/getuseritems", (req,res) =>{
 
 
 router.get("/", users.findAll);
+
+
+//router.put("/removeitem", users.removeItem);
 
 
 router.post("/", users.checkoutItem);
