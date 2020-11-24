@@ -9,6 +9,7 @@ const passport = require("passport");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateChangePass = require("../../validation/changepass");
 
 // Load User model
 const User = require("../../models/User");
@@ -122,6 +123,57 @@ router.post("/login", (req, res) => {
 
 
 
+router.put("/change_pass", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateChangePass(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+  const newPassword = req.body.newPassword
+
+
+  // Find user by email
+  User.findOne({ email: req.body.email }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ usernotfound: "Error: User not found" });
+    }
+
+    // Check password
+    bcrypt.compare(req.body.password, user.password).then(isMatch => {
+      if (isMatch) { // password matched
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(req.body.newPassword, salt, (err, hash) => {
+            if (err) throw err;
+            User.findOneAndUpdate(
+              { email: req.body.email },
+              { $set: { password: hash }},
+              function (error, success){
+                if (error) {
+                  res.status(401).json({ message: 'Password not updated'})
+                  return
+                } else {
+                  res.status(200).json({ message: 'Password updated'})
+                  return
+                }
+              });
+          });
+        });
+
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
 
 router.put("/checkoutItem", (req, res) => {
 
@@ -131,7 +183,7 @@ router.put("/checkoutItem", (req, res) => {
   const duration = req.body.duration;
   var date = new Date;
   date.setDate(date.getDate() + duration);
-  
+
   Item.findOne({ _id: itemid, borrowed: { $eq: false } })
     .then(item => {
       if (item) {
