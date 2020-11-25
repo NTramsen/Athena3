@@ -8,8 +8,8 @@ function AdminBar(){
 
 	return(
 		<>
-			<nav className = 'ad-nav-menu'>
-			<ul className = 'ad-nav-menu-items'>
+			<nav className = 'nav-menu'>
+			<ul className = 'nav-menu-items'>
 					{AdminBarData.map((item, index)=>{
 						return(
 							<li key={index} className={item.cName}>
