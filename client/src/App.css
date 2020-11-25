@@ -101,13 +101,16 @@ body{
     }
   }
   
-
-
+  .nav-menu{
+    background-color:#f2f2f2;
+    height:50vh;
+  }
 
 .nav-menu-items{
 	list-style: none;
 	padding-right: 0;
-	padding-left:0;
+  padding-left:0;
+
 }
 
 .nav-text{
@@ -116,7 +119,7 @@ body{
 	border-radius: 4px;
 	text-align: center;
 	font-size: 2vw;
-	white-space: nowrap;
+  white-space: nowrap;
 }
 .nav-icon{
 	font-size: 5vh;
