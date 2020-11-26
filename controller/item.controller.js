@@ -13,7 +13,8 @@ exports.create = (req, res) => {
     id:req.body.id,
     type: req.body.type,
     description: req.body.description,
-    borrowed: req.body.borrowed ? req.body.borrowed : false
+    borrowed: req.body.borrowed ? req.body.borrowed : false,
+    dueDate: null
   });
 
   // Save Equipment in the database

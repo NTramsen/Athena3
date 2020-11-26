@@ -25,11 +25,16 @@ class AdminDashboard extends Component{
 
     	let data = await api.get('/users/').then( ({data}) => data);
     	this.setState({users : data.length});
+    	let total = 0;
+    	let index = 0;
+    	for (index = 0; index < data.length; index++) { 
+		    total = total+data[index].items.length; 
+		}
+		this.setState({checks : total});
 
     	data = await api.get('/items/').then( ({data}) => data);
     	this.setState({items : data.length});
-
-    }
+    };
 
 	render(){
 		return(
@@ -45,7 +50,7 @@ class AdminDashboard extends Component{
 					<ul>
 						<li><span className='sub-title'>Total users:</span> {this.state.users}</li>
 						<li><span className='sub-title'>Total items:</span> {this.state.items}</li>
-						<li><span className='sub-title'>Number of current checkouts: (To be implemented)</span> {this.state.checks}</li>
+						<li><span className='sub-title'>Number of current checkouts:</span> {this.state.checks}</li>
 					</ul>
 				</div>
 			</div>
