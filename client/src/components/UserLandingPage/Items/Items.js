@@ -79,7 +79,7 @@ class Items extends Component {
 		console.log("getCurrentItems running");
 		try {
 			console.log("passing id: " + id);
-			let data = await api.get('users/getuseritems', {id: id}).then(({data}) => data);
+			let data = await api.put('users/getuseritems', {id: id}).then(({data}) => data);
 			console.log("data: " + data);
 
 			this.setState({items : data.items});
