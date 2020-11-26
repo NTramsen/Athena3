@@ -249,7 +249,7 @@ router.put("/removeitem", (req, res) => {
 });
 
 
-router.get("/getuseritems", (req,res) =>{
+router.put("/getuseritems", (req,res) =>{
   const id = req.body.id;
   console.log("id: " + id);
   User.findOne({ _id: id }).lean().exec(function (error, success) {
