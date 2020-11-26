@@ -251,7 +251,7 @@ router.put("/removeitem", (req, res) => {
 
 router.get("/getuseritems", (req,res) =>{
   const id = req.body.id;
-
+  console.log("id: " + id);
   User.findOne({ _id: id }).lean().exec(function (error, success) {
     if (error) {
       res.send(err);

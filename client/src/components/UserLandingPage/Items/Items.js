@@ -49,7 +49,8 @@ class Items extends Component {
 	}
 
 	componentDidMount(){
-    this.findAllItems();
+		//this.findAllItems();
+		this.getCurrentItems();
   };
 
 	findAllItems = async() => {
@@ -70,30 +71,25 @@ class Items extends Component {
     }
 	};
 	
-	getCurrentItems(){
+	getCurrentItems = async() => {
 		const user = this.props.usr.user;
 		const info = Object.values(user);
+		const id = info[0];
 		
-		const allItems = this.state.items;
-		const userID = info[0];
+		console.log("getCurrentItems running");
+		try {
+			console.log("passing id: " + id);
+			let data = await api.get('users/getuseritems', {id: id}).then(({data}) => data);
+			console.log("data: " + data);
 
-		// return [
-		// 	{
-		// 		name: "Stethoscope",
-		// 		return_date: "8 hours",
-		// 		item_id: 23801
-		// 	},
-		// 	{
-		// 		name: "Behavioural biology textbook",
-		// 		return_date: "2 days",
-		// 		item_id: 48920
-		// 	},
-		// 	{
-		// 		name: "Design kit",
-		// 		return_date: "6 days",
-		// 		item_id: 98384
-		// 	}
-		// ];
+			this.setState({items : data.items});
+		} catch(e) {
+			console.log(e);
+		}
+		console.log("have set state");
+		//data is a JSON. check findAllItems to see how items are returned,
+		//get the data from JSon to then match how items are returned so mapping is succuessful
+
 	}
 
 	getPastItems() {
@@ -129,7 +125,7 @@ class Items extends Component {
   render() {
 		const user = this.props.usr.user;
 		const info = Object.values(user);
-
+		//getCurrentItems();
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
@@ -142,6 +138,10 @@ class Items extends Component {
 	      <div className='component-container'>
 			<div className='component-header'>
 				<p className='component-title'>Your item history</p>
+				<button className = 'checkout-button'
+					onClick={()=>{
+						this.getCurrentItems();
+					}}>test current</button>
 			</div>
 			<div className='current-list'>
 				<p className='sub-title'>All current items</p>
