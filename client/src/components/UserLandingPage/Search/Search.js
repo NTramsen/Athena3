@@ -9,7 +9,7 @@ import NavBar from '../NavBar/NavBar';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/items'
+  baseURL: 'http://localhost:5000/api'
 })
 
 
@@ -19,13 +19,10 @@ class Search extends Component {
     super(props)
     this.state = {
        items: [],
-       inputValue: ''
+       inputValue: '',
+       seen: -1,
+       duration: 7
     }
-  };
-
-  deleteItem = async(id) =>{
-    console.log(id);
-    let data = await api.delete(`/${id}`);
   };
 
   updateInputValue(evt) {
@@ -39,9 +36,33 @@ class Search extends Component {
       type: String(regex)
     };
     console.log(params);
-    let data = await api.get('/', {params}).then( ({data}) => data);
+    let data = await api.get('/items/', {params}).then( ({data}) => data);
     console.log(data);
     this.setState({items : data});
+  }
+
+  togglePop = (item_id) => {
+    if(this.state.seen==item_id){
+      this.setState({
+        seen: -1
+      });
+    }
+    else{
+      this.setState({
+        seen: item_id
+      });
+    }
+  };
+
+  checkoutItems = async(userid, itemid) => {
+
+    const dur = this.state.duration;
+
+    let data = api.put('users/checkoutItem', {id: userid, item: itemid, duration: dur}).then( response => {
+      console.log(response);
+    }).catch(e => {
+      console.log(e);
+    });
   }
 
 	onLogoutClick = e => {
@@ -71,8 +92,23 @@ class Search extends Component {
               value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}
               type = 'text'></input>
             <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
-              {this.state.items.map(item => <p key={item.type}>{item.description})
-            <button onClick={() => this.deleteItem(item._id.toString())}>delete</button></p>)}
+            {this.state.items.map(item => 
+              <div key={item._id}>
+                <span>{item.type}</span>
+                <button onClick={()=>this.togglePop(item._id.toString())}>More</button>
+                {this.state.seen==item._id ? 
+                  <div className="dropdown">
+                    <span className="dashboard-item_description">{item.description}</span>
+                    <input 
+                      placeholder = 'Desired checkout duration'
+                      type = 'number'
+                      value = {this.state.duration}
+                      onChange={(e)=>this.setState({duration: e.target.value})}></input>
+                    <button onClick={() => this.checkoutItems(info[0], item._id.toString())}>Checkout</button>
+                  </div>
+                  : null}
+              </div>
+            )}
           </div>
         </div>
         <button

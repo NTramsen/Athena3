@@ -7,13 +7,14 @@ import axios from 'axios';
 import '../../../App.css';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/users'
+  baseURL: 'http://localhost:5000/api'
 })
 
 class ManageCheckouts extends Component {
 
   state = {
-    users: [],
+    checkouts: [],
+    overdues: []
   };
 
   constructor(props){
@@ -30,12 +31,50 @@ class ManageCheckouts extends Component {
   };
 
   findAllCheckouts = async() => {
-    let data = await api.get('/').then( ({data}) => data);
-    this.setState({users : data});
+    let data = await api.get('/users/').then( ({data}) => data);
+    data = data.filter(user=>user.items.length>0);
+  
+    var checkouts = [];
+    var overdues = [];
+    for(var i=0; i<data.length; i++){
+      for(var j=0; j<data[i].items.length; j++){
+        let item_data = await api.get(`/items/${data[i].items[j]}`).then((response)=>{
+          return response.data;
+        });
+        if(item_data){
+          var today = new Date();
+          var dueDate = new Date(item_data.dueDate);
+          if(item_data.dueDate && dueDate<today){
+            overdues.push({
+              name: data[i].name,
+              user_id: data[i]._id,
+              type: item_data.type,
+              description: item_data.description,
+              item_id: item_data._id,
+              dueDate: item_data.dueDate
+            });
+          }
+          else{
+            checkouts.push({
+              name: data[i].name,
+              user_id: data[i]._id,
+              type: item_data.type,
+              description: item_data.description,
+              item_id: item_data._id,
+              dueDate: item_data.dueDate
+            });
+          }
+        }
+      }
+    }
+    this.setState({
+      checkouts: checkouts,
+      overdues: overdues
+    });
   };
 
   returnItem = async(userid, itemid) =>{
-    let data = api.put('/removeitem', {id: userid, items: itemid}).then( response => {
+    let data = api.put('items/removeitem', {id: userid, items: itemid}).then( response => {
       console.log(response);
     }).catch(e => {
       console.log(e);
@@ -62,22 +101,26 @@ class ManageCheckouts extends Component {
         </div>
         <div>
             <span>View currently checked-out items:</span>
-            <p>To be implemented.</p>
+            {this.state.checkouts.map(checkout =>
+              <div key={checkout.item_id}>
+                <span>User:</span>
+                {checkout.name}
+                {checkout.type}
+                {checkout.dueDate? checkout.dueDate : null}
+                <button onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button>
+              </div>
+            )}
           </div>
           <div>
             <span>View over-due items:</span>
-            {this.state.users.map(user =>
-              <div key={user._id}>
-                {user.items.map(item=>
-                  <div key={item}>
-                    {user.name}
-                    {user._id}
-                    {item}
-                    <button onClick={()=>this.returnItem(user._id, item._id)}>Return item</button>
-                  </div>
-                )}
+            {this.state.overdues.map(checkout =>
+              <div key={checkout.item_id}>
+                <span>User:</span>
+                {checkout.name}
+                {checkout.type}
+                <button onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button>
               </div>
-            )}
+            )}   
           </div>
 			</div>
         </div>

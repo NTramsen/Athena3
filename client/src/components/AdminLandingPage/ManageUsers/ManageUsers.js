@@ -74,7 +74,7 @@ class ManageUsers extends Component {
           {this.state.users.map(user =>
             <div key={user._id}>
               {user.name}
-              {user.email})
+              {user.email}
               <button className='item-button_btn' onClick={() => this.deleteUser(user._id)}>delete</button>
               <button className='item-button_btn' onClick={()=>this.togglePop(user._id)}>More</button>
               {this.state.seen==user._id ?
