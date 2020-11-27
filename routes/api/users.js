@@ -274,7 +274,7 @@ router.get("/", users.findAll);
 //router.put("/removeitem", users.removeItem);
 
 
-router.post("/", users.checkoutItem);
+// router.post("/", users.checkoutItem);
 
 
 router.get("/:id", users.findOne);
