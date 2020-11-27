@@ -17,7 +17,8 @@ class Checkout extends Component {
 	    super(props);
 	    this.state = {
 	      newItemNum: '',
-	      duration:''
+	      duration:7,
+	      errors: ''
 	    };
 	};
 
@@ -27,10 +28,11 @@ class Checkout extends Component {
 		const id = userInfo[0];
 
 		const itemid = this.state.newItemNum;
+		const dur = this.state.duration;
 
 		console.log("userID: " + id);
 		console.log("item in Checkout.js " + itemid);
-		let data = api.put('/checkoutItem', {id: id, item: itemid}).then( response => {
+		let data = api.put('/checkoutItem', {id: id, item: itemid, duration: dur}).then( response => {
 			console.log(response);
 		}).catch(e => {
 			console.log(e);
@@ -48,7 +50,7 @@ class Checkout extends Component {
 	};
 
 	clearForm() {
-		this.setState({newItemNum: '', duration:''});
+		this.setState({newItemNum: '', duration:7});
 	};
 
 	onLogoutClick = e => {
