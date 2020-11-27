@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const crypto = require("crypto");
+
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -14,6 +16,11 @@ const validateChangePass = require("../../validation/changepass");
 // Load User model
 const User = require("../../models/User");
 const e = require("express");
+
+// Load email
+const nodemailer = require("nodemailer")
+
+
 
 // load user controllers
 const users = require("../../controller/user.controller");
@@ -174,6 +181,49 @@ router.put("/change_pass", (req, res) => {
     });
   });
 });
+
+
+router.post("/forgot_pass", (req, res)=>{
+  if (req.body.email === ''){
+    res.status(400).send('email required');
+  }
+  console.error(req.body.email);
+  User.findOne({ email: req.body.email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ usernotfound: "Error: Email not found" });
+    } else {
+      const token = crypto.randomBytes(20).toString('hex');
+      user.update({
+        resetPasswordToken: token,
+        resetPasswordExpires: Date.now() + 3600000,
+      });
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'athena.ims.no.reply',
+          pass: 'athenacs370!',
+        }
+      });
+
+      const mailOptions = {
+        from: 'athena.ims.no.reply@gmail.com',
+        to: `${user.email}`,
+        subject: 'Password Reset',
+        text: `${token}`
+      };
+
+      transporter.sendMail(mailOptions, (err, response) => {
+        if (err) {
+          console.error ('error sending', err);
+        } else {
+          res.status(200).json('email sent');
+        }
+      });
+    }
+  });
+});
+
 
 router.put("/checkoutItem", (req, res) => {
 
