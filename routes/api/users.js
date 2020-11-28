@@ -256,8 +256,11 @@ router.put("/checkoutItem", (req, res) => {
                   const mailOptions = {
                     from: 'athena.ims.no.reply@gmail.com',
                     to: `${user.email}`,
-                    subject: 'Checkout Succesful',
-                    text: 'this is a succesful checkout'
+                    subject: `Athena: ${item.type} has been checked out!`,
+                    text:
+                      `${user.name}, \n\n` +
+                      `Please return your ${item.type} by ${date}. \n \n` +
+                      `Thank you for using Athena.\n \n`
                   };
 
                   transporter.sendMail(mailOptions, (err, response) => {
