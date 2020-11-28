@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 // Find a single Equipment with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
+  console.log("id in exports.findOne: " + id);
   Item.findById(id)
     .then(data => {
       if (!data)
