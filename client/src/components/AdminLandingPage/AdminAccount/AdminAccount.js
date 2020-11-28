@@ -9,8 +9,8 @@ import AdminBar from '../AdminBar/AdminBar';
 class AdminAccount extends Component {
 
 	state = {
-		edit: false,
-		reAuth: false,
+		changePassword: false,
+		changeEmail: false,
 		errors: ""
 	}
 
@@ -26,30 +26,46 @@ class AdminAccount extends Component {
 		this.props.logoutUser();
 	};
 
-	editDetails = ()=>{
+	editPassword = ()=>{
 		this.setState({
-			edit: true
+			changePassword: true,
+			changeEmail: false
 		});
 	}
 
-	reAuthenticate = ()=>{
-		this.setState(
-		{
-			edit: false,
-			reAuth: true
+	editEmail = ()=>{
+		this.setState({
+			changePassword: false,
+			changeEmail: true
 		});
 	}
 
 	updatePassword = ()=>{
+		// make api calls
+
+		// if success:
 		this.setState({
-			reAuth: false
+			changePassword: false,
+			changeEmail: false
 		});
+		// display success - can put it in state.errors
+
+		// else display error in state.errors
 	}
 
 	updateEmail = ()=>{
+
+		// make api calls
+
+		// if success:
 		this.setState({
-			reAuth: false
+			changePassword: false,
+			changeEmail: false
 		});
+
+		// display success - can put it in state.errors
+
+		// else display error in state.errors
 	}
 
   render() {
@@ -78,47 +94,30 @@ class AdminAccount extends Component {
 			</div>
 			<div className = 'edit-account'>
 				<button className='account-button' type='button'
-					onClick={this.editDetails}
-				>Edit account details</button>
-				{this.state.edit ?
+					onClick={this.editPassword}
+				>Edit password</button>
+				<button className='account-button' type='button'
+					onClick={this.editEmail}
+				>Edit email</button>
+
+				{this.state.changePassword ?
 					<div className="dropdown">
-			            <form noValidate onSubmit={this.onSubmit}>
-			              <div>
-			                <label>Password:</label>
-			                <input
-			                  id="password1"
-			                  type="text"
-			                />
-			                <label>Re-enter password:</label>
-			                <input
-			                  id="password2"
-			                  type="text"
-			                />
-			                <button className='account-button'
-			                    onClick={this.reAuthenticate}
-			                  >
-			                  Submit
-			                </button>
-			              </div>
-			            </form>
-			            {this.state.errors}
-					</div>
-					: null
-				}
-				{this.state.reAuth ?
-					<div className="dropdown">
-						<span>Update password</span>
 			            <form noValidate>
 			              <div>
-			                <label>New password:</label>
+			                <label>Re enter password:</label>
 			                <input
-			                  id="new_password1"
-			                  type="text"
+			                  id="password"
+			                  type="password"
+			                />
+			                <label>Enter new password:</label>
+			                <input
+			                  id="new_pass"
+			                  type="password"
 			                />
 			                <label>Re-enter new password:</label>
 			                <input
-			                  id="new_password2"
-			                  type="text"
+			                  id="new_pass2"
+			                  type="password"
 			                />
 			                <button className='account-button'
 			                    onClick={this.updatePassword}
@@ -128,10 +127,20 @@ class AdminAccount extends Component {
 			              </div>
 			            </form>
 			            {this.state.errors}
-			            <span>Update email address</span>
+					</div>
+					: null
+				}
+
+				{this.state.changeEmail ?
+					<div className="dropdown">
 			            <form noValidate>
 			              <div>
-			                <label>New email:</label>
+			                <label>Re enter password:</label>
+			                <input
+			                  id="password"
+			                  type="password"
+			                />
+			                <label>Enter your new email:</label>
 			                <input
 			                  id="new_email"
 			                  type="text"
@@ -147,6 +156,7 @@ class AdminAccount extends Component {
 					</div>
 					: null
 				}
+
 			</div>
 		</div>
         </div>
