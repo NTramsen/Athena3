@@ -21,7 +21,7 @@ module.exports = function validateChangePass(data) {
   }
 
 
-  if (!Validator.equals(data.password, data.newPassword2)) {
+  if (!Validator.equals(data.newPassword, data.newPassword2)) {
     errors.newPassword2 = "Passwords do not match";
   }
 
