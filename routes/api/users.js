@@ -240,22 +240,43 @@ router.put("/checkoutItem", (req, res) => {
       if (item) {
         Item.findOneAndUpdate({ _id: itemid }, { borrowed: true, dueDate: date})
           .then(item2 => {
-
-            User.findOneAndUpdate(
-              { _id: id },
-              { $push: { items: itemid } },
-              function (error, success) {
-                if (error) {
-                  res.status(401).json({ message: 'Router- Not Added' })
-                  return
+            User.findOneAndUpdate( { _id: id }, { $push: { items: itemid } })
+              .then(user =>{
+                if (!user){
+                  return res.status(404).json({ emailnotfound: "Error: User not found" })
                 } else {
-                  res.status(200).json({ message: 'In Router added item ' + itemid + ' to ' + id })
-                  return
+                  const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                      user: 'athena.ims.no.reply',
+                      pass: 'athenacs370!',
+                    }
+                  });
+
+                  const mailOptions = {
+                    from: 'athena.ims.no.reply@gmail.com',
+                    to: `${user.email}`,
+                    subject: `Athena: ${item.type} has been checked out!`,
+                    text:
+                      `${user.name}, \n\n` +
+                      `Please return your ${item.type} by ${date}. \n \n` +
+                      `Thank you for using Athena.\n \n`
+                  };
+
+                  transporter.sendMail(mailOptions, (err, response) => {
+                    if (err) {
+                      console.error ('error sending', err);
+                    } else {
+                      return res.status(200).json('email sent');
+                    }
+                  });
                 }
-              });
+              })
+              .catch (err => console.error('Error: checkout unsuccesful'))
           })
           .catch(err => console.error('Router-not updated'));
       }
+
       else {
         res.status(399).json({ message: 'Router Item already borrowed ' + req.body })
         return
