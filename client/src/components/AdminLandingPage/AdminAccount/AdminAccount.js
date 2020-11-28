@@ -2,21 +2,29 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
-// import '../AdminLandingPage.css';
 import '../../../App.css';
 import AdminBar from '../AdminBar/AdminBar';
+import axios from 'axios';
+
+
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api/admins'
+})
 
 class AdminAccount extends Component {
 
-	state = {
-		changePassword: false,
-		changeEmail: false,
-		errors: ""
-	}
+
 
 	constructor(props) {
 		super(props);
 		this.state = {
+			changePassword: false,
+			changeEmail: false,
+			errors: "",
+			password: "",
+			newPassword: "",
+			newPassword2: ""
 		};
 	};
 
@@ -40,17 +48,34 @@ class AdminAccount extends Component {
 		});
 	}
 
-	updatePassword = ()=>{
-		// make api calls
 
-		// if success:
-		this.setState({
-			changePassword: false,
-			changeEmail: false
+	onSubmit = e => {
+		e.preventDefault();
+	};
+
+	updatePassword =  () =>{
+		const user = this.props.usr.user;
+		const info = Object.values(user);
+
+		const adminData = {
+			email: info[2],
+			password: this.state.password,
+			newPassword: this.state.newPassword,
+			newPassword2: this.state.newPassword2
+		}
+
+		let data = api.put('/change_pass', adminData).then( response => {
+			console.log(response);
+			this.setState({
+				changePassword: false,
+				changeEmail: false
+			});
+		}).catch(err => {
+			const code = err.response.data;
+			const message = Object.values(code)[0];
+			this.setState({errors: message});
 		});
-		// display success - can put it in state.errors
 
-		// else display error in state.errors
 	}
 
 	updateEmail = ()=>{
@@ -102,31 +127,45 @@ class AdminAccount extends Component {
 
 				{this.state.changePassword ?
 					<div className="dropdown">
-			            <form noValidate>
+			            <form noValidate onSubmit={this.onSubmit}>
 			              <div>
-			                <label>Re enter password:</label>
+			                <label>Enter password:</label>
 			                <input
 			                  id="password"
 			                  type="password"
-			                />
+												value = {this.state.password}
+												// error= {errors.password}
+												onChange={(e)=>this.setState({password: e.target.value})}></input>
+										</div>
+										<div>
 			                <label>Enter new password:</label>
 			                <input
 			                  id="new_pass"
 			                  type="password"
-			                />
+												value = {this.state.newPassword}
+												// error= {errors.newPassword}
+												onChange={(e)=>this.setState({newPassword: e.target.value})}></input>
+										</div>
+										<div>
 			                <label>Re-enter new password:</label>
 			                <input
 			                  id="new_pass2"
 			                  type="password"
-			                />
-			                <button className='account-button'
+												value = {this.state.newPassword2}
+												// error= {errors.newPassword2}
+												onChange={(e)=>this.setState({newPassword2: e.target.value})}></input>
+			              </div>
+										<div>
+			                <button type= "submit" className='account-button'
 			                    onClick={this.updatePassword}
 			                  >
 			                  Submit
 			                </button>
 			              </div>
 			            </form>
-			            {this.state.errors}
+									<span className="red-text">
+										{this.state.errors}
+									</span>
 					</div>
 					: null
 				}
@@ -135,7 +174,7 @@ class AdminAccount extends Component {
 					<div className="dropdown">
 			            <form noValidate>
 			              <div>
-			                <label>Re enter password:</label>
+			                <label>Enter password:</label>
 			                <input
 			                  id="password"
 			                  type="password"
@@ -160,7 +199,7 @@ class AdminAccount extends Component {
 			</div>
 		</div>
         </div>
-        <button 
+        <button
         onClick={this.onLogoutClick}
         className="btn btn-large waves-effect waves-light hoverable blue accent-3">Logout</button>
       </div>
@@ -170,11 +209,14 @@ class AdminAccount extends Component {
 
 AdminAccount.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-	usr: PropTypes.object.isRequired
+	usr: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired
+
 };
 
 const mapStateToProps = (state) => ({
-	usr: state.auth
+	usr: state.auth,
+	errors: state.errors
 });
 
 export default connect(

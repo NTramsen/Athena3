@@ -16,24 +16,27 @@ module.exports = function validateChangePass(data) {
     errors.password = "Password is required";
   }
 
-  if (Validator.isEmpty(data.newPassword2)) {
-    errors.newPassword2 = "Confirm password is required";
-  }
 
 
-  if (!Validator.equals(data.newPassword, data.newPassword2)) {
-    errors.newPassword2 = "Passwords do not match";
-  }
+
 
 
   // New password check
   if (Validator.isEmpty(data.newPassword)) {
     errors.newPassword = "New password is required";
-  }
+  } else if (!Validator.isLength(data.newPassword, { min: 6, max: 30 })) {
+      errors.newPassword = "New password must be at least 6 characters";
+    }
 
-  if (!Validator.isLength(data.newPassword, { min: 6, max: 30 })) {
-    errors.newPassword = "New password must be at least 6 characters";
-  }
+
+
+  if (Validator.isEmpty(data.newPassword2)) {
+    errors.newPassword = "Confirm password is required";
+  } else if (!Validator.equals(data.newPassword, data.newPassword2)) {
+      errors.newPassword2 = "Passwords do not match";
+    }
+
+
 
 
 
