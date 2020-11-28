@@ -104,7 +104,7 @@ class AdminAccount extends Component {
 					<div className="dropdown">
 			            <form noValidate>
 			              <div>
-			                <label>Re enter password:</label>
+			                <label>Enter password:</label>
 			                <input
 			                  id="password"
 			                  type="password"
@@ -135,7 +135,7 @@ class AdminAccount extends Component {
 					<div className="dropdown">
 			            <form noValidate>
 			              <div>
-			                <label>Re enter password:</label>
+			                <label>Enter password:</label>
 			                <input
 			                  id="password"
 			                  type="password"
@@ -160,7 +160,7 @@ class AdminAccount extends Component {
 			</div>
 		</div>
         </div>
-        <button 
+        <button
         onClick={this.onLogoutClick}
         className="btn btn-large waves-effect waves-light hoverable blue accent-3">Logout</button>
       </div>
