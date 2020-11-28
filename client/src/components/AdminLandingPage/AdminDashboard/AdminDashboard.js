@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import AdminBar from '../AdminBar/AdminBar';
+//import {Link} from 'react-router-dom';
+//import * as FaIcons from 'react-icons/fa';
+//import AdminBar from '../AdminBar/AdminBar';
 import '../../../App.css';
 import axios from 'axios';
 

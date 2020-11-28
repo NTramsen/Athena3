@@ -12,13 +12,12 @@ const api = axios.create({
 
 class ManageCheckouts extends Component {
 
-  state = {
-    checkouts: [],
-    overdues: []
-  };
-
   constructor(props){
     super(props);
+    this.state = {
+      checkouts: [],
+      overdues: []
+    }
   };
 
 	onLogoutClick = e => {
@@ -76,8 +75,8 @@ class ManageCheckouts extends Component {
   };
 
   returnItem = async(userid, itemid) =>{
-    var response;
-    let data = api.put('users/removeitem', {id: userid, item: itemid}).then( response => {
+    //var response;
+    api.put('users/removeitem', {id: userid, item: itemid}).then( response => {
       console.log(response);
     }).catch(e => {
       console.log(e);

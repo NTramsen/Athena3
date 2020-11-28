@@ -37,12 +37,12 @@ class Search extends Component {
     };
     console.log(params);
     let data = await api.get('/items/', {params}).then( ({data}) => data);
-    console.log(data);
+    data = data.filter(function(e) { return e.borrowed === false });
     this.setState({items : data});
   }
 
   togglePop = (item_id) => {
-    if(this.state.seen==item_id){
+    if(this.state.seen===item_id){
       this.setState({
         seen: -1
       });
@@ -58,11 +58,14 @@ class Search extends Component {
 
     const dur = this.state.duration;
 
-    let data = api.put('users/checkoutItem', {id: userid, item: itemid, duration: dur}).then( response => {
+    api.put('users/checkoutItem', {id: userid, item: itemid, duration: dur}).then( response => {
       console.log(response);
     }).catch(e => {
       console.log(e);
     });
+
+    window.location.reload(false);
+    
   }
 
 	onLogoutClick = e => {
@@ -96,7 +99,7 @@ class Search extends Component {
               <div key={item._id}>
                 <span>{item.type}</span>
                 <button onClick={()=>this.togglePop(item._id.toString())}>More</button>
-                {this.state.seen==item._id ? 
+                {this.state.seen===item._id ? 
                   <div className="dropdown">
                     <span className="dashboard-item_description">{item.description}</span>
                     <input 

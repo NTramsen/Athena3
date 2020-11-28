@@ -44,9 +44,9 @@ import "./App.css";
       email: localStorage.email
     };
 
-    if (localStorage.admin=="true"){
+    if (localStorage.admin==="true"){
       store.dispatch(setCurrentAdmin(user));
-    } else if (localStorage.admin=="false"){
+    } else if (localStorage.admin==="false"){
       store.dispatch(setCurrentUser(user));
     }
 
