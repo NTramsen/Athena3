@@ -74,7 +74,9 @@ class ManageCheckouts extends Component {
   };
 
   returnItem = async(userid, itemid) =>{
-    let data = api.put('items/removeitem', {id: userid, items: itemid}).then( response => {
+    console.log("userID: " + userid);
+    console.log("itemid: " + itemid);
+    let data = api.put('users/removeitem', {id: userid, item: itemid}).then( response => {
       console.log(response);
     }).catch(e => {
       console.log(e);
