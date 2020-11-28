@@ -6,8 +6,9 @@ module.exports = function validateChangePass(data) {
 
   // Convert empty fields to an empty string so we can use validator functions
   data.password = !isEmpty(data.password) ? data.password : "";
-  data.password2 = !isEmpty(data.password2) ? data.password2 : "";
   data.newPassword = !isEmpty(data.newPassword) ? data.newPassword : "";
+  data.newPassword2 = !isEmpty(data.newPassword2) ? data.newPassword2 : "";
+
 
 
   // Password checks
@@ -15,13 +16,13 @@ module.exports = function validateChangePass(data) {
     errors.password = "Password is required";
   }
 
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = "Confirm password is required";
+  if (Validator.isEmpty(data.newPassword2)) {
+    errors.newPassword2 = "Confirm password is required";
   }
 
 
-  if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = "Passwords do not match";
+  if (!Validator.equals(data.newPassword, data.newPassword2)) {
+    errors.newPassword2 = "Passwords do not match";
   }
 
 
