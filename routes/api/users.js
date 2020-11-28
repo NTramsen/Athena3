@@ -252,13 +252,14 @@ router.put("/removeitem", (req, res) => {
 
 router.put("/getuseritems", (req,res) =>{
   const id = req.body.id;
-  console.log("id: " + id);
+  //console.log("id: " + id);
   User.findOne({ _id: id }).lean().exec(function (error, success) {
     if (error) {
       res.send(err);
     } else {
       if (success){
         res.status(200).json(success);
+        //console.log("success: " + success);
       }
       else{
         console.log("null");

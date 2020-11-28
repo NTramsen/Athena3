@@ -17,6 +17,7 @@ class Items extends Component {
 	    this.state = {
 				newItemNum: '',
 				items: [],
+				myItems: [],
 				seen:-1,
 				new_type: "",
 				new_desc: "",
@@ -50,12 +51,25 @@ class Items extends Component {
 
 	componentDidMount(){
 		//this.findAllItems();
-		this.getCurrentItems();
+		//this.getCurrentItems();
   };
 
 	findAllItems = async() => {
-    let data = await api.get('items').then( ({data}) => data);
-    this.setState({items : data});
+		this.getCurrentItems();
+		let finalItems = []
+		let data = await api.get('items').then( ({data}) => data);
+		console.log("findall.data: " + data);
+		console.log("state.myItems: " + this.state.myItems);
+		this.setState({items : data});
+		for (var j = 0; j < this.state.items.length; j++) {
+			for (var i = 0; i < this.state.myItems.length; i++) {
+				if (this.state.items[j]._id === this.state.myItems[i]) {
+					finalItems.push(this.state.items[j]);
+				}
+			}
+		}
+		console.log("finalItems: " + finalItems);
+		this.setState({items:finalItems});
 	};
 	
 	togglePop = (item_id) => {
@@ -76,46 +90,17 @@ class Items extends Component {
 		const info = Object.values(user);
 		const id = info[0];
 		
-		console.log("getCurrentItems running");
 		try {
-			console.log("passing id: " + id);
 			let data = await api.put('users/getuseritems', {id: id}).then(({data}) => data);
-			console.log("data: " + data);
-
-			this.setState({items : data.items});
+			this.setState({myItems : data.items});
 		} catch(e) {
 			console.log(e);
 		}
-		console.log("have set state");
 		//data is a JSON. check findAllItems to see how items are returned,
 		//get the data from JSon to then match how items are returned so mapping is succuessful
 
 	}
 
-	getPastItems() {
-		return [
-			{
-				name: "Glass beaker",
-				return_date: "Returned 5 days ago",
-				item_id: 23801
-			},
-			{
-				name: "Oscilloscope",
-				return_date: "Returned 2 weeks ago",
-				item_id: 48920
-			},
-			{
-				name: "Stem cell textbook",
-				return_date: "Returned 8 weeks ago",
-				item_id: 98384
-			},
-			{
-				name: "T98 Video camera",
-				return_date: "Returned 10 weeks ago",
-				item_id: 98384
-			}
-		];
-	}
 
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -125,7 +110,7 @@ class Items extends Component {
   render() {
 		const user = this.props.usr.user;
 		const info = Object.values(user);
-		//getCurrentItems();
+		this.getCurrentItems();
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
@@ -140,7 +125,9 @@ class Items extends Component {
 				<p className='component-title'>Your item history</p>
 				<button className = 'checkout-button'
 					onClick={()=>{
-						this.getCurrentItems();
+						this.findAllItems();
+						//this.getCurrentItems();
+						//console.log("state.item: " + this.state.items);
 					}}>test current</button>
 			</div>
 			<div className='current-list'>
