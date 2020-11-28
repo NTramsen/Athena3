@@ -56,8 +56,9 @@ class Items extends Component {
 	        if(item_data){
 	            var today = new Date();
 	          	var dueDate = new Date(item_data.dueDate);
+	          	console.log(item_data.type, today, dueDate);
 	          	if(item_data.dueDate && dueDate<today){
-		            myItems.push({
+		            myOverdues.push({
 		              	type: item_data.type,
 		              	description: item_data.description,
 		              	item_id: item_data._id,
@@ -65,7 +66,7 @@ class Items extends Component {
 		            });
 	          	}
 	          	else{
-		            myOverdues.push({
+		            myItems.push({
 		              	type: item_data.type,
 		              	description: item_data.description,
 		              	item_id: item_data._id,
@@ -74,6 +75,8 @@ class Items extends Component {
 	          	}
 	        }
 	    }
+	    console.log(myItems);
+	    console.log(myOverdues);
 	    this.setState({
         	myItems: myItems,
         	myOverdues: myOverdues

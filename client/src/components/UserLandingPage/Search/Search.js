@@ -37,7 +37,7 @@ class Search extends Component {
     };
     console.log(params);
     let data = await api.get('/items/', {params}).then( ({data}) => data);
-    console.log(data);
+    data = data.filter(function(e) { return e.borrowed === false });
     this.setState({items : data});
   }
 
@@ -63,6 +63,9 @@ class Search extends Component {
     }).catch(e => {
       console.log(e);
     });
+
+    window.location.reload(false);
+    
   }
 
 	onLogoutClick = e => {
