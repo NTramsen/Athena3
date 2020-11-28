@@ -139,7 +139,7 @@ router.put("/change_pass", (req, res) => {
     }
 
     // Check password
-    bcrypt.compare(req.body.password, user.password).then(isMatch => {
+    bcrypt.compare(req.body.password, admin.password).then(isMatch => {
       if (isMatch) { // password matched
 
         bcrypt.genSalt(10, (err, salt) => {
