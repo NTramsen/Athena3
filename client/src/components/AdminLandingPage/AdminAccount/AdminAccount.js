@@ -16,8 +16,8 @@ class AdminAccount extends Component {
 
 
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			changePassword: false,
 			changeEmail: false,
@@ -63,7 +63,6 @@ class AdminAccount extends Component {
 			newPassword: this.state.newPassword,
 			newPassword2: this.state.newPassword2
 		}
-		console.log(adminData);
 
 		let data = api.put('/change_pass', adminData).then( response => {
 			console.log(response);
@@ -98,8 +97,6 @@ class AdminAccount extends Component {
 
 	const user = this.props.usr.user;
 	const info = Object.values(user);
-	const errors = this.state.errors;
-	console.log(errors);
 
     return (
       <div className = 'main-container'>
