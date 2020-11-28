@@ -1,10 +1,11 @@
 import React, {Component, useState} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser, getUserInfo } from "../../../actions/authActions";
+import { logoutUser } from "../../../actions/authActions";
 import '../../../App.css';
 import AdminBar from '../AdminBar/AdminBar';
 import axios from 'axios';
+
 
 
 const api = axios.create({
@@ -15,8 +16,8 @@ class AdminAccount extends Component {
 
 
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			changePassword: false,
 			changeEmail: false,
@@ -52,7 +53,7 @@ class AdminAccount extends Component {
 		e.preventDefault();
 	};
 
-	updatePassword = async()=>{
+	updatePassword =  () =>{
 		const user = this.props.usr.user;
 		const info = Object.values(user);
 
@@ -66,16 +67,16 @@ class AdminAccount extends Component {
 
 		let data = api.put('/change_pass', adminData).then( response => {
 			console.log(response);
-		}).catch(e => {
-			console.log(e);
+			this.setState({
+				changePassword: false,
+				changeEmail: false
+			});
+		}).catch(err => {
+			const code = err.response.data;
+			const message = Object.values(code)[0];
+			this.setState({errors: message});
 		});
 
-
-		// if success:
-		this.setState({
-			changePassword: false,
-			changeEmail: false
-		});
 	}
 
 	updateEmail = ()=>{
@@ -97,6 +98,8 @@ class AdminAccount extends Component {
 
 	const user = this.props.usr.user;
 	const info = Object.values(user);
+	const errors = this.state.errors;
+	console.log(errors);
 
     return (
       <div className = 'main-container'>
@@ -134,6 +137,7 @@ class AdminAccount extends Component {
 			                  id="password"
 			                  type="password"
 												value = {this.state.password}
+												// error= {errors.password}
 												onChange={(e)=>this.setState({password: e.target.value})}></input>
 										</div>
 										<div>
@@ -142,6 +146,7 @@ class AdminAccount extends Component {
 			                  id="new_pass"
 			                  type="password"
 												value = {this.state.newPassword}
+												// error= {errors.newPassword}
 												onChange={(e)=>this.setState({newPassword: e.target.value})}></input>
 										</div>
 										<div>
@@ -150,6 +155,7 @@ class AdminAccount extends Component {
 			                  id="new_pass2"
 			                  type="password"
 												value = {this.state.newPassword2}
+												// error= {errors.newPassword2}
 												onChange={(e)=>this.setState({newPassword2: e.target.value})}></input>
 			              </div>
 										<div>
@@ -160,7 +166,9 @@ class AdminAccount extends Component {
 			                </button>
 			              </div>
 			            </form>
-			            {this.state.errors}
+									<span className="red-text">
+										{this.state.errors}
+									</span>
 					</div>
 					: null
 				}
@@ -204,11 +212,14 @@ class AdminAccount extends Component {
 
 AdminAccount.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-	usr: PropTypes.object.isRequired
+	usr: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired
+
 };
 
 const mapStateToProps = (state) => ({
-	usr: state.auth
+	usr: state.auth,
+	errors: state.errors
 });
 
 export default connect(
