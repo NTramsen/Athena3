@@ -148,7 +148,7 @@ router.put("/change_pass", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ usernotfound: "Error: User not found" });
+      return res.status(404).json({ emailnotfound: "Error: Email not found" });
     }
 
     // Check password
@@ -190,7 +190,7 @@ router.post("/forgot_pass", (req, res)=>{
   console.error(req.body.email);
   User.findOne({ email: req.body.email }).then(user => {
     if (!user) {
-      return res.status(404).json({ usernotfound: "Error: Email not found" });
+      return res.status(404).json({ emailnotfound: "Error: Email not found" });
     } else {
       const token = crypto.randomBytes(20).toString('hex');
       user.update({

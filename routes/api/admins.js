@@ -10,6 +10,8 @@ const crypto = require("crypto");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateChangePass = require("../../validation/changepass");
+
 
 // Load Admin model
 const Admin = require("../../models/Admin");
@@ -133,7 +135,7 @@ router.put("/change_pass", (req, res) => {
   Admin.findOne({ email: req.body.email }).then(admin => {
     // Check if user exists
     if (!admin) {
-      return res.status(404).json({ usernotfound: "Error: Email not found" });
+      return res.status(404).json({ emailnotfound: "Error: Email not found" });
     }
 
     // Check password
