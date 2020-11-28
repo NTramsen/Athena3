@@ -31,6 +31,8 @@ class ManageCheckouts extends Component {
   };
 
   findAllCheckouts = async() => {
+
+    console.log("Finding checkouts");
     let data = await api.get('/users/').then( ({data}) => data);
     data = data.filter(user=>user.items.length>0);
   
@@ -74,13 +76,14 @@ class ManageCheckouts extends Component {
   };
 
   returnItem = async(userid, itemid) =>{
-    console.log("userID: " + userid);
-    console.log("itemid: " + itemid);
+    var response;
     let data = api.put('users/removeitem', {id: userid, item: itemid}).then( response => {
       console.log(response);
     }).catch(e => {
       console.log(e);
     });
+
+    window.location.reload(false);
 
   }
 
