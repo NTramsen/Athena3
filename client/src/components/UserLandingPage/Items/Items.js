@@ -58,8 +58,8 @@ class Items extends Component {
 		this.getCurrentItems();
 		let finalItems = []
 		let data = await api.get('items').then( ({data}) => data);
-		console.log("findall.data: " + data);
-		console.log("state.myItems: " + this.state.myItems);
+		//console.log("findall.data: " + data);
+		//console.log("state.myItems: " + this.state.myItems);
 		this.setState({items : data});
 		for (var j = 0; j < this.state.items.length; j++) {
 			for (var i = 0; i < this.state.myItems.length; i++) {
@@ -110,7 +110,7 @@ class Items extends Component {
   render() {
 		const user = this.props.usr.user;
 		const info = Object.values(user);
-		this.getCurrentItems();
+		this.findAllItems();
     return (
       <div className = 'main-container'>
         <div className = 'top-banner'>
@@ -123,12 +123,6 @@ class Items extends Component {
 	      <div className='component-container'>
 			<div className='component-header'>
 				<p className='component-title'>Your item history</p>
-				<button className = 'checkout-button'
-					onClick={()=>{
-						this.findAllItems();
-						//this.getCurrentItems();
-						//console.log("state.item: " + this.state.items);
-					}}>test current</button>
 			</div>
 			<div className='current-list'>
 				<p className='sub-title'>All current items</p>
@@ -139,6 +133,7 @@ class Items extends Component {
 								<button className = 'item-button_btn' onClick={()=> {
 									this.setState({newItemNum: item._id})
 									this.returnItems(item._id);
+									this.findAllItems();
 									}}>Return</button>
 								{this.state.seen==item._id ? 
                   <div className="dropdown">
