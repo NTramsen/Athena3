@@ -32,7 +32,7 @@ class Checkout extends Component {
 
 		console.log("userID: " + id);
 		console.log("item in Checkout.js " + itemid);
-		let data = api.put('/checkoutItem', {id: id, item: itemid, duration: dur}).then( response => {
+		api.put('/checkoutItem', {id: id, item: itemid, duration: dur}).then( response => {
 			console.log(response);
 		}).catch(e => {
 			console.log(e);

@@ -1,7 +1,7 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser, getUserInfo } from "../../../actions/authActions";
+import { logoutUser } from "../../../actions/authActions";
 // import '../AdminLandingPage.css';
 import '../../../App.css';
 import AdminBar from '../AdminBar/AdminBar';

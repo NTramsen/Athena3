@@ -11,17 +11,15 @@ const api = axios.create({
 
 class ManageItems extends Component {
 
-  state = {
-
-    items: [],
-    seen:-1,
-    new_type: "",
-    new_desc: "",
-    errors: ""
-  };
-
   constructor(props){
     super(props);
+    this.state = {
+      items: [],
+      seen:-1,
+      new_type: "",
+      new_desc: "",
+      errors: ""
+    };
   };
 
   updateInputValue(evt) {
@@ -47,7 +45,7 @@ class ManageItems extends Component {
 
 
   createItem = async(type, description) => {
-    let res = await api.post('/',{
+    await api.post('/',{
       type: type,
       description: description,
       borrowed: false
@@ -56,12 +54,12 @@ class ManageItems extends Component {
   }
 
   deleteItem = async(id) =>{
-    let data = await api.delete(`/${id}`);
+    await api.delete(`/${id}`);
     this.findAllItems();
   };
 
   togglePop = (item_id) => {
-    if(this.state.seen==item_id){
+    if(this.state.seen===item_id){
       this.setState({
         seen: -1
       });
@@ -80,7 +78,7 @@ class ManageItems extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    if(this.state.new_type=="" || this.state.new_desc==""){
+    if(this.state.new_type==="" || this.state.new_desc===""){
       this.setState({
         errors: "Invalid input: enter an item type and description.",
         new_type: "",
@@ -145,7 +143,7 @@ class ManageItems extends Component {
                 <span>{item.type}</span>
                 <button onClick={() => this.deleteItem(item._id.toString())}>Delete</button>
                 <button onClick={()=>this.togglePop(item._id.toString())}>More</button>
-                {this.state.seen==item._id ? 
+                {this.state.seen===item._id ? 
                   <div className="dropdown">
                     <span className="dashboard-item_description">{item.description}</span>
                   </div>

@@ -12,13 +12,12 @@ const api = axios.create({
 
 class ManageUsers extends Component {
 
-  state = {
-    users: [],
-    seen:-1
-  };
-
 	constructor(props) {
 	    super(props);
+      this.state = {
+        users: [],
+        seen:-1
+      };
 	};
 
   componentDidMount(){
@@ -36,12 +35,12 @@ class ManageUsers extends Component {
   }
 
   deleteUser = async(id)=>{
-    let data = await api.delete(`/${id}`);
+    await api.delete(`/${id}`);
     this.findAllUsers();
   }
 
   togglePop = (item_id) => {
-    if(this.state.seen==item_id){
+    if(this.state.seen===item_id){
       this.setState({
         seen: -1
       });
@@ -77,7 +76,7 @@ class ManageUsers extends Component {
               {user.email}
               <button className='item-button_btn' onClick={() => this.deleteUser(user._id)}>delete</button>
               <button className='item-button_btn' onClick={()=>this.togglePop(user._id)}>More</button>
-              {this.state.seen==user._id ?
+              {this.state.seen===user._id ?
                 <div className="dropdown">
                   <span>User id:</span>
                   <span className="dashboard-item_description">{user._id.toString()}</span>

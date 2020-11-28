@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import '../../../App.css';
-import ItemInterface from '../ItemInterface/ItemInterface';
+// import ItemInterface from '../ItemInterface/ItemInterface';
 
 class Dashboard extends Component{
 
 	constructor(props){
 	    super(props);
+	    this.state = {
+	    	seen: -1
+	    }
 	};
-
-	state = {
-		seen: -1
-	}
 
 	togglePop = (item_id) => {
 	    this.setState({
@@ -71,7 +70,7 @@ class Dashboard extends Component{
 						                  More
 						                </button></span>
 										
-										{this.state.seen==item.item_id ? 
+										{this.state.seen===item.item_id ? 
 											<div className="dropdown">
 												<span className="dashboard-item_description">{item.description}</span> 
 												<button className="item-button_btn">Return</button>
