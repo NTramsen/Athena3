@@ -62,7 +62,7 @@ class Items extends Component {
 		              	type: item_data.type,
 		              	description: item_data.description,
 		              	item_id: item_data._id,
-		              	dueDate: item_data.dueDate
+		              	dueDate: dueDate
 		            });
 	          	}
 	          	else{
@@ -70,7 +70,7 @@ class Items extends Component {
 		              	type: item_data.type,
 		              	description: item_data.description,
 		              	item_id: item_data._id,
-		              	dueDate: item_data.dueDate
+		              	dueDate: dueDate
 		            });
 	          	}
 	        }
@@ -131,7 +131,7 @@ class Items extends Component {
 				              <div className ='manageitem_list' key={checkout.item_id}>
 								  {/* {checkout.name} */}
 								  <span className="manageitem_name">{checkout.type}</span>
-									<span className="manageitem_date">{checkout.dueDate? checkout.dueDate : null}</span> 
+									<span className="manageitem_date">{checkout.dueDate? checkout.dueDate.getMonth()+"/"+checkout.dueDate.getDate()+"/"+checkout.dueDate.getFullYear() : null}</span> 
               						<span className="manageitem_button"><button className = 'checkout-button-btn' onClick={()=>this.togglePop(checkout.item_id.toString())}>More</button></span>  				                
 				                {this.state.seen===checkout.item_id ? 
 				                  <div className="dropdown">
