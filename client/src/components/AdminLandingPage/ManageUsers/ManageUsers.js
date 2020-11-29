@@ -69,13 +69,18 @@ class ManageUsers extends Component {
 				<div className='component-header'>
           <p className='component-title'>Manage Users:</p>
 				</div>
+        <div className='manageuser_header'>
+						<span className="manageuser_header_style1">User Name</span>
+						<span className="manageuser_header_style2">User Email</span>
+				</div>
         <div className = 'User-List'>
           {this.state.users.map(user =>
-            <div key={user._id}>
-              {user.name}
-              {user.email}
-              <button className='item-button_btn' onClick={() => this.deleteUser(user._id)}>delete</button>
-              <button className='item-button_btn' onClick={()=>this.togglePop(user._id)}>More</button>
+            <div className='manageuser_list' key={user._id}>
+              <span className="manageuser_name">{user.name}</span>
+							<span className="manageuser_email">{user.email}</span> 
+              <span className="manageuser_button"><button className='item-button_btn' onClick={() => this.deleteUser(user._id)}>delete</button>
+              <button className='item-button_btn' onClick={()=>this.togglePop(user._id)}>More</button></span>         
+              
               {this.state.seen===user._id ?
                 <div className="dropdown">
                   <span>User id:</span>

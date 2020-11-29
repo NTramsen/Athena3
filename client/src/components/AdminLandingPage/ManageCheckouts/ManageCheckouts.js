@@ -103,26 +103,35 @@ class ManageCheckouts extends Component {
 				<div className='component-header'>
         <p className='component-title'>Manage Checkout</p>
         </div>
+       
+
         <div>
-            <span>View currently checked-out items:</span>
+            <p className='sub-title'>View currently checked-out items:</p>
+            <div className='managecheckout_header'>
+              <span className="managecheckout_header_style1">User Name</span>
+              <span className="managecheckout_header_style2">Item Name</span>
+              <span className="managecheckout_header_style3">Due Date</span>
+			    	</div>
             {this.state.checkouts.map(checkout =>
-              <div key={checkout.item_id}>
-                <span>User:</span>
-                {checkout.name}
-                {checkout.type}
-                {checkout.dueDate? checkout.dueDate : null}
-                <button onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button>
+              <div className='managecheckout_list' key={checkout.item_id}>
+                <span className="managecheckout_name">{checkout.name}</span>
+							  <span className="managecheckout_item">{checkout.type}</span> 
+                <span className="managecheckout_date">{checkout.dueDate? checkout.dueDate : null}</span> 
+                <span className="managecheckout_button"><button className='item-button_btn' onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button></span>               
               </div>
             )}
           </div>
           <div>
-            <span>View over-due items:</span>
+          <p className='sub-title'>View over-due items:</p>
+          <div className='managecheckout_header'>
+              <span className="managecheckout_header_style1">User Name</span>
+              <span className="managecheckout_header_style2">Item Name</span>
+			    	</div>
             {this.state.overdues.map(checkout =>
-              <div key={checkout.item_id}>
-                <span>User:</span>
-                {checkout.name}
-                {checkout.type}
-                <button onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button>
+              <div className='managecheckout_list' key={checkout.item_id}>
+                <span className="managecheckout_name">{checkout.name}</span>
+							  <span className="managecheckout_item">{checkout.type}</span> 
+                <span className="managecheckout_button"><button className='item-button_btn' onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button></span>                        
               </div>
             )}   
           </div>
