@@ -85,7 +85,6 @@ class ManageUsers extends Component {
                 <div className="dropdown">
                   <span>User id:</span>
                   <span className="dashboard-item_description">{user._id.toString()}</span>
-                  <span>User items:</span>
                     {user.items.length ?
                       <span>N/a</span>
                       :<ul>

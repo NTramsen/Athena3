@@ -232,8 +232,9 @@ router.put("/checkoutItem", (req, res) => {
   const itemid = req.body.item;
   const duration = req.body.duration;
   var date = new Date;
-  date.setDate(date.getDate() + duration);
+  date.setDate(date.getDate() + parseInt(duration));
   console.log(id, itemid, duration, date);
+  console.log("date.getDate() + duration" + (date.getDate() + duration));
 
   Item.findOne({ _id: itemid, borrowed: { $eq: false } })
     .then(item => {
