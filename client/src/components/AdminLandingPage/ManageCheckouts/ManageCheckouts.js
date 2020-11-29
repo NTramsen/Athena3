@@ -52,7 +52,7 @@ class ManageCheckouts extends Component {
               type: item_data.type,
               description: item_data.description,
               item_id: item_data._id,
-              dueDate: dueDate
+              dueDate: item_data.dueDate
             });
           }
           else{
@@ -62,7 +62,7 @@ class ManageCheckouts extends Component {
               type: item_data.type,
               description: item_data.description,
               item_id: item_data._id,
-              dueDate: dueDate
+              dueDate: item_data.dueDate
             });
           }
         }
@@ -116,7 +116,7 @@ class ManageCheckouts extends Component {
               <div className='managecheckout_list' key={checkout.item_id}>
                 <span className="managecheckout_name">{checkout.name}</span>
 							  <span className="managecheckout_item">{checkout.type}</span> 
-                <span className="managecheckout_date">{checkout.dueDate? checkout.dueDate.getMonth()+"/"+checkout.dueDate.getDate()+"/"+checkout.dueDate.getFullYear() : null}</span> 
+                <span className="managecheckout_date">{checkout.dueDate? checkout.dueDate.substring(0,10) : null}</span> 
                 <span className="managecheckout_button"><button className='item-button_btn' onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button></span>               
               </div>
             )}
@@ -131,7 +131,7 @@ class ManageCheckouts extends Component {
               <div className='managecheckout_list' key={checkout.item_id}>
                 <span className="managecheckout_name">{checkout.name}</span>
 							  <span className="managecheckout_item">{checkout.type}</span> 
-                <span className="managecheckout_date">{checkout.dueDate? checkout.dueDate.getMonth()+"/"+checkout.dueDate.getDate()+"/"+checkout.dueDate.getFullYear() : null}</span> 
+                <span className="managecheckout_date">{checkout.dueDate? checkout.dueDate.substring(0,10) : null}</span> 
                 <span className="managecheckout_button"><button className='item-button_btn' onClick={()=>this.returnItem(checkout.user_id, checkout.item_id)}>Return item</button></span>                        
               </div>
             )}   
