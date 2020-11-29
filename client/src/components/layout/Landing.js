@@ -7,9 +7,14 @@ class Landing extends Component {
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
-            <h4>
-              Welcome to Athena- the easy to use inventory management system
-            </h4>
+            <h2>
+              <span>Welcome to </span>
+              <span style={{color:'#f2a900'}}>Athena </span>
+             
+            </h2>
+            <h5>
+            the easy to use inventory management system
+            </h5>
             <h5 style={{
               color:'gray',
               fontStyle:'italic'

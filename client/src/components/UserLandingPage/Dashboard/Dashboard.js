@@ -103,10 +103,10 @@ class Dashboard extends Component {
 				<div className='dashboard-list_header'>
 					<div className='dashboard-item_header'>
 						<ul className='dashboard-dashboard-list-items'>
-							<li><span className='sub-title'>Number of overdue checkouts:</span> {this.state.numOfOverdue}</li>
-							<li><span className='sub-title'>Number of current checkouts:</span> {this.state.numOfItems}</li>
+							<p className='sub-title'>Number of overdue checkouts: {this.state.numOfOverdue}</p> 
+							<p className='sub-title'>Number of current checkouts: {this.state.numOfItems}</p> 
 						</ul>
-						<li><span className="dashboard-header_style1">Overdue Items:</span></li>
+						<p className="dashboard-header_style">Overdue Items:</p>
 						<div>
 						{this.state.myOverdues.map(checkout =>
 							<div key={checkout.item_id}>
@@ -123,24 +123,24 @@ class Dashboard extends Component {
 							</div>
 						)}
 						</div>
-						<li><span className="dashboard-header_style1">Items Due Soon:</span></li>
-					<div>
-						{this.state.dueSoon.map(checkout =>
-							<div key={checkout.item_id}>
-								<span>User:</span>
-								{checkout.name}
-								{checkout.type}
-								<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
-								{this.state.seen === checkout.item_id ?
-									<div className="dropdown">
-										<span className="dashboard-item_description">{checkout.description}</span>
-										<button onClick={() => this.returnItems(checkout.item_id)}>Return item</button>
-									</div>
-									: null}
-							</div>
-						)}
+						<p className="dashboard-header_style">Items Due Soon:</p>
+						<div>
+							{this.state.dueSoon.map(checkout =>
+								<div key={checkout.item_id}>
+									<span>User:</span>
+									{checkout.name}
+									{checkout.type}
+									<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
+									{this.state.seen === checkout.item_id ?
+										<div className="dropdown">
+											<span className="dashboard-item_description">{checkout.description}</span>
+											<button onClick={() => this.returnItems(checkout.item_id)}>Return item</button>
+										</div>
+										: null}
+								</div>
+							)}
+						</div>
 					</div>
-				</div>
 				</div>
 
 				<div className='dashboard-dashboard-list'>

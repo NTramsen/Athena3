@@ -308,20 +308,20 @@ body{
 }
 
 .dashboard-item_header{
-	position: relative;
 	margin-bottom: 0.5rem;
 	color:#293241;
 	opacity: 0.66;
 	font-weight: bold;
 }
 
-.dashboard-header_style1{
+.dashboard-header_style{
 	font-weight: bold;
 	font-size: 1.2rem;
-	position:absolute;
-	left:0;
+  left:0;
+  margin-bottom: 0.5rem;
+  
 }
-
+/* 
 .dashboard-header_style2{
 	font-weight: bold;
 	font-size: 1.2rem;
@@ -337,7 +337,7 @@ body{
 	right:0;
 	left:74%;
 	
-}
+} */
 .dashboard-item{
 	position: relative;
 	background-color: #d9d9d6;
@@ -460,7 +460,7 @@ body{
 /* manage users*/
 .manageuser_header{
 	position: relative;
-	margin-bottom: 4rem;
+	margin-bottom: 6rem;
 	color:#293241;
 	opacity: 0.66;
   font-weight: bold;
