@@ -17,7 +17,7 @@ class Checkout extends Component {
 	    super(props);
 	    this.state = {
 	      newItemNum: '',
-	      duration:7,
+	      duration:null,
 	      errors: ''
 	    };
 	};
