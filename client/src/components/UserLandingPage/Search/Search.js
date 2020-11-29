@@ -97,17 +97,20 @@ class Search extends Component {
             <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
             {this.state.items.map(item => 
               <div key={item._id}>
-                <span>{item.type}</span>
-                <button onClick={()=>this.togglePop(item._id.toString())}>More</button>
+                <div className='dashboard-item'>
+                  <span >{item.type}</span>
+                  <button className = 'checkout-button-btn1' onClick={()=>this.togglePop(item._id.toString())}>More</button>
+                </div>
                 {this.state.seen===item._id ? 
                   <div className="dropdown">
+                    <span className='item_description'>Item description: </span>
                     <span className="dashboard-item_description">{item.description}</span>
                     <input 
                       placeholder = 'Desired checkout duration'
                       type = 'number'
                       value = {this.state.duration}
                       onChange={(e)=>this.setState({duration: e.target.value})}></input>
-                    <button onClick={() => this.checkoutItems(info[0], item._id.toString())}>Checkout</button>
+                    <button className = 'checkout-button-btn' onClick={() => this.checkoutItems(info[0], item._id.toString())}>Checkout</button>
                   </div>
                   : null}
               </div>

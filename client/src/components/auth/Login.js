@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser, loginAdmin } from "../../actions/authActions";
 import classnames from "classnames";
+import { FaBorderNone } from "react-icons/fa";
 
 class Login extends Component {
   constructor() {
@@ -91,7 +92,11 @@ class Login extends Component {
                     invalid: errors.email || errors.emailnotfound
                   })}
                 />
-                <label htmlFor="email">Email</label>
+                <label style={{
+                    color:'gray',
+                    backgroundColor:'#d9d9d6'
+                  }}
+                  htmlFor="email">Email</label>
                 <span className="red-text">
                   {errors.email}
                   {errors.emailnotfound}
@@ -108,7 +113,11 @@ class Login extends Component {
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
-                <label htmlFor="password">Password</label>
+                <label style={{
+                    color:'gray',
+                    backgroundColor:'#d9d9d6'
+                  }}
+                  htmlFor="password">Password</label>
                 <span className="red-text">
                   {errors.password}
                   {errors.passwordincorrect}

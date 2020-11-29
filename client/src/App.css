@@ -1,8 +1,13 @@
 
 
 body{
-
     background-image: url("back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-position-y: center;
+
+
   }
   
   .main-container{
@@ -187,6 +192,20 @@ body{
 	border-radius: 10%;
  }
 
+ .item_description{
+  color: #012169;
+  font-size: 2.2vh;
+ }
+
+
+.checkout-button-btn1{
+  color:#f2f7f4;
+  background-color: #012169;
+  font-size:1vw;  
+  position: absolute;
+  right:0;
+
+}
 
 /* items component */
 
@@ -205,6 +224,25 @@ body{
 	border-color: azure;
 	border-radius: 10%;
  }
+
+ .manageitem_list{
+  position: relative;
+  background-color: #d9d9d6;
+  opacity: 0.66;
+  margin:0.8vh;
+  font-size: 2vh;
+}
+
+.manageitem_date{
+  position:absolute;
+  left:50%;
+
+}
+.manageitem_button{
+  position:absolute;
+  right :0%;
+
+}
 
 /* user interface */
 .modal {
@@ -303,8 +341,10 @@ body{
 .dashboard-item{
 	position: relative;
 	background-color: #d9d9d6;
-	opacity: 0.66;
+  opacity: 0.66;
+  margin:0.8vh;
 }
+
 
 .dashboard-item_name{
 	font-weight: bold;
@@ -329,7 +369,8 @@ body{
 .dashboard-item_btn{
   position:absolute;
 	font-size: 1rem;
-  left:80%;
+	right:0%;
+
 }
 
 .dashboard-item_description{
@@ -348,7 +389,8 @@ body{
 }
 
 .dropdown{
-	background-color: #add8e6;
+  background-color: #d9d9d6;
+  opacity: 0.55;
 }
 
 
@@ -393,10 +435,125 @@ body{
 .checkout-button-btn{
     color:#f2f7f4;
     background-color: #012169;
-	font-size:1vw;
+	  font-size:1vw;
 }
 
 .current-list{
   font-size: 1.4vh;
   color:black;
+}
+
+.manageitem-list{
+  position: relative;
+  background-color: #d9d9d6;
+  opacity: 0.66;
+  margin:0.8vh;
+  font-size: 1.8vh;
+}
+
+.manageitem-btn{
+  position:absolute;
+  right:0%;
+
+}
+
+/* manage users*/
+.manageuser_header{
+	position: relative;
+	margin-bottom: 4rem;
+	color:#293241;
+	opacity: 0.66;
+  font-weight: bold;
+}
+
+.manageuser_header_style1{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:0;
+}
+
+.manageuser_header_style2{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:50%;
+}
+.manageuser_list{
+  position: relative;
+  background-color: #d9d9d6;
+  opacity: 0.66;
+  margin:0.8vh;
+}
+
+.manageuser_email{
+  position:absolute;
+  left:50%;
+
+}
+.manageuser_button{
+  position:absolute;
+  right:0%;
+
+}
+
+
+.managecheckout_header{
+	position: relative;
+	margin-bottom: 4rem;
+	color:#293241;
+	opacity: 0.66;
+  font-weight: bold;
+}
+
+.managecheckout_header_style1{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:0;
+}
+
+.managecheckout_header_style2{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:25%;
+}
+
+.managecheckout_header_style3{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:50%;
+}
+.managecheckout_list{
+  position: relative;
+  background-color: #d9d9d6;
+  opacity: 0.66;
+  margin:0.8vh;
+
+}
+
+/* .managecheckout_name{
+  position:absolute;
+  left:89%;
+
+} */
+
+.managecheckout_item{
+  position:absolute;
+  left:25%;
+
+}
+
+.managecheckout_date{
+  position:absolute;
+  left:50%;
+
+}
+
+.managecheckout_button{
+  position:absolute;
+  right:0%;
+
 }

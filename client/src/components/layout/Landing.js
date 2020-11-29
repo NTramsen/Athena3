@@ -10,6 +10,26 @@ class Landing extends Component {
             <h4>
               Welcome to Athena- the easy to use inventory management system
             </h4>
+            <h5 style={{
+              color:'gray',
+              fontStyle:'italic'
+            }}>
+            -Easily Search Items
+            </h5>
+            
+            <h5 style={{
+              color:'gray',
+              fontStyle:'italic'
+            }}>
+              -Fast Check Out Items
+            </h5>
+            
+            <h5 style={{
+              color:'gray',
+              fontStyle:'italic'
+            }}>
+            -Efficiently Manage Your Items
+            </h5>
             <br />
             <div className="col s6">
               <Link

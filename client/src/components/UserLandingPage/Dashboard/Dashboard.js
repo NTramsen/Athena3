@@ -66,7 +66,7 @@ class Dashboard extends Component{
 										<span className="dashboard-item_name">{item.name}</span>
 										<span className="dashboard-item_date">{item.return_date}</span>
 										<span className="dashboard-item_id">{item.item_id}</span>
-										<span><button className = "item-button_btn" onClick={()=>this.togglePop(item.item_id)}>
+										<span className="dashboard-item_btn"><button className = "item-button_btn" onClick={()=>this.togglePop(item.item_id)}>
 						                  More
 						                </button></span>
 										
