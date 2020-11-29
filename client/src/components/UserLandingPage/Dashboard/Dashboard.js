@@ -1,46 +1,98 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../../actions/authActions";
+//import NavBar from '../NavBar/NavBar';
+
 import '../../../App.css';
+import axios from 'axios';
+
 // import ItemInterface from '../ItemInterface/ItemInterface';
 
-class Dashboard extends Component{
+const api = axios.create({
+	baseURL: 'http://localhost:5000/api/'
+})
 
-	constructor(props){
-	    super(props);
-	    this.state = {
-	    	seen: -1
-	    }
+class Dashboard extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			myItems: [],
+			myOverdues: [],
+			dueSoon: [],
+			numOfItems: 0,
+			numOfOverdue: 0,
+			seen: -1
+		}
+	};
+
+	componentDidMount() {
+		this.findAllItems();
+	};
+
+	findAllItems = async () => {
+
+		const user = this.props.usr.user;
+		const info = Object.values(user);
+		const id = info[0];
+		var dueSoon = [];
+		var myItems = [];
+		var myOverdues = [];
+		let data = await api.put('/users/getuseritems', { id: id }).then(({ data }) => data);
+
+		for (var i = 0; i < data.items.length; i++) {
+			let item_data = await api.get(`/items/${data.items[i]}`).then((response) => {
+				return response.data;
+			});
+			if (item_data) {
+				var today = new Date();
+				var dueDate = new Date(item_data.dueDate);
+				console.log(item_data.type, today, dueDate);
+				if (item_data.dueDate && dueDate < today) {
+					myOverdues.push({
+						type: item_data.type,
+						description: item_data.description,
+						item_id: item_data._id,
+						dueDate: item_data.dueDate
+					});
+				}
+				else {
+					myItems.push({
+						type: item_data.type,
+						description: item_data.description,
+						item_id: item_data._id,
+						dueDate: item_data.dueDate
+					});
+				}
+				if ((today + 3) % 30 >= item_data.dueDate) {
+					dueSoon.push({
+							type: item_data.type,
+							description: item_data.description,
+							item_id: item_data._id,
+							dueDate: item_data.dueDate
+					});
+				}
+			}
+		}
+		let numOfItems = myItems.length;
+		let numOfOverdue = myOverdues.length;
+		this.setState({
+			myItems: myItems,
+			myOverdues: myOverdues,
+			dueSoon: dueSoon,
+			numOfItems: numOfItems,
+			numOfOverdue: numOfOverdue
+		});
 	};
 
 	togglePop = (item_id) => {
-	    this.setState({
-	    	seen: item_id
-	    });
+		this.setState({
+			seen: item_id
+		});
 	};
 
-	getItems = ()=>{
-		return [
-			{
-				name: "Stethoscope",
-				return_date: "8 hours",
-				item_id: 23801,
-				description: "This is a stethoscope w vwrbv rj er ver  "
-			},
-			{
-				name: "Behavioural biology textbook",
-				return_date: "2 days ",
-				item_id: 48920,
-				description: "This is a textbook w vwrbv rj er ver  "
-			},
-			{
-				name: "Design kit",
-				return_date: "6 days ",
-				item_id: 98384,
-				description: "This is a design kit w vwrbv rj er ver  "
-			}
-		];
-	};
-
-	render(){
+	render() {
 		return (
 			<div className='content'>
 				<div className='component-container'>
@@ -50,16 +102,50 @@ class Dashboard extends Component{
 				</div>
 				<div className='dashboard-list_header'>
 					<div className='dashboard-item_header'>
-						<span className="dashboard-header_style1">Item Name</span>
-						<span className="dashboard-header_style2">Return Date</span>
-						<span className="dashboard-header_style3">Item ID</span>
+						<ul className='dashboard-dashboard-list-items'>
+							<li><span className='sub-title'>Number of overdue checkouts:</span> {this.state.numOfOverdue}</li>
+							<li><span className='sub-title'>Number of current checkouts:</span> {this.state.numOfItems}</li>
+						</ul>
+						<li><span className="dashboard-header_style1">Overdue Items:</span></li>
+						<div>
+						{this.state.myOverdues.map(checkout =>
+							<div key={checkout.item_id}>
+								<span>User:</span>
+								{checkout.name}
+								{checkout.type}
+								<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
+								{this.state.seen === checkout.item_id ?
+									<div className="dropdown">
+										<span className="dashboard-item_description">{checkout.description}</span>
+										<button onClick={() => this.returnItems(checkout.item_id)}>Return item</button>
+									</div>
+									: null}
+							</div>
+						)}
+						</div>
+						<li><span className="dashboard-header_style1">Items Due Soon:</span></li>
+					<div>
+						{this.state.dueSoon.map(checkout =>
+							<div key={checkout.item_id}>
+								<span>User:</span>
+								{checkout.name}
+								{checkout.type}
+								<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
+								{this.state.seen === checkout.item_id ?
+									<div className="dropdown">
+										<span className="dashboard-item_description">{checkout.description}</span>
+										<button onClick={() => this.returnItems(checkout.item_id)}>Return item</button>
+									</div>
+									: null}
+							</div>
+						)}
 					</div>
 				</div>
-				
+				</div>
+
 				<div className='dashboard-dashboard-list'>
-					<ul className='dashboard-dashboard-list-items'>
-						
-						{this.getItems().map((item, index)=>{
+
+					{/* {this.getItems().map((item, index)=>{
 							return(
 								<li key={index} className="dashboard-itemlist-element">
 									<div className="dashboard-item">
@@ -79,12 +165,24 @@ class Dashboard extends Component{
 									</div>
 								</li>
 							)
-						})}
-					</ul>
+						})} */}
 				</div>
 			</div>
 		);
 	}
 }
+Dashboard.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
+	usr: PropTypes.object.isRequired
+};
 
-export default Dashboard;
+const mapStateToProps = state => ({
+	usr: state.auth
+});
+
+export default connect(
+	mapStateToProps,
+	{ logoutUser }
+)(Dashboard);
+
+//export default Dashboard;
