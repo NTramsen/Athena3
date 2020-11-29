@@ -20,6 +20,7 @@ class Account extends Component {
 			changePassword: false,
 			changeEmail: false,
 			errors: "",
+      errors2:"",
 			password: "",
 			newPassword: "",
 			newPassword2: ""
@@ -180,12 +181,20 @@ class Account extends Component {
 			                <input
 			                  id="password"
 			                  type="password"
-			                />
+                        value = {this.state.password}
+			                  onChange={(e)=>this.setState({password: e.target.value})}></input>
 			                <label>Enter your new email:</label>
 			                <input
 			                  id="new_email"
 			                  type="text"
-			                />
+                        value = {this.state.newEmail}
+			                  onChange={(e)=>this.setState({newEmail: e.target.value})}></input>
+                      <label>Confirm new email:</label>
+                      <input
+                        id="new_email2"
+                        type="text"
+                        value = {this.state.newEmail2}
+                        onChange={(e)=>this.setState({newEmail2: e.target.value})}></input>
 			                <button className='account-button'
 			                    onClick={this.updateEmail}
 			                  >
@@ -193,7 +202,9 @@ class Account extends Component {
 			                </button>
 			              </div>
 			            </form>
-			            {this.state.errors}
+                  <span className="red-text">
+                    {this.state.errors2}
+                  </span>
 					</div>
 					: null
 				}

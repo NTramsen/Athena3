@@ -12,6 +12,7 @@ const crypto = require("crypto");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateChangePass = require("../../validation/changepass");
+const validateChangeEmail = require("../../validation/change_email");
 
 // Load User model
 const User = require("../../models/User");
@@ -172,6 +173,51 @@ router.put("/change_pass", (req, res) => {
               });
           });
         });
+
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
+});
+
+router.put("/change_email", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateChangeEmail(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const id = req.body.id;
+  const password = req.body.password;
+  const newEmail = req.body.newEmail;
+
+  // Find user by id
+  User.findOne({ _id: req.body.id }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ usernotfound: "Error: User not found" });
+    }
+
+    // Check password
+    bcrypt.compare(req.body.password, user.password).then(isMatch => {
+      if (isMatch) { // password matched
+        User.findOneAndUpdate(
+          { _id: req.body.id },
+          { $set: { email: req.body.newEmail }},
+          function (error, success){
+            if (error) {
+              res.status(401).json({ message: 'Email not updated'})
+              return
+            } else {
+              res.status(200).json({ message: 'Email updated'})
+              return
+            }
+          });
 
       } else {
         return res
