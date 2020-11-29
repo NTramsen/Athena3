@@ -88,7 +88,7 @@ class Search extends Component {
         <div className = 'content'>
           <div className='component-container'>
             <div className='component-header'>
-              <p className='component-title'>Search For An Item</p>
+              <p className='component-title'>Search for an item</p>
             </div>
             <input
               placeholder = 'Enter item name'
