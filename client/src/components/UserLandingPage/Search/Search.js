@@ -105,6 +105,7 @@ class Search extends Component {
                   <div className="dropdown">
                     <span className='item_description'>Item description: </span>
                     <span className="dashboard-item_description">{item.description}</span>
+                    <span className = "dashboard-item_description">{ "- " + item._id}</span>
                     <input 
                       placeholder = 'Desired checkout duration'
                       type = 'number'
