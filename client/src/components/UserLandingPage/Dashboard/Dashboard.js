@@ -50,8 +50,7 @@ class Dashboard extends Component {
 			if (item_data) {
 				var today = new Date();
 				var dueSoonDate = new Date();
-				dueSoonDate = dueSoonDate+ 3;
-				//console.log("dueSoonDate" + (today + 3));
+				dueSoonDate.setDate(dueSoonDate.getDate() + 3);
 				var dueDate = new Date(item_data.dueDate);
 				//console.log("dueDate: " + dueDate);
 				//console.log(item_data.type, today, dueDate);
@@ -72,7 +71,7 @@ class Dashboard extends Component {
 					});
 				}
 				
-				if (dueSoonDate >= item_data.dueDate) {
+				if (dueSoonDate >= dueDate) {
 					for (var j = 0; j < myItems.length; j++) {
 						var add = true;
 						if (myItems[j]._id === item_data._id) {
@@ -116,7 +115,7 @@ class Dashboard extends Component {
 					</div>
 				</div>
 				<div className='dashboard-list_header'>
-					<div className='dashboard-item_header'>
+					<div className='current-list'>
 						<ul className='dashboard-dashboard-list-items'>
 							<p className='sub-title'>Number of overdue checkouts: {this.state.numOfOverdue}</p> 
 							<p className='sub-title'>Number of current checkouts: {this.state.numOfItems}</p> 
@@ -124,7 +123,7 @@ class Dashboard extends Component {
 						<p className="dashboard-header_style">Overdue Items:</p>
 						<div>
 						{this.state.myOverdues.map(checkout =>
-							<div key={checkout.item_id}>
+							<div className = 'manageitem_list' key={checkout.item_id}>
 								{checkout.name}
 								{checkout.type}
 								<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
@@ -139,8 +138,8 @@ class Dashboard extends Component {
 						<p className="dashboard-header_style">Items Due Soon:</p>
 						<div>
 							{this.state.dueSoon.map(checkout =>
-								<div key={checkout.item_id}>
-									{checkout.name}
+								<div className = 'manageitem_list' key={checkout.item_id}>
+									<span className="manageitem_name">{checkout.name}</span>
 									{checkout.type}
 									<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
 									{this.state.seen === checkout.item_id ?

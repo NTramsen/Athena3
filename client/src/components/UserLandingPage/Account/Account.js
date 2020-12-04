@@ -23,6 +23,7 @@ class Account extends Component {
 			errors: "",
       errors2:"",
 			password: "",
+			newEmail: "",
 			newPassword: "",
 			newPassword2: "",
       newEmail:"",
@@ -55,6 +56,8 @@ class Account extends Component {
 	onSubmit = e => {
 		e.preventDefault();
 	};
+
+
 
 	updatePassword =  () =>{
 		const user = this.props.usr.user;
@@ -222,6 +225,9 @@ class Account extends Component {
 			                  >
 			                  Submit
 			                </button>
+			                <label className="red-text">
+												You will be required to log back in 
+											</label>
 			              </div>
 			            </form>
                   <span className="red-text">
@@ -235,7 +241,8 @@ class Account extends Component {
 		</div>
         </div>
         <button
-        onClick={this.onLogoutClick}
+				id = "logout"
+				onClick={this.onLogoutClick}
         className="btn btn-large waves-effect waves-light hoverable blue accent-3">Logout</button>
       </div>
     );
