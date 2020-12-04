@@ -45,10 +45,16 @@ class Dashboard extends Component {
 			let item_data = await api.get(`/items/${data.items[i]}`).then((response) => {
 				return response.data;
 			});
+			//console.log("item_data.dueDate: " + item_data.dueDate);
+			
 			if (item_data) {
 				var today = new Date();
+				var dueSoonDate = new Date();
+				dueSoonDate = dueSoonDate+ 3;
+				console.log("dueSoonDate" + (today + 3));
 				var dueDate = new Date(item_data.dueDate);
-				console.log(item_data.type, today, dueDate);
+				console.log("dueDate: " + dueDate);
+				//console.log(item_data.type, today, dueDate);
 				if (item_data.dueDate && dueDate < today) {
 					myOverdues.push({
 						type: item_data.type,
@@ -65,13 +71,22 @@ class Dashboard extends Component {
 						dueDate: item_data.dueDate
 					});
 				}
-				if ((today + 3) % 30 >= item_data.dueDate) {
-					dueSoon.push({
+				
+				if (dueSoonDate >= item_data.dueDate) {
+					for (var j = 0; j < myItems.length; j++) {
+						var add = true;
+						if (myItems[j]._id === item_data._id) {
+							add = false;
+						}
+					}
+					if (add) {
+						dueSoon.push({
 							type: item_data.type,
 							description: item_data.description,
 							item_id: item_data._id,
 							dueDate: item_data.dueDate
-					});
+						});
+					}
 				}
 			}
 		}
@@ -110,14 +125,12 @@ class Dashboard extends Component {
 						<div>
 						{this.state.myOverdues.map(checkout =>
 							<div key={checkout.item_id}>
-								<span>User:</span>
 								{checkout.name}
 								{checkout.type}
 								<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
 								{this.state.seen === checkout.item_id ?
 									<div className="dropdown">
 										<span className="dashboard-item_description">{checkout.description}</span>
-										<button onClick={() => this.returnItems(checkout.item_id)}>Return item</button>
 									</div>
 									: null}
 							</div>
@@ -127,14 +140,12 @@ class Dashboard extends Component {
 						<div>
 							{this.state.dueSoon.map(checkout =>
 								<div key={checkout.item_id}>
-									<span>User:</span>
 									{checkout.name}
 									{checkout.type}
 									<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
 									{this.state.seen === checkout.item_id ?
 										<div className="dropdown">
 											<span className="dashboard-item_description">{checkout.description}</span>
-											<button onClick={() => this.returnItems(checkout.item_id)}>Return item</button>
 										</div>
 										: null}
 								</div>
