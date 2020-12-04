@@ -2,9 +2,12 @@
 
 ## How to start me
 1. Clone me into your local machine
-2. cd into Athena3/Client
-3. install dependencies by running npm i axios classnames jwt-decode react-redux react-router-dom redux redux-thunk
-4. cd back into the main Athena3 folder and use the command, npm run dev
+2. `cd` into Athena3/Client
+3. install dependencies by running `npm i axios classnames jwt-decode react-redux react-router-dom redux redux-thunk`
+4. in the same folder, run `npm i -D nodemon`
+5. `cd` back into main Athena3 folder and use the command, `npm init`. hit enter on all the fields without inputting anything and y when it asks if it is acceptable
+6. run `npm install`
+4. use the command, `npm run dev`
 5. the app should automatically start up on your localhost:3000
 
 *** remember to create your own branch before starting any development ***
