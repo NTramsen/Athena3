@@ -108,79 +108,103 @@ class Dashboard extends Component {
 
 	render() {
 		return (
-			<div className='content'>
-				<div className='component-container'>
+	        <div className = 'content'>
+		      	<div className='component-container'>
 					<div className='component-header'>
-						<p className='component-title'>Your Items</p>
+						<p className='component-title'>All current items</p>
+						<p className='sub-title'>Number of overdue checkouts: {this.state.numOfOverdue}</p> 
+			 			<p className='sub-title'>Number of current checkouts: {this.state.numOfItems}</p> 
 					</div>
-				</div>
-				<div className='dashboard-list_header'>
 					<div className='current-list'>
-						<ul className='dashboard-dashboard-list-items'>
-							<p className='sub-title'>Number of overdue checkouts: {this.state.numOfOverdue}</p> 
-							<p className='sub-title'>Number of current checkouts: {this.state.numOfItems}</p> 
-						</ul>
-						<p className="dashboard-header_style">Overdue Items:</p>
 						<div>
-						{this.state.myOverdues.map(checkout =>
-							<div className = 'manageitem_list' key={checkout.item_id}>
-								{checkout.name}
-								{checkout.type}
-								<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
-								{this.state.seen === checkout.item_id ?
-									<div className="dropdown">
-										<span className="dashboard-item_description">{checkout.description}</span>
-									</div>
-									: null}
+							<p className='dashboard-sub-title'>Overdue Items:</p>
+							<div className='dashboard_header'>
+								{/* <span className="manageuser_header_style1">Item Name</span> */}
 							</div>
-						)}
-						</div>
-						<p className="dashboard-header_style">Items Due Soon:</p>
-						<div>
-							{this.state.dueSoon.map(checkout =>
-								<div className = 'manageitem_list' key={checkout.item_id}>
-									<span className="manageitem_name">{checkout.name}</span>
-									{checkout.type}
-									<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
-									{this.state.seen === checkout.item_id ?
-										<div className="dropdown">
-											<span className="dashboard-item_description">{checkout.description}</span>
-										</div>
-										: null}
-								</div>
-							)}
-						</div>
+				           
+				            {this.state.myOverdues.map(checkout =>
+				              <div className ='manageitem_list' key={checkout.item_id}>
+								  <span className="manageitem_name">{checkout.type}</span>
+              						<span className="manageitem_button"><button className = 'checkout-button-btn' onClick={()=>this.togglePop(checkout.item_id.toString())}>More</button></span>  				                
+				                {this.state.seen===checkout.item_id ? 
+				                  <div className="dropdown">
+									<span className='item_description'>Item description: </span>
+				                    <span className="dashboard-item_description">{checkout.description}</span>
+				                  </div>
+				                  : null}
+				              </div>
+				            )}
+			          	</div>
+			          	<div>
+						 	 <p className='dashboard-sub-title'>Items Due Soon:</p>
+							  <div className='dashboard_header'>
+								{/* <p className="manageuser_header_style1">Item Name</p> */}
+							</div>
+				            {this.state.dueSoon.map(checkout =>
+				              <div className ='manageitem_list' key={checkout.item_id}>
+				                <span className="manageitem_name">{checkout.type}</span>
+								<span className="manageitem_button"><button className='checkout-button-btn' onClick={()=>this.togglePop(checkout.item_id.toString())}>More</button></span>             
+				                {this.state.seen===checkout.item_id ? 
+				                  <div className="dropdown">
+				                    <span className="dashboard-item_description">{checkout.description}</span>
+				                  </div>
+				                  : null}
+				              </div>
+				            )}   
+			          	</div>
 					</div>
 				</div>
-
-				<div className='dashboard-dashboard-list'>
-
-					{/* {this.getItems().map((item, index)=>{
-							return(
-								<li key={index} className="dashboard-itemlist-element">
-									<div className="dashboard-item">
-										<span className="dashboard-item_name">{item.name}</span>
-										<span className="dashboard-item_date">{item.return_date}</span>
-										<span className="dashboard-item_id">{item.item_id}</span>
-										<span className="dashboard-item_btn"><button className = "item-button_btn" onClick={()=>this.togglePop(item.item_id)}>
-						                  More
-						                </button></span>
-										
-										{this.state.seen===item.item_id ? 
-											<div className="dropdown">
-												<span className="dashboard-item_description">{item.description}</span> 
-												<button className="item-button_btn">Return</button>
-											</div>
-											: null}
-									</div>
-								</li>
-							)
-						})} */}
-				</div>
-			</div>
+	        </div>
 		);
 	}
 }
+
+		// 	<div className='content'>
+		// 		<div className='component-container'>
+		// 			<div className='component-header'>
+		// 				<p className='component-title'>Your Items</p>
+		// 			</div>
+		// 		</div>
+		// 		<div className='dashboard-list_header'>
+		// 			<div className='current-list'>
+		// 				<ul className='dashboard-dashboard-list-items'>
+		// 					<p className='sub-title'>Number of overdue checkouts: {this.state.numOfOverdue}</p> 
+		// 					<p className='sub-title'>Number of current checkouts: {this.state.numOfItems}</p> 
+		// 				</ul>
+		// 				<p className="dashboard-header_style">Overdue Items:</p>
+		// 				<div>
+		// 				{this.state.myOverdues.map(checkout =>
+		// 					<div className = 'manageitem_list' key={checkout.item_id}>
+		// 						{checkout.name}
+		// 						{checkout.type}
+		// 						<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
+		// 						{this.state.seen === checkout.item_id ?
+		// 							<div className="dropdown">
+		// 								<span className="dashboard-item_description">{checkout.description}</span>
+		// 							</div>
+		// 							: null}
+		// 					</div>
+		// 				)}
+		// 				</div>
+		// 				<p className="dashboard-header_style">Items Due Soon:</p>
+		// 				<div>
+		// 					{this.state.dueSoon.map(checkout =>
+		// 						<div className = 'manageitem_list' key={checkout.item_id}>
+		// 							<span className="manageitem_name">{checkout.name}</span>
+		// 							{checkout.type}
+		// 							<button onClick={() => this.togglePop(checkout.item_id.toString())}>More</button>
+		// 							{this.state.seen === checkout.item_id ?
+		// 								<div className="dropdown">
+		// 									<span className="dashboard-item_description">{checkout.description}</span>
+		// 								</div>
+		// 								: null}
+		// 						</div>
+		// 					)}
+		// 				</div>
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// );
 Dashboard.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
 	usr: PropTypes.object.isRequired

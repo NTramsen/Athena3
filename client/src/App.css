@@ -282,6 +282,19 @@ body{
 	padding-left:0;
 	position: relative;
 }
+.dashboard-list_header{
+	font-weight: bold;
+	font-size: 1.2rem;
+	position:absolute;
+	left:0;
+}
+
+.dashboard-sub-title{
+  font-weight: bold;
+  font-size: 3vh;
+  color:#012169;
+  font-family: sans-serif;
+}
 
 .dashboard-itemlist-element{
 	 width: 100%;
@@ -303,6 +316,7 @@ body{
 
 }
 .dashboard-list_header{
+  font-size: 5vh;
 	height:2vh;
 
 }
@@ -320,6 +334,14 @@ body{
   left:0;
   margin-bottom: 0.5rem;
   
+}
+
+.dashboard_header{
+	position: relative;
+	margin-bottom: 2rem;
+	color:#293241;
+	opacity: 0.66;
+  font-weight: bold;
 }
 /* 
 .dashboard-header_style2{
