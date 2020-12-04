@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+import { logoutUser, setCurrentAdmin } from "../../../actions/authActions";
 import '../../../App.css';
+import store from "../../../store";
 import AdminBar from '../AdminBar/AdminBar';
 import axios from 'axios';
 
@@ -19,12 +20,15 @@ class AdminAccount extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			changePassword: false,
+      changePassword: false,
 			changeEmail: false,
 			errors: "",
+      errors2:"",
 			password: "",
 			newPassword: "",
-			newPassword2: ""
+			newPassword2: "",
+      newEmail:"",
+      newEmail2:""
 		};
 	};
 
@@ -78,19 +82,31 @@ class AdminAccount extends Component {
 
 	}
 
-	updateEmail = ()=>{
+  updateEmail = ()=>{
+    const user = this.props.usr.user;
+		const info = Object.values(user);
 
-		// make api calls
+		const adminData = {
+			id: info[0],
+			password: this.state.password,
+			newEmail: this.state.newEmail,
+			newEmail2: this.state.newEmail2
+		}
 
-		// if success:
-		this.setState({
-			changePassword: false,
-			changeEmail: false
+		let data = api.put('/change_email', adminData).then( response => {
+			console.log(response);
+			this.setState({
+				changePassword: false,
+				changeEmail: false
+			});
+      const { admin } = response.data;
+      store.dispatch(setCurrentAdmin(admin));
+      localStorage.setItem("email", admin.email);
+ 		}).catch(err => {
+			const code = err.response.data;
+			const message = Object.values(code)[0];
+			this.setState({errors2: message});
 		});
-
-		// display success - can put it in state.errors
-
-		// else display error in state.errors
 	}
 
   render() {
@@ -170,28 +186,44 @@ class AdminAccount extends Component {
 					: null
 				}
 
-				{this.state.changeEmail ?
+        {this.state.changeEmail ?
 					<div className="dropdown">
-			            <form noValidate>
+			            <form noValidate onSubmit={this.onSubmit}>
 			              <div>
 			                <label>Enter password:</label>
 			                <input
 			                  id="password"
 			                  type="password"
-			                />
-			                <label>Enter your new email:</label>
+                        value = {this.state.password}
+			                  onChange={(e)=>this.setState({password: e.target.value})}></input>
+                    </div>
+                    <div>
+                      <label>Enter your new email:</label>
 			                <input
 			                  id="new_email"
 			                  type="text"
-			                />
-			                <button className='account-button'
+                        value = {this.state.newEmail}
+			                  onChange={(e)=>this.setState({newEmail: e.target.value})}></input>
+                    </div>
+                    <div>
+                      <label>Confirm new email:</label>
+                      <input
+                        id="new_email2"
+                        type="text"
+                        value = {this.state.newEmail2}
+                        onChange={(e)=>this.setState({newEmail2: e.target.value})}></input>
+                    </div>
+                    <div>
+                      <button type= "submit" className='account-button'
 			                    onClick={this.updateEmail}
 			                  >
 			                  Submit
 			                </button>
 			              </div>
 			            </form>
-			            {this.state.errors}
+                  <span className="red-text">
+                    {this.state.errors2}
+                  </span>
 					</div>
 					: null
 				}
