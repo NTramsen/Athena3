@@ -18,7 +18,8 @@ class Checkout extends Component {
 	    this.state = {
 	      newItemNum: '',
 	      duration:null,
-	      errors: ''
+	      errors: '',
+	      success: ''
 	    };
 	};
 
@@ -43,8 +44,10 @@ class Checkout extends Component {
 		//console.log("userID: " + id);
 		//console.log("item in Checkout.js " + itemid);
 		api.put('/checkoutItem', {id: id, item: itemid, duration: dur}).then( response => {
+			this.setState({errors:'', success: 'Item added to My Items.'});
 			//console.log(response);
 		}).catch(e => {
+			this.setState({errors:'Unable to check out item.', success: ''});
 			//console.log(e);
 		});
 	}
@@ -97,7 +100,8 @@ class Checkout extends Component {
 							this.clearForm(); //todo this only works for ints not on mix of strings/ints
 						}
 					}}>Checkout Item</button>
-				{this.state.errors}
+				<span className='red-text'>{this.state.errors}</span>
+				<span className='green-text'>{this.state.success}</span>
 			</div>
         </div>
         <button

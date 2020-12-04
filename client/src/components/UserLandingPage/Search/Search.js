@@ -22,7 +22,8 @@ class Search extends Component {
        inputValue: '',
        seen: -1,
        duration: null,
-       errors: ''
+       errors: '',
+       success: ''
     }
   };
 
@@ -71,8 +72,10 @@ class Search extends Component {
 
     api.put('users/checkoutItem', {id: userid, item: itemid, duration: dur}).then( response => {
       //console.log(response);
+      this.setState({errors:'', success: 'Item added to My Items.'});
     }).catch(e => {
       //console.log(e);
+      this.setState({errors:'Unable to check out item.', success: ''});
     });
 
     window.location.reload(false);
@@ -107,6 +110,7 @@ class Search extends Component {
               type = 'text'></input>
             <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
             {this.state.errors}
+            {this.state.success}
             {this.state.items.map(item => 
               <div key={item._id}>
                 <div className='dashboard-item'>
