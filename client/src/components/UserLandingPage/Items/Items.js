@@ -54,15 +54,26 @@ class Items extends Component {
 	        	return response.data;
 	        });
 	        if(item_data){
+
+	        	// handle date
 	            var today = new Date();
 	          	var dueDate = new Date(item_data.dueDate);
-	          	console.log(item_data.type, today, dueDate);
+
+	          	var dd = dueDate.getDate();
+				var mm = dueDate.getMonth()+1; 
+				var yyyy = dueDate.getFullYear();
+				if(dd<10) dd='0'+dd;
+				if(mm<10) mm='0'+mm;
+				var saveDate = mm+'/'+dd+'/'+yyyy;
+				console.log(saveDate);
+
+	          	//console.log(item_data.type, today, dueDate);
 	          	if(item_data.dueDate && dueDate<today){
 		            myOverdues.push({
 		              	type: item_data.type,
 		              	description: item_data.description,
 		              	item_id: item_data._id,
-		              	dueDate: item_data.dueDate
+		              	dueDate: saveDate
 		            });
 	          	}
 	          	else{
@@ -70,7 +81,7 @@ class Items extends Component {
 		              	type: item_data.type,
 		              	description: item_data.description,
 		              	item_id: item_data._id,
-		              	dueDate: item_data.dueDate
+		              	dueDate: saveDate
 		            });
 	          	}
 	        }

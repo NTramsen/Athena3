@@ -45,6 +45,14 @@ class ManageCheckouts extends Component {
         if(item_data){
           var today = new Date();
           var dueDate = new Date(item_data.dueDate);
+
+          var dd = dueDate.getDate();
+          var mm = dueDate.getMonth()+1; 
+          var yyyy = dueDate.getFullYear();
+          if(dd<10) dd='0'+dd;
+          if(mm<10) mm='0'+mm;
+          var saveDate = mm+'/'+dd+'/'+yyyy;
+
           if(item_data.dueDate && dueDate<today){
             overdues.push({
               name: data[i].name,
@@ -52,7 +60,7 @@ class ManageCheckouts extends Component {
               type: item_data.type,
               description: item_data.description,
               item_id: item_data._id,
-              dueDate: item_data.dueDate
+              dueDate: saveDate
             });
           }
           else{
@@ -62,7 +70,7 @@ class ManageCheckouts extends Component {
               type: item_data.type,
               description: item_data.description,
               item_id: item_data._id,
-              dueDate: item_data.dueDate
+              dueDate: saveDate
             });
           }
         }
