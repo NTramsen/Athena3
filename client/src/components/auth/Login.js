@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser, loginAdmin } from "../../actions/authActions";
 import classnames from "classnames";
-import { FaBorderNone } from "react-icons/fa";
+//import { FaBorderNone } from "react-icons/fa";
 
 class Login extends Component {
   constructor() {

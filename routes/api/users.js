@@ -189,7 +189,7 @@ router.put("/change_email", (req, res) => {
 
   // Check validation
   if (!isValid) {
-    console.log(errors);
+    //console.log(errors);
     return res.status(400).json(errors);
   }
 
@@ -249,7 +249,7 @@ router.post("/forgot_pass", (req, res)=>{
   if (req.body.email === ''){
     res.status(400).send('email required');
   }
-  console.error(req.body.email);
+  //console.error(req.body.email);
   User.findOne({ email: req.body.email }).then(user => {
     if (!user) {
       return res.status(404).json({ emailnotfound: "Error: User not found" });
@@ -295,8 +295,8 @@ router.put("/checkoutItem", (req, res) => {
   const duration = req.body.duration;
   var date = new Date;
   date.setDate(date.getDate() + parseInt(duration));
-  console.log(id, itemid, duration, date);
-  console.log("date.getDate() + duration" + (date.getDate() + duration));
+  //console.log(id, itemid, duration, date);
+  //console.log("date.getDate() + duration" + (date.getDate() + duration));
 
   Item.findOne({ _id: itemid, borrowed: { $eq: false } })
     .then(item => {
@@ -335,17 +335,22 @@ router.put("/checkoutItem", (req, res) => {
                   });
                 }
               })
-              .catch (err => console.error('Error: checkout unsuccesful'))
+              .catch (err => 
+                res.status(404).send("Error: checkout unsuccessful."));
+                //console.error('Error: checkout unsuccesful'))
           })
-          .catch(err => console.error('Router-not updated'));
+          .catch(err => 
+            res.status(404).send("Router not updated."));
+            //console.error('Router-not updated'));
       }
 
       else {
-        res.status(399).json({ message: 'Router Item already borrowed ' + req.body })
-        return
+        return res.status(399).json({ message: 'Router Item already borrowed ' + req.body })
       }
     })
-    .catch(err => console.error('Router did not find item with id' + JSON.stringify(req.body)));
+    .catch(err => 
+      res.status(404).send("Unable to find item id."));
+      //console.error('Router did not find item with id' + JSON.stringify(req.body)));
 });
 
 router.put("/removeitem", (req, res) => {

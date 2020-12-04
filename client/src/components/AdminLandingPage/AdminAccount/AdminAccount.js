@@ -68,7 +68,7 @@ class AdminAccount extends Component {
 			newPassword2: this.state.newPassword2
 		}
 
-		let data = api.put('/change_pass', adminData).then( response => {
+		api.put('/change_pass', adminData).then( response => {
 			console.log(response);
 			this.setState({
 				changePassword: false,
@@ -93,7 +93,7 @@ class AdminAccount extends Component {
 			newEmail2: this.state.newEmail2
 		}
 
-		let data = api.put('/change_email', adminData).then( response => {
+		api.put('/change_email', adminData).then( response => {
 			console.log(response);
 			this.setState({
 				changePassword: false,

@@ -25,7 +25,7 @@ exports.checkoutItem = (req, res) => {
   const duration = req.body.duration;
   var date = new Date;
   date.setDate(date.getDate() + duration);
-  console.log(id, itemid, duration, date);
+  //console.log(id, itemid, duration, date);
 
   Item.findOne({_id: itemid, borrowed:{$eq:false}})
     .then(item => {

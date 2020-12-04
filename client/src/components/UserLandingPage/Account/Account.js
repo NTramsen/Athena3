@@ -67,7 +67,7 @@ class Account extends Component {
 			newPassword2: this.state.newPassword2
 		}
 
-		let data = api.put('/change_pass', userData).then( response => {
+		api.put('/change_pass', userData).then( response => {
 			console.log(response);
 			this.setState({
 				changePassword: false,
@@ -92,7 +92,7 @@ class Account extends Component {
 			newEmail2: this.state.newEmail2
 		}
 
-		let data = api.put('/change_email', userData).then( response => {
+		api.put('/change_email', userData).then( response => {
 			console.log(response);
 			this.setState({
 				changePassword: false,
