@@ -51,9 +51,9 @@ class Dashboard extends Component {
 				var today = new Date();
 				var dueSoonDate = new Date();
 				dueSoonDate = dueSoonDate+ 3;
-				console.log("dueSoonDate" + (today + 3));
+				//console.log("dueSoonDate" + (today + 3));
 				var dueDate = new Date(item_data.dueDate);
-				console.log("dueDate: " + dueDate);
+				//console.log("dueDate: " + dueDate);
 				//console.log(item_data.type, today, dueDate);
 				if (item_data.dueDate && dueDate < today) {
 					myOverdues.push({
