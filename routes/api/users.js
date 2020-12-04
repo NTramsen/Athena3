@@ -149,7 +149,7 @@ router.put("/change_pass", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ emailnotfound: "Error: Email not found" });
+      return res.status(404).json({ emailnotfound: "Error: User not found" });
     }
 
     // Check password
@@ -189,6 +189,7 @@ router.put("/change_email", (req, res) => {
 
   // Check validation
   if (!isValid) {
+    console.log(errors);
     return res.status(400).json(errors);
   }
 
@@ -196,36 +197,51 @@ router.put("/change_email", (req, res) => {
   const password = req.body.password;
   const newEmail = req.body.newEmail;
 
-  // Find user by id
-  User.findOne({ _id: req.body.id }).then(user => {
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ usernotfound: "Error: User not found" });
-    }
 
-    // Check password
-    bcrypt.compare(req.body.password, user.password).then(isMatch => {
-      if (isMatch) { // password matched
-        User.findOneAndUpdate(
-          { _id: req.body.id },
-          { $set: { email: req.body.newEmail }},
-          function (error, success){
-            if (error) {
-              res.status(401).json({ message: 'Email not updated'})
-              return
+  User.findOne({ email: req.body.newEmail })
+    .then(user => { 
+      if (user) { 
+        return res.status(400).json({ alreadyexists: "Email already in use" }); 
+      } else {
+        // Find user by id
+        User.findOne({ _id: req.body.id }).then(user => {
+          // Check if user exists
+          if (!user) {
+            return res.status(404).json({ usernotfound: "Error: User not found" });
+          }
+
+          // Check password
+          bcrypt.compare(req.body.password, user.password).then(isMatch => {
+            if (isMatch) { // password matched
+              User.findOneAndUpdate(
+                { _id: req.body.id },
+                { $set: { email: req.body.newEmail }},
+                function (error, success){
+                  if (error) {
+                    res.status(401).json({ message: 'Email not updated'})
+                    return
+                  } else {
+                    res.status(200).json({
+                      user: {
+                        id: user.id,
+                        name: user.name,
+                        email: newEmail,
+                      }
+                    })
+                    return
+                  }
+                });
+
             } else {
-              res.status(200).json({ message: 'Email updated'})
-              return
+              return res
+                .status(400)
+                .json({ passwordincorrect: "Password incorrect" });
             }
           });
-
-      } else {
-        return res
-          .status(400)
-          .json({ passwordincorrect: "Password incorrect" });
+        });
       }
-    });
-  });
+    })
+
 });
 
 
@@ -236,7 +252,7 @@ router.post("/forgot_pass", (req, res)=>{
   console.error(req.body.email);
   User.findOne({ email: req.body.email }).then(user => {
     if (!user) {
-      return res.status(404).json({ emailnotfound: "Error: Email not found" });
+      return res.status(404).json({ emailnotfound: "Error: User not found" });
     } else {
       const token = crypto.randomBytes(20).toString('hex');
       user.update({

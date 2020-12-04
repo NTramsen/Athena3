@@ -1,13 +1,13 @@
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 
-module.exports = function validateChangePass(data) {
+module.exports = function validateChangeEmail(data) {
   let errors = {};
 
   // Convert empty fields to an empty string so we can use validator functions
   data.password = !isEmpty(data.password) ? data.password : "";
-  data.newPassword = !isEmpty(data.newEmail) ? data.newEmail : "";
-  data.newPassword2 = !isEmpty(data.newEmail2) ? data.newEmail2 : "";
+  data.newEmail = !isEmpty(data.newEmail) ? data.newEmail : "";
+  data.newEmail2 = !isEmpty(data.newEmail2) ? data.newEmail2 : "";
 
 
 
