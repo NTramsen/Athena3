@@ -129,33 +129,6 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.put("/change_email", (req, res) => {
-
-  const id = req.body.id;
-  const newEmail = req.body.newEmail;
-  console.log("id: " + id);
-  console.log("newEmail: " + newEmail);
-  User.findOne({ email: newEmail }).then(user => {
-    if (user) {
-      return res.status(400).json({ email: "Email already exists" });
-    } else {
-      User.findOneAndUpdate(
-        { _id: id },
-        { $set: { email: newEmail }},
-        function (error, success){
-          if (error) {
-            res.status(401).json({ message: 'Email not updated'})
-            return
-          } else {
-            res.status(200).json({ message: 'Email updated with: ' + newEmail})
-            return
-          }
-      });
-    }
-  });
-});
-
-
 
 
 router.put("/change_pass", (req, res) => {
@@ -333,7 +306,7 @@ router.put("/checkoutItem", (req, res) => {
             User.findOneAndUpdate( { _id: id }, { $push: { items: itemid } })
               .then(user =>{
                 if (!user){
-                  return res.status(404).json({ emailnotfound: "Error: User not found." })
+                  return res.status(404).json({ emailnotfound: "Error: User not found" })
                 } else {
                   const transporter = nodemailer.createTransport({
                     service: 'gmail',
@@ -355,28 +328,24 @@ router.put("/checkoutItem", (req, res) => {
 
                   transporter.sendMail(mailOptions, (err, response) => {
                     if (err) {
-                      console.error ('Error sending email: ', err);
+                      console.error ('error sending', err);
                     } else {
-                      return res.status(200).json('Email sent successfully.');
+                      return res.status(200).json('email sent');
                     }
                   });
                 }
               })
-              .catch (err => res.status(404).send('Error: checkout unsuccessful.'));
-              //console.error('Error: checkout unsuccesful'))
+              .catch (err => console.error('Error: checkout unsuccesful'))
           })
-          .catch(err => 
-            res.status(404).send('Error: checkout unsuccessful.'));
-            //console.error('Router-not updated'));
+          .catch(err => console.error('Router-not updated'));
       }
 
       else {
-        return res.status(399).json({ message: 'Router Item already borrowed ' + req.body });
+        res.status(399).json({ message: 'Router Item already borrowed ' + req.body })
+        return
       }
     })
-    .catch(err => 
-      res.status(404).send('Unable to find item.'));
-      //console.error('Router did not find item with id' + JSON.stringify(req.body)));
+    .catch(err => console.error('Router did not find item with id' + JSON.stringify(req.body)));
 });
 
 router.put("/removeitem", (req, res) => {
