@@ -30,6 +30,16 @@ class Checkout extends Component {
 		const itemid = this.state.newItemNum;
 		const dur = this.state.duration;
 
+		if(dur<1){
+			this.setState({errors:'Invalid checkout length.'});
+			return;
+		}
+
+		else if(dur>14){
+			this.setState({errors:'Invalid checkout length.'});
+			return;
+		}
+
 		console.log("userID: " + id);
 		console.log("item in Checkout.js " + itemid);
 		api.put('/checkoutItem', {id: id, item: itemid, duration: dur}).then( response => {
@@ -83,16 +93,15 @@ class Checkout extends Component {
 				<input 
 					placeholder = 'Desired checkout duration'
 					type = 'number'
-					value = {this.state.duration}
 					onChange={(e)=>this.setState({duration: e.target.value})}></input>
 				<button className = 'checkout-button'
 					onClick={()=>{
 						if(this.itemObjectValid()){
 							this.checkoutItems();
-							//this.updateItems();
 							this.clearForm(); //todo this only works for ints not on mix of strings/ints
 						}
 					}}>Checkout Item</button>
+				{this.state.errors}
 			</div>
         </div>
         <button

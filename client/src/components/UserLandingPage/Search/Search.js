@@ -21,7 +21,8 @@ class Search extends Component {
        items: [],
        inputValue: '',
        seen: -1,
-       duration: 7
+       duration: null,
+       errors: ''
     }
   };
 
@@ -57,6 +58,16 @@ class Search extends Component {
   checkoutItems = async(userid, itemid) => {
 
     const dur = this.state.duration;
+
+    if(dur<1){
+      this.setState({errors:'Invalid checkout length.'});
+      return;
+    }
+
+    else if(dur>14){
+      this.setState({errors:'Invalid checkout length.'});
+      return;
+    }
 
     api.put('users/checkoutItem', {id: userid, item: itemid, duration: dur}).then( response => {
       console.log(response);
@@ -95,6 +106,7 @@ class Search extends Component {
               value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}
               type = 'text'></input>
             <button className = 'checkout-button-btn' onClick = {() => this.searchItems(this.state.inputValue)}>Search</button>
+            {this.state.errors}
             {this.state.items.map(item => 
               <div key={item._id}>
                 <div className='dashboard-item'>
@@ -109,7 +121,6 @@ class Search extends Component {
                     <input 
                       placeholder = 'Desired checkout duration'
                       type = 'number'
-                      value = {this.state.duration}
                       onChange={(e)=>this.setState({duration: e.target.value})}></input>
                     <button className = 'checkout-button-btn' onClick={() => this.checkoutItems(info[0], item._id.toString())}>Checkout</button>
                   </div>
