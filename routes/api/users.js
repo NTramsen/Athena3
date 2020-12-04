@@ -129,6 +129,33 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.put("/change_email", (req, res) => {
+
+  const id = req.body.id;
+  const newEmail = req.body.newEmail;
+  console.log("id: " + id);
+  console.log("newEmail: " + newEmail);
+  User.findOne({ email: newEmail }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      User.findOneAndUpdate(
+        { _id: id },
+        { $set: { email: newEmail }},
+        function (error, success){
+          if (error) {
+            res.status(401).json({ message: 'Email not updated'})
+            return
+          } else {
+            res.status(200).json({ message: 'Email updated with: ' + newEmail})
+            return
+          }
+      });
+    }
+  });
+});
+
+
 
 
 router.put("/change_pass", (req, res) => {
