@@ -28,9 +28,9 @@ class Items extends Component {
 		const id = userInfo[0];
 
 		api.put('users/removeitem', {id: id, item: itemid}).then( response => {
-			console.log(response);
+			//console.log(response);
 		}).catch(e => {
-			console.log(e);
+			//console.log(e);
 		});
 
 		window.location.reload(false);
@@ -65,7 +65,7 @@ class Items extends Component {
 				if(dd<10) dd='0'+dd;
 				if(mm<10) mm='0'+mm;
 				var saveDate = mm+'/'+dd+'/'+yyyy;
-				console.log(saveDate);
+				//console.log(saveDate);
 
 	          	//console.log(item_data.type, today, dueDate);
 	          	if(item_data.dueDate && dueDate<today){
@@ -86,8 +86,8 @@ class Items extends Component {
 	          	}
 	        }
 	    }
-	    console.log(myItems);
-	    console.log(myOverdues);
+	    //console.log(myItems);
+	    //console.log(myOverdues);
 	    this.setState({
         	myItems: myItems,
         	myOverdues: myOverdues

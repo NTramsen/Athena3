@@ -36,7 +36,7 @@ class Search extends Component {
     const params = {
       type: String(regex)
     };
-    console.log(params);
+    //console.log(params);
     let data = await api.get('/items/', {params}).then( ({data}) => data);
     data = data.filter(function(e) { return e.borrowed === false });
     this.setState({items : data});
@@ -70,9 +70,9 @@ class Search extends Component {
     }
 
     api.put('users/checkoutItem', {id: userid, item: itemid, duration: dur}).then( response => {
-      console.log(response);
+      //console.log(response);
     }).catch(e => {
-      console.log(e);
+      //console.log(e);
     });
 
     window.location.reload(false);

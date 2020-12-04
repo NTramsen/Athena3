@@ -31,7 +31,7 @@ module.exports = function validateChangePass(data) {
 
 
   if (Validator.isEmpty(data.newPassword2)) {
-    errors.newPassword = "Confirm password is required";
+    errors.newPassword2 = "Confirm password is required";
   } else if (!Validator.equals(data.newPassword, data.newPassword2)) {
       errors.newPassword2 = "Passwords do not match";
     }

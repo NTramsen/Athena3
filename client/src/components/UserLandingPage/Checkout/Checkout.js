@@ -40,18 +40,14 @@ class Checkout extends Component {
 			return;
 		}
 
-		console.log("userID: " + id);
-		console.log("item in Checkout.js " + itemid);
+		//console.log("userID: " + id);
+		//console.log("item in Checkout.js " + itemid);
 		api.put('/checkoutItem', {id: id, item: itemid, duration: dur}).then( response => {
-			console.log(response);
+			//console.log(response);
 		}).catch(e => {
-			console.log(e);
+			//console.log(e);
 		});
 	}
-
-	updateItems() {
-		console.log(this.state.newItemNum);
-	};
 
 	itemObjectValid() { //todo should parse item table to see if id exists && !checkedout
 		// const numValid = this.state.newItemNum && Number.parseFloat(this.state.newItemNum);

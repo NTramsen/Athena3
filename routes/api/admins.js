@@ -11,6 +11,7 @@ const crypto = require("crypto");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateChangePass = require("../../validation/changepass");
+const validateChangeEmail = require("../../validation/change_email");
 
 
 // Load Admin model
@@ -116,6 +117,68 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+router.put("/change_email", (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateChangeEmail(req.body);
+
+  // Check validation
+  if (!isValid) {
+    console.log(errors);
+    return res.status(400).json(errors);
+  }
+
+  const id = req.body.id;
+  const password = req.body.password;
+  const newEmail = req.body.newEmail;
+
+
+  Admin.findOne({ email: req.body.newEmail })
+    .then(admin => { 
+      if (admin) { 
+        return res.status(400).json({ alreadyexists: "Email already in use" }); 
+      } else {
+        // Find user by id
+        Admin.findOne({ _id: req.body.id }).then(admin => {
+          // Check if user exists
+          if (!admin) {
+            return res.status(404).json({ usernotfound: "Error: User not found" });
+          }
+
+          // Check password
+          bcrypt.compare(req.body.password, admin.password).then(isMatch => {
+            if (isMatch) { // password matched
+              Admin.findOneAndUpdate(
+                { _id: req.body.id },
+                { $set: { email: req.body.newEmail }},
+                function (error, success){
+                  if (error) {
+                    res.status(401).json({ message: 'Email not updated'})
+                    return
+                  } else {
+                    res.status(200).json({
+                      admin: {
+                        id: admin.id,
+                        name: admin.name,
+                        email: newEmail,
+                      }
+                    })
+                    return
+                  }
+                });
+
+            } else {
+              return res
+                .status(400)
+                .json({ passwordincorrect: "Password incorrect" });
+            }
+          });
+        });
+      }
+    })
+
+});
+
 
 router.put("/change_pass", (req, res) => {
   // Form validation

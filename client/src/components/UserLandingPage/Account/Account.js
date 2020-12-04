@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+import { logoutUser, setCurrentUser } from "../../../actions/authActions";
 import '../../../App.css';
+import store from "../../../store";
 import NavBar from '../NavBar/NavBar';
 import axios from 'axios';
 
@@ -20,11 +21,13 @@ class Account extends Component {
 			changePassword: false,
 			changeEmail: false,
 			errors: "",
+      errors2:"",
 			password: "",
 			newEmail: "",
 			newPassword: "",
 			newPassword2: "",
-			logout: false
+      newEmail:"",
+      newEmail2:""
 		};
 	};
 
@@ -82,37 +85,31 @@ class Account extends Component {
 	}
 
 	updateEmail = ()=>{
-		const user = this.props.usr.user;
+    const user = this.props.usr.user;
 		const info = Object.values(user);
-		let logout = false;
-		// console.log("info[0]: " + info[0]);
-		// console.log("newEmail: " + this.state.newEmail);
-		const req = {
+
+		const userData = {
 			id: info[0],
-			newEmail: this.state.newEmail
+			password: this.state.password,
+			newEmail: this.state.newEmail,
+			newEmail2: this.state.newEmail2
 		}
 
-		let data = api.put('/change_email', req).then( response => {
+		let data = api.put('/change_email', userData).then( response => {
 			console.log(response);
 			this.setState({
 				changePassword: false,
-				changeEmail: false,
-				logout: true
+				changeEmail: false
 			});
-			console.log("success");
-		}).catch(err => {
+      const { user } = response.data;
+      store.dispatch(setCurrentUser(user));
+      localStorage.setItem("email", user.email);
+ 		}).catch(err => {
 			const code = err.response.data;
 			const message = Object.values(code)[0];
-			console.log("error");
-			this.setState({errors: message});
-			while(true) {
-				console.log("error");
-			}
+			this.setState({errors2: message});
 		});
-		
-		if (this.state.logout) {
-			var aftermath = document.getElementById("logout").click(); 
-		}
+
 	}
 
 
@@ -197,16 +194,34 @@ class Account extends Component {
 
 				{this.state.changeEmail ?
 					<div className="dropdown">
-			            <form noValidate>
+			            <form noValidate onSubmit={this.onSubmit}>
 			              <div>
-			                <label>Enter your new email </label>
+			                <label>Enter password:</label>
+			                <input
+			                  id="password"
+			                  type="password"
+                        value = {this.state.password}
+			                  onChange={(e)=>this.setState({password: e.target.value})}></input>
+                    </div>
+                    <div>
+                      <label>Enter your new email:</label>
 			                <input
 			                  id="new_email"
-												type="text"
-												onChange={(e)=>this.setState({newEmail: e.target.value})}
-			                />
-			                <button className='account-button'
-													onClick={this.updateEmail}
+			                  type="text"
+                        value = {this.state.newEmail}
+			                  onChange={(e)=>this.setState({newEmail: e.target.value})}></input>
+                    </div>
+                    <div>
+                      <label>Confirm new email:</label>
+                      <input
+                        id="new_email2"
+                        type="text"
+                        value = {this.state.newEmail2}
+                        onChange={(e)=>this.setState({newEmail2: e.target.value})}></input>
+                    </div>
+                    <div>
+                      <button type= "submit" className='account-button'
+			                    onClick={this.updateEmail}
 			                  >
 			                  Submit
 			                </button>
@@ -215,7 +230,9 @@ class Account extends Component {
 											</label>
 			              </div>
 			            </form>
-			            {this.state.errors}
+                  <span className="red-text">
+                    {this.state.errors2}
+                  </span>
 					</div>
 					: null
 				}
