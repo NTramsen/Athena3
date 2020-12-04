@@ -131,13 +131,13 @@ router.post("/login", (req, res) => {
 router.put("/change_email", (req, res) => {
 
   const id = req.body.id;
-  const newEmail = req.body.newEmail
-
-  User.findOne({ _id: id }).then(user => {
-    // Check if user exists
-    if (!user) {
-      return res.status(404).json({ idnotfound: "Error: User ID not found" });
-    }
+  const newEmail = req.body.newEmail;
+  console.log("id: " + id);
+  console.log("newEmail: " + newEmail);
+  User.findOne({ email: newEmail }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
       User.findOneAndUpdate(
         { _id: id },
         { $set: { email: newEmail }},
@@ -150,6 +150,7 @@ router.put("/change_email", (req, res) => {
             return
           }
       });
+    }
   });
 });
 

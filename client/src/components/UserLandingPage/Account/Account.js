@@ -21,8 +21,10 @@ class Account extends Component {
 			changeEmail: false,
 			errors: "",
 			password: "",
+			newEmail: "",
 			newPassword: "",
-			newPassword2: ""
+			newPassword2: "",
+			logout: false
 		};
 	};
 
@@ -52,6 +54,8 @@ class Account extends Component {
 		e.preventDefault();
 	};
 
+
+
 	updatePassword =  () =>{
 		const user = this.props.usr.user;
 		const info = Object.values(user);
@@ -78,18 +82,37 @@ class Account extends Component {
 	}
 
 	updateEmail = ()=>{
+		const user = this.props.usr.user;
+		const info = Object.values(user);
+		let logout = false;
+		// console.log("info[0]: " + info[0]);
+		// console.log("newEmail: " + this.state.newEmail);
+		const req = {
+			id: info[0],
+			newEmail: this.state.newEmail
+		}
 
-		// make api calls
-
-		// if success:
-		this.setState({
-			changePassword: false,
-			changeEmail: false
+		let data = api.put('/change_email', req).then( response => {
+			console.log(response);
+			this.setState({
+				changePassword: false,
+				changeEmail: false,
+				logout: true
+			});
+			console.log("success");
+		}).catch(err => {
+			const code = err.response.data;
+			const message = Object.values(code)[0];
+			console.log("error");
+			this.setState({errors: message});
+			while(true) {
+				console.log("error");
+			}
 		});
-
-		// display success - can put it in state.errors
-
-		// else display error in state.errors
+		
+		if (this.state.logout) {
+			var aftermath = document.getElementById("logout").click(); 
+		}
 	}
 
 
@@ -176,21 +199,20 @@ class Account extends Component {
 					<div className="dropdown">
 			            <form noValidate>
 			              <div>
-			                <label>Enter password:</label>
-			                <input
-			                  id="password"
-			                  type="password"
-			                />
-			                <label>Enter your new email:</label>
+			                <label>Enter your new email </label>
 			                <input
 			                  id="new_email"
-			                  type="text"
+												type="text"
+												onChange={(e)=>this.setState({newEmail: e.target.value})}
 			                />
 			                <button className='account-button'
-			                    onClick={this.updateEmail}
+													onClick={this.updateEmail}
 			                  >
 			                  Submit
 			                </button>
+			                <label className="red-text">
+												You will be required to log back in 
+											</label>
 			              </div>
 			            </form>
 			            {this.state.errors}
@@ -202,7 +224,8 @@ class Account extends Component {
 		</div>
         </div>
         <button
-        onClick={this.onLogoutClick}
+				id = "logout"
+				onClick={this.onLogoutClick}
         className="btn btn-large waves-effect waves-light hoverable blue accent-3">Logout</button>
       </div>
     );
